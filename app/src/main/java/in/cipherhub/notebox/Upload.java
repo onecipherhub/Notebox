@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -23,6 +24,7 @@ public class Upload extends Fragment {
 //    private StorageReference mStorageRef;
 
     private int REQUEST_PDF_PATH = 1000;
+    private String TAG = "UploadOXET";
 
     private Uri filePath;
 
@@ -82,30 +84,47 @@ public class Upload extends Fragment {
 
             filePath = data.getData();
 
-//            Uri file = Uri.fromFile(new File(filePath));
-//            Log.d("file", file.getPath());
-
-            StorageReference riversRef = storageRef.child("notes/nmit/this.pdf");
+            final StorageReference riversRef = storageRef.child("trial/trial.pdf");
 
             UploadTask uploadTask = riversRef.putFile(filePath);
 
-    // Register observers to listen for when the download is done or if it fails
+            // Register observers to listen for when the download is done or if it fails
             uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
                     // Handle unsuccessful uploads
-                    Log.d("uploadFail", "" + exception);
+                    Log.d(TAG, "File upload failed" + exception);
 
                 }
             }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-    //                sendNotification("upload backup", 1);
+                    //                sendNotification("upload backup", 1);
 
-    //                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    //                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    StorageMetadata metadata = new StorageMetadata.Builder()
+                            .setCustomMetadata("name", "trialOX.pdf")
+                            .build();
 
-                    Log.d("downloadUrl", "done uploading");
+// Update metadata properties
+                    riversRef.updateMetadata(metadata)
+                            .addOnSuccessListener(new OnSuccessListener<StorageMetadata>() {
+                                @Override
+                                public void onSuccess(StorageMetadata storageMetadata) {
+                                    // Updated metadata is in storageMetadata
+                                    Log.d(TAG, "successfully changed info");
+
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception exception) {
+                                    // Uh-oh, an error occurred!
+                                    Log.d(TAG, "failed to change metadata" + exception);
+                                }
+                            });
+                    Log.d(TAG, "done uploading");
                 }
             });
         }
