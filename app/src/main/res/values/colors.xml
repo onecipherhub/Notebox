@@ -9,9 +9,10 @@
     <color name="colorWhite_E5E5E5">#E5E5E5</color>
     <color name="colorGray_E0E0E0">#E0E0E0</color>
     <color name="colorWhite_BFBFBF">#BFBFBF</color>
-    <color name="colorGray_AAAAAA">#777777</color>
-    <color name="colorGray_999999">#999999</color>
+    <color name="colorGray_AAAAAA">#AAAAAA</color>
+    <color name="colorGray_777777">#777777</color>
     <color name="colorGray_888888">#888888</color>
+    <color name="colorGray_999999">#999999</color>
     <color name="colorGray_878787">#878787</color>
 
     <color name="colorLightAppTheme">#2196F3</color>

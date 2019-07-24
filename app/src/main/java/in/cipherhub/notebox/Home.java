@@ -1,8 +1,8 @@
 package in.cipherhub.notebox;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,27 +16,32 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Source;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import in.cipherhub.notebox.adapters.AdapterBranchSelector;
 import in.cipherhub.notebox.adapters.AdapterHomeSubjects;
 import in.cipherhub.notebox.adapters.AdapterRecentViews;
 import in.cipherhub.notebox.models.ItemDataHomeSubjects;
 
-public class Home extends Fragment implements View.OnClickListener {
+import static android.content.Context.MODE_PRIVATE;
+
+public class Home extends Fragment {
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
+    private FirebaseFirestore db;
 
     AdapterHomeSubjects homeSubjectAdapter;
     List<ItemDataHomeSubjects> homeSubjects;
@@ -49,6 +54,7 @@ public class Home extends Fragment implements View.OnClickListener {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         // Initialize Firebase Auth
+        db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
@@ -60,51 +66,18 @@ public class Home extends Fragment implements View.OnClickListener {
 
         final ConstraintLayout subjectsLayout_CL = rootView.findViewById(R.id.subjectsLayout_CL);
         final ConstraintLayout recentViewsLayout_CL = rootView.findViewById(R.id.recentViewsLayout_CL);
-        final EditText subjectsSearch_ET = rootView.findViewById(R.id.subjectsSearch_ET);
+        final EditText subjectsSearch_ET = rootView.findViewById(R.id.pdfSearch_ET);
+        TextView noRecentViews_TV = rootView.findViewById(R.id.noRecentViews_TV);
         final ImageButton searchIconInSearchBar_IB = rootView.findViewById(R.id.searchIconInSearchBar_IB);
-//        Button signin_B = rootView.findViewById(R.id.signin_B);
-        LinearLayout notSignedInTemplate_LL = rootView.findViewById(R.id.notSignedInTemplate_LL);
+
         RecyclerView recentViews_RV = rootView.findViewById(R.id.recentViews_RV);
         RecyclerView homeSubjects_RV = rootView.findViewById(R.id.homeSubjects_RV);
-        ImageButton bookmark_IB = rootView.findViewById(R.id.bookmark_IB);
-
-        if (user == null) {
-            // No user registered
-//            homeSubjects_RV.setVisibility(View.GONE);
-            subjectsSearch_ET.setFocusable(false);
-            notSignedInTemplate_LL.setVisibility(View.VISIBLE);
-        } else {
-            Boolean isUserDetailsAvailable = false;
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            db.collection("users").document(user.getUid()).get(Source.CACHE)
-                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful() && task.getResult() != null)
-                                if (task.getResult().getData() != null)
-                                    if (String.valueOf(task.getResult().getData().get("institute")).length() > 0) {
-                                        Log.d(TAG, "details are available");
-                                    } else {
-                                        Log.d(TAG, "details are not available");
-                                    }
-                        }
-                    });
-//            homeSubjects_RV.setVisibility(View.VISIBLE);
-            Log.i(TAG, "ran");
-            subjectsSearch_ET.setFocusable(true);
-            notSignedInTemplate_LL.setVisibility(View.GONE);
-        }
-
-//        signin_B.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                ((MainActivity) getActivity()).openBottomTemplate();
-//            }
-//        });
+        ImageButton bookmark_IB = rootView.findViewById(R.id.bookmarks_IB);
 
         bookmark_IB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(getActivity(), "Bookmarks feature is coming soon...", Toast.LENGTH_SHORT).show();
 //                startActivity(new Intent(getActivity(), BookmarkActivity.class));
             }
         });
@@ -132,22 +105,52 @@ public class Home extends Fragment implements View.OnClickListener {
         recentViews_RV.setAdapter(recentViewsAdapter);
         recentViews_RV.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
+        if (recentViews.isEmpty()) {
+            noRecentViews_TV.setVisibility(View.VISIBLE);
+        }
+
         homeSubjects = new ArrayList<>();
 
+        try {
+            SharedPreferences localDB = getActivity().getSharedPreferences("localDB", MODE_PRIVATE);
+
+            JSONObject userObject = new JSONObject(localDB.getString("user", "Error Fetching..."));
+
+            JSONObject institute = new JSONObject(localDB.getString("institute", "Error Fetching..."));
+
+            JSONObject subjects = institute.getJSONObject("courses").getJSONObject(userObject.getString("course"))
+                    .getJSONObject("branches").getJSONObject(userObject.getString("branch"))
+                    .getJSONObject("subjects");
+
+            Iterator<String> iterator = subjects.keys();
+            while (iterator.hasNext()) {
+                String subjectName = iterator.next();
+                JSONObject subjectObject = subjects.getJSONObject(subjectName);
+                homeSubjects.add(new ItemDataHomeSubjects(subjectObject.getString("abbreviation")
+                        , subjectName, subjectObject.getString("last_update")));
+            }
+        } catch (JSONException e) {
+            Log.d(TAG, e.getMessage());
+        }
+
         homeSubjectAdapter = new AdapterHomeSubjects(homeSubjects);
+
+        homeSubjectAdapter.setOnItemClickListener(new AdapterBranchSelector.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+//                startActivity(new Intent(getActivity(), PDFList.class));
+            }
+        });
+
         homeSubjects_RV.setAdapter(homeSubjectAdapter);
         homeSubjects_RV.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         subjectsSearch_ET.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             @Override
             public void afterTextChanged(Editable editable) {
@@ -157,6 +160,7 @@ public class Home extends Fragment implements View.OnClickListener {
 
         return rootView;
     }
+
 
     private void filter(String text) {
         List<ItemDataHomeSubjects> filteredList = new ArrayList<>();
@@ -169,18 +173,6 @@ public class Home extends Fragment implements View.OnClickListener {
             }
         }
         homeSubjectAdapter.filterList(filteredList);
-    }
-
-    @Override
-    public void onClick(View view) {
-
-    }
-
-    private void checkDataForUI() {
-        if (user == null) {
-
-        }
-
     }
 }
 

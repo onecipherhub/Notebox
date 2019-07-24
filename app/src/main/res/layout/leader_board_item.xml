@@ -35,7 +35,7 @@
         android:layout_marginTop="5dp"
         android:fontFamily="@font/josefin_sans_regular"
         android:text="NMIT.BE.CSE"
-        android:textColor="@color/colorGray_AAAAAA"
+        android:textColor="@color/colorGray_777777"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="@+id/subName_TV"
         app:layout_constraintTop_toBottomOf="@+id/subName_TV" />
@@ -94,7 +94,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/josefin_sans_regular"
         android:text="4.7"
-        android:textColor="@color/colorGray_AAAAAA"
+        android:textColor="@color/colorGray_777777"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView25"
         app:layout_constraintEnd_toStartOf="@+id/imageView7"

@@ -51,7 +51,7 @@
                         android:id="@+id/fullName_V"
                         android:layout_width="5dp"
                         android:layout_height="match_parent"
-                        android:background="@color/colorGray_AAAAAA" />
+                        android:background="@color/colorGray_777777" />
 
                     <EditText
                         android:id="@+id/fullName_ET"
@@ -72,7 +72,7 @@
             </android.support.v7.widget.CardView>
 
             <TextView
-                android:id="@+id/institute_TV"
+                android:id="@+id/instituteName_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -100,18 +100,20 @@
                         android:id="@+id/institute_V"
                         android:layout_width="5dp"
                         android:layout_height="match_parent"
-                        android:background="@color/colorGray_AAAAAA" />
+                        android:background="@color/colorGray_777777" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/institute_ET"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:background="@null"
-                        android:ellipsize="end"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:fontFamily="@font/comfortaa_bold"
                         android:foregroundTint="#00DBBDBD"
                         android:gravity="start|center_vertical"
-                        android:maxLines="1"
+                        android:singleLine="true"
                         android:paddingStart="20dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="20dp"
@@ -123,7 +125,7 @@
             </android.support.v7.widget.CardView>
 
             <TextView
-                android:id="@+id/course_TV"
+                android:id="@+id/courseName_TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -152,18 +154,20 @@
                         android:id="@+id/course_V"
                         android:layout_width="5dp"
                         android:layout_height="match_parent"
-                        android:background="@color/colorGray_AAAAAA" />
+                        android:background="@color/colorGray_777777" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/course_ET"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:background="@null"
-                        android:ellipsize="end"
+                        android:focusableInTouchMode="false"
+                        android:focusable="false"
+                        android:clickable="false"
                         android:fontFamily="@font/comfortaa_bold"
                         android:foregroundTint="#00DBBDBD"
+                        android:singleLine="true"
                         android:gravity="start|center_vertical"
-                        android:maxLines="1"
                         android:paddingStart="20dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="20dp"
@@ -204,7 +208,7 @@
                     android:id="@+id/branch_V"
                     android:layout_width="5dp"
                     android:layout_height="match_parent"
-                    android:background="@color/colorGray_AAAAAA" />
+                    android:background="@color/colorGray_777777" />
 
                 <EditText
                     android:id="@+id/branch_ET"
@@ -241,11 +245,11 @@
             android:layout_height="40dp"
             android:layout_gravity="end"
             android:layout_marginTop="20dp"
-            android:visibility="gone"
             android:layout_marginEnd="20dp"
             android:background="@drawable/bg_apptheme_pill_20"
             android:text="@string/submit"
-            android:textColor="@color/colorWhite_FFFFFF" />
+            android:textColor="@color/colorWhite_FFFFFF"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -257,7 +261,7 @@
             android:fontFamily="@font/josefin_sans_regular"
             android:lineSpacingExtra="5sp"
             android:text="@string/fill_details_message"
-            android:textColor="@color/colorGray_AAAAAA"
+            android:textColor="@color/colorGray_777777"
             android:textSize="14sp"
             android:textStyle="italic" />
     </LinearLayout>

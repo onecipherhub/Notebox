@@ -53,7 +53,7 @@ public class ForgotPassword extends Fragment {
                 if(!email_ET.getText().toString().equals(""))
                     email_V.setBackgroundColor(getResources().getColor(R.color.colorAppTheme));
                 else
-                    email_V.setBackgroundColor(getResources().getColor(R.color.colorGray_AAAAAA));
+                    email_V.setBackgroundColor(getResources().getColor(R.color.colorGray_777777));
             }
 
             @Override

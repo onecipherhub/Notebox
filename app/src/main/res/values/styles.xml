@@ -1,17 +1,25 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- this style is supported till API-22, for above APIs the changes should be made in styles.xml(v23) -->
-
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAppTheme</item>
 
         <!-- Self added attributes-->
         <item name="android:statusBarColor">@color/colorWhite_FFFFFF</item>
     </style>
+
+
+    <style name="DialogBottomAnimation" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_bottom</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
 
     <style name="bottom_navigation_buttons">
         <item name="android:layout_width">0dp</item>
@@ -21,7 +29,7 @@
         <item name="android:fontFamily">@font/segoe_ui</item>
         <item name="android:stateListAnimator">@null</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textColor">@color/colorGray_AAAAAA</item>
+        <item name="android:textColor">@color/colorGray_777777</item>
         <item name="android:textSize">@dimen/btm_nav_but_text_size</item>
     </style>
     <style name="profile_four_buttons">
@@ -30,7 +38,6 @@
         <item name="android:paddingEnd">15dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:layout_margin">8dp</item>
-
         <item name="android:paddingStart">10dp</item>
         <item name="android:gravity">start|center_vertical</item>
         <item name="android:drawablePadding">10dp</item>
@@ -38,7 +45,7 @@
         <item name="android:fontFamily">@font/segoe_ui</item>
         <item name="android:stateListAnimator">@null</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/colorGray_AAAAAA</item>
+        <item name="android:textColor">@color/colorGray_777777</item>
         <item name="android:textAllCaps">false</item>
     </style>
 
@@ -51,7 +58,7 @@
         <item name="android:fontFamily">@font/segoe_ui</item>
         <item name="android:stateListAnimator">@null</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/colorGray_AAAAAA</item>
+        <item name="android:textColor">@color/colorGray_777777</item>
         <item name="android:textAllCaps">false</item>
     </style>
 
@@ -79,14 +86,15 @@
 
 
     <style name="unit_select_button">
-        <item name="android:layout_width">45dp</item>
-        <item name="android:layout_height">28dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">30dp</item>
         <item name="android:background">@drawable/bg_br_radius_gray_smaller</item>
         <item name="android:fontFamily">@font/segoe_ui</item>
         <item name="android:textColor">#999999</item>
         <item name="android:clickable">true</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
         <item name="android:stateListAnimator">@null</item>
     </style>
 </resources>

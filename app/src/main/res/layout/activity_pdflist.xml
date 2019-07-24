@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite_FFFFFF"
+    tools:context=".PDFList">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/bookmark_CL"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/comfortaa_bold"
+            android:text="@string/app_name"
+            android:textColor="@color/colorGray_999999"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/subjectName_TV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="10dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/comfortaa_bold"
+            android:singleLine="true"
+            android:text="Selected Subject"
+            android:textColor="@color/colorAppTheme"
+            android:textSize="23sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/subjectAbbreviation_TV"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/subjectAbbreviation_TV"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/bg_bigger_radius_gray"
+            android:fontFamily="@font/segoe_ui_bold"
+            android:gravity="center"
+            android:paddingStart="3dp"
+            android:paddingEnd="3dp"
+            android:paddingBottom="3dp"
+            android:singleLine="true"
+            android:text="Selected"
+            android:textColor="@color/colorGray_878787"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/pageTitleHere_TV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView31" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/segoe_ui"
+        android:text="Unit:"
+        android:textColor="#999999"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bookmark_CL" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="horizontal"
+        android:weightSum="@integer/five"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView_unit"
+        app:layout_constraintTop_toBottomOf="@+id/textView_unit">
+
+        <Button
+            android:id="@+id/unitOne_B"
+            style="@style/unit_select_button"
+            android:layout_height="35dp"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/unitTwo_B"
+            style="@style/unit_select_button"
+            android:layout_height="35dp"
+            android:text="2" />
+
+        <Button
+            android:id="@+id/unitThree_B"
+            style="@style/unit_select_button"
+            android:layout_height="35dp"
+            android:text="3" />
+
+        <Button
+            android:id="@+id/unitFour_B"
+            style="@style/unit_select_button"
+            android:layout_height="35dp"
+            android:text="4" />
+
+        <Button
+            android:id="@+id/unitFive_B"
+            style="@style/unit_select_button"
+            android:layout_height="35dp"
+            android:layout_marginEnd="0dp"
+            android:text="5" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/pdfSearch_ET"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/bg_radius_gray"
+        android:ems="10"
+        android:hint="@string/search_subjects"
+        android:inputType="textPersonName"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:textColor="@color/colorGray_999999"
+        android:textColorHint="@color/colorGray_AAAAAA"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
+    <ImageView
+        android:id="@+id/searchIconInSearchBar_IV"
+        android:layout_width="17dp"
+        android:layout_height="17dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="2dp"
+        android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/icon_search"
+        app:layout_constraintBottom_toBottomOf="@+id/pdfSearch_ET"
+        app:layout_constraintEnd_toEndOf="@+id/pdfSearch_ET"
+        app:layout_constraintTop_toTopOf="@+id/pdfSearch_ET" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/PDFList_RV"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/pdfSearch_ET"
+        app:layout_constraintStart_toStartOf="@+id/pdfSearch_ET"
+        app:layout_constraintTop_toBottomOf="@+id/pdfSearch_ET" />
+</android.support.constraint.ConstraintLayout>

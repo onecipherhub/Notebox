@@ -1,50 +1,38 @@
 {
   "project_info": {
-    "project_number": "1051573703602",
-    "firebase_url": "https://notebox-1559903149503.firebaseio.com",
-    "project_id": "notebox-1559903149503",
-    "storage_bucket": "notebox-1559903149503.appspot.com"
+    "project_number": "728484278414",
+    "firebase_url": "https://notebox-4f384.firebaseio.com",
+    "project_id": "notebox-4f384",
+    "storage_bucket": "notebox-4f384.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1051573703602:android:9f3ba0e19f364f17",
+        "mobilesdk_app_id": "1:728484278414:android:9f3ba0e19f364f17",
         "android_client_info": {
           "package_name": "in.cipherhub.notebox"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1051573703602-f47o9744cioh868nadu309e0ho1ts1ou.apps.googleusercontent.com",
+          "client_id": "728484278414-9ij9u1bd3gblllgg7d4ui615vb732fvi.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "in.cipherhub.notebox",
             "certificate_hash": "986ebf7058166f08faaf2c28486f94f8e5dfb851"
           }
-        },
-        {
-          "client_id": "1051573703602-kp1b9pc52e6qd5lkio31ebk3ha6vqqfn.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "in.cipherhub.notebox",
-            "certificate_hash": "a7fab052e45a0454c7760e404e047e7e1d667171"
-          }
-        },
-        {
-          "client_id": "1051573703602-d329uj5aoio1m4i85mq2lpt3mbf0bti8.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDokbA8RJGnx9lY-_NsmK2KEzoBd2iWHKY"
+          "current_key": "AIzaSyA-1dqfR-FWGKeOCidwogxPhdXkLJLtSaA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1051573703602-d329uj5aoio1m4i85mq2lpt3mbf0bti8.apps.googleusercontent.com",
+              "client_id": "728484278414-04f3g8386ib5uiuvge4s9jvr0e2ijjrj.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

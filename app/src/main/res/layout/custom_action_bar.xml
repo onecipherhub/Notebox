@@ -13,7 +13,7 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/comfortaa_bold"
         android:text="@string/app_name"
-        android:textColor="@color/colorGray_999999"
+        android:textColor="@color/colorGray_777777"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

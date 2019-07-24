@@ -2,13 +2,21 @@ package in.cipherhub.notebox.models;
 
 public class ItemDataBranchSelector {
 
-    private String branchName, totalUploads;
-    private String branchAbbColor;
+    private String branchName, totalUploads, branchAbbColor, branchAbb;
 
-    public ItemDataBranchSelector(String branchName, String branchAbbColor, String totalUploads) {
+    public ItemDataBranchSelector(String branchName, String branchAbbColor, String totalUploads, String branchAbb) {
         this.branchName = branchName;
         this.branchAbbColor = branchAbbColor;
         this.totalUploads = totalUploads;
+        this.branchAbb = branchAbb;
+    }
+
+    public String getBranchAbb() {
+        return branchAbb;
+    }
+
+    public void setBranchAbb(String branchAbb) {
+        this.branchAbb = branchAbb;
     }
 
     public String getBranchName() {

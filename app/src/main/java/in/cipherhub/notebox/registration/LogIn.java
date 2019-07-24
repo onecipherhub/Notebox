@@ -26,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import in.cipherhub.notebox.R;
 import in.cipherhub.notebox.utils.Internet;
@@ -67,7 +68,17 @@ public class LogIn extends Fragment implements View.OnClickListener {
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setTitle("Logging In...");
         progressDialog.setCancelable(false);
-
+        FirebaseFirestore.getInstance().collection("institutes").whereEqualTo("name", "Nitte Meenakshi Institute of Technology")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    Log.d(TAG, String.valueOf(task.getResult()));
+                } else {
+                    Log.d(TAG, String.valueOf(task.getException()));
+                }
+            }
+        });
         logIn_B.setOnClickListener(this);
         forgotPassword_TV.setOnClickListener(this);
         signUp_TV.setOnClickListener(this);
@@ -83,7 +94,7 @@ public class LogIn extends Fragment implements View.OnClickListener {
                 if (!email_ET.getText().toString().equals(""))
                     email_V.setBackgroundColor(getResources().getColor(R.color.colorAppTheme));
                 else
-                    email_V.setBackgroundColor(getResources().getColor(R.color.colorGray_AAAAAA));
+                    email_V.setBackgroundColor(getResources().getColor(R.color.colorGray_777777));
             }
 
             @Override
@@ -184,6 +195,10 @@ public class LogIn extends Fragment implements View.OnClickListener {
                                             // Sign in success, update UI with the signed-in user's information
 
                                             Toast.makeText(getActivity(), "LogIn Success!", Toast.LENGTH_SHORT).show();
+
+                                            getActivity().getSharedPreferences("user", MODE_PRIVATE)
+                                                    .edit().putBoolean("isDetailsFilled", true).apply();
+
                                             ((SignIn) getActivity()).openHomePage();
 
                                             // will store the user details to shared preferences
@@ -208,7 +223,6 @@ public class LogIn extends Fragment implements View.OnClickListener {
                                         progressDialog.dismiss();
                                     }
                                 });
-
                     else if (filledPassword.length() < 8) {
                         progressDialog.dismiss();
                         Toast.makeText(getActivity(), "Password should be greater than '8' characters", Toast.LENGTH_SHORT).show();

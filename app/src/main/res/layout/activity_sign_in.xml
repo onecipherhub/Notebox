@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/comfortaa_bold"
         android:text="Manage your notes on the go"
-        android:textColor="@color/colorGray_AAAAAA"
+        android:textColor="@color/colorGray_777777"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/textView26"
         app:layout_constraintTop_toBottomOf="@+id/textView26" />
@@ -111,7 +111,7 @@
             android:fontFamily="@font/segoe_ui"
             android:text="@string/or_connect_with"
             android:textAllCaps="true"
-            android:textColor="@color/colorGray_AAAAAA"
+            android:textColor="@color/colorGray_777777"
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@+id/googleSignin_B"
             app:layout_constraintEnd_toEndOf="@+id/googleSignin_B"

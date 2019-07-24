@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorWhite_FFFFFF"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite_FFFFFF"
     tools:context=".Explore">
 
     <android.support.constraint.ConstraintLayout
@@ -23,7 +23,7 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/comfortaa_bold"
             android:text="@string/app_name"
-            android:textColor="@color/colorGray_999999"
+            android:textColor="@color/colorGray_777777"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -44,16 +44,16 @@
     </android.support.constraint.ConstraintLayout>
 
 
-
     <android.support.v7.widget.CardView
-        android:id="@+id/search_CL"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:id="@+id/password_CV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginLeft="25dp"
+        android:layout_marginEnd="24dp"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="2dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/explore_CL">
 
@@ -61,94 +61,62 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/linearLayout4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
             <View
-                android:id="@+id/search_V"
+                android:id="@+id/password_V"
                 android:layout_width="5dp"
-                android:layout_height="match_parent"
-                android:background="@color/colorGray_AAAAAA" />
+                android:layout_height="40dp"
+                android:background="@color/colorGray_999999"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/institute_ET"
+                android:id="@+id/exploreSearch_ET"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:background="@null"
                 android:ellipsize="end"
                 android:fontFamily="@font/comfortaa_bold"
                 android:foregroundTint="#00DBBDBD"
-                android:gravity="start|center_vertical"
-                android:hint="Search Institue"
-                android:maxLines="1"
-                android:paddingStart="15dp"
+                android:hint="Search Institute"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:clickable="false"
+                android:paddingStart="20dp"
                 android:paddingTop="5dp"
-                android:paddingEnd="40dp"
+                android:paddingEnd="20dp"
                 android:paddingBottom="5dp"
+                android:singleLine="true"
                 android:textColor="@color/colorAppTheme"
-                android:textSize="14sp" />
-        </LinearLayout>
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/password_V"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/searchIconInSearchBar_IB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="3dp"
-            android:backgroundTint="@android:color/transparent"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:src="@drawable/icon_search"
-            app:layout_constraintBottom_toBottomOf="@+id/subjectsSearch_ET"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
-            app:layout_constraintTop_toTopOf="@+id/subjectsSearch_ET" />
-
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/icon_search"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
-
     </android.support.v7.widget.CardView>
 
-    <android.support.constraint.ConstraintLayout
-
-        android:id="@+id/explore_recentViews_CL"
-        android:layout_width="match_parent"
-        android:layout_height="160dp"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/segoe_ui"
+        android:text="Feature will be available as soon as we complete managing multiple institute resources."
+        android:textColor="@color/colorGray_777777"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_CL">
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:fontFamily="@font/segoe_ui"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:text="Most Rated:"
-            android:textColor="@color/colorGray_AAAAAA"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recentViews_RV"
-            android:layout_width="0dp"
-            android:layout_height="105dp"
-            android:layout_marginStart="16dp"
-            android:overScrollMode="never"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
-
-    </android.support.constraint.ConstraintLayout>
-
+        app:layout_constraintTop_toBottomOf="@+id/password_CV" />
 </android.support.constraint.ConstraintLayout>
-
-

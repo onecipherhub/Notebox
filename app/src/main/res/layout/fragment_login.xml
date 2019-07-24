@@ -192,7 +192,7 @@
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/segoe_ui"
             android:text="Do not have an account?"
-            android:textColor="@color/colorGray_AAAAAA"
+            android:textColor="@color/colorGray_777777"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/logIn_B"
             app:layout_constraintHorizontal_bias="0.87"

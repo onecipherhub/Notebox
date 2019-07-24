@@ -32,19 +32,22 @@ public class AdapterBranchSelector extends RecyclerView.Adapter<AdapterBranchSel
                 .inflate(R.layout.item_branch_selector, viewGroup, false), mListener);
     }
 
+
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
+
 
     public void setOnItemClickListener(OnItemClickListener listener){
         this.mListener = listener;
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull branchSelectorItemViewHolder branchSelectorItemViewHolder, int i) {
 
         branchSelectorItemViewHolder.branchName_TV.setText(list.get(i).getBranchName());
-        branchSelectorItemViewHolder.branchAbb_TV.setText(generateAbbreviation(list.get(i).getBranchName()));
+        branchSelectorItemViewHolder.branchAbb_TV.setText(list.get(i).getBranchAbb());
         branchSelectorItemViewHolder.branchAbb_TV.setTextColor(Color.parseColor(list.get(i).getBranchAbbColor()));
         branchSelectorItemViewHolder.totalUploads_TV.setText(list.get(i).getTotalUploads());
     }
@@ -88,17 +91,4 @@ public class AdapterBranchSelector extends RecyclerView.Adapter<AdapterBranchSel
             });
         }
     }
-
-
-    private String generateAbbreviation(String fullForm) {
-        String abbreviation = "";
-
-        for (int i = 0; i < fullForm.length(); i++) {
-            char temp = fullForm.charAt(i);
-            abbreviation += Character.isUpperCase(temp) ? temp : "";
-        }
-        return abbreviation;
-    }
-    
-    
 }

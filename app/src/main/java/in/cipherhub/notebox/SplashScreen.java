@@ -1,16 +1,14 @@
 package in.cipherhub.notebox;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -50,20 +48,12 @@ public class SplashScreen extends AppCompatActivity {
         user = firebaseAuth.getCurrentUser();
 
         // user has not logged in open registration page
-        if (user == null) {
+        if (user == null)
             splashScreenCloseAnim(false);
-        }
-        // user has already logged in open Home page after inflating everything necessary
-        else {
-            pullFromFirebase();
-        }
-    }
-
-
-    private void pullFromFirebase() {
-
-        // close splash screen when the pull is done
-        splashScreenCloseAnim(true);
+        else if (!user.isEmailVerified() || !isDetailsFilled())
+            splashScreenCloseAnim(false);
+        else
+            splashScreenCloseAnim(true);
     }
 
 
@@ -89,11 +79,15 @@ public class SplashScreen extends AppCompatActivity {
                         if (byPassRegistration) {
                             // open Main Home page
                             intent = new Intent(SplashScreen.this, MainActivity.class);
+
                         } else {
                             // open registration page
                             intent = new Intent(SplashScreen.this, SignIn.class);
+                            if (user != null) {
+                                intent.putExtra("isEmailVerified", user.isEmailVerified());
+                                intent.putExtra("isDetailsFilled", isDetailsFilled());
+                            }
                         }
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         overridePendingTransition(0, R.anim.fade_out);
                     }
@@ -102,5 +96,10 @@ public class SplashScreen extends AppCompatActivity {
         }, 1200);
 
 
+    }
+
+
+    public boolean isDetailsFilled() {
+        return getSharedPreferences("user", MODE_PRIVATE).getBoolean("isDetailsFilled", false);
     }
 }

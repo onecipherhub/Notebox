@@ -70,7 +70,7 @@
 
 
         <EditText
-            android:id="@+id/subjectsSearch_ET"
+            android:id="@+id/pdfSearch_ET"
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_marginStart="24dp"
@@ -100,9 +100,9 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:src="@drawable/icon_search"
-            app:layout_constraintBottom_toBottomOf="@+id/subjectsSearch_ET"
-            app:layout_constraintEnd_toEndOf="@+id/subjectsSearch_ET"
-            app:layout_constraintTop_toTopOf="@+id/subjectsSearch_ET" />
+            app:layout_constraintBottom_toBottomOf="@+id/pdfSearch_ET"
+            app:layout_constraintEnd_toEndOf="@+id/pdfSearch_ET"
+            app:layout_constraintTop_toTopOf="@+id/pdfSearch_ET" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/homeSubjects_RV"
@@ -115,7 +115,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/subjectsSearch_ET" />
+            app:layout_constraintTop_toBottomOf="@+id/pdfSearch_ET" />
 
         <LinearLayout
             android:id="@+id/notSignedInTemplate_LL"
@@ -129,7 +129,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/subjectsSearch_ET" />
+            app:layout_constraintTop_toBottomOf="@+id/pdfSearch_ET" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>

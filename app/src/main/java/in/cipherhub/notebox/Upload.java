@@ -32,9 +32,19 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
+import in.cipherhub.notebox.models.ItemDataHomeSubjects;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class Upload extends Fragment implements View.OnClickListener {
@@ -45,7 +55,7 @@ public class Upload extends Fragment implements View.OnClickListener {
     Button selectPDF_B, upload_button, unitOne_B, unitTwo_B, unitThree_B, unitFour_B, unitFive_B;
     Button[] allButtons;
 
-    AutoCompleteTextView subjectName_ET;
+    AutoCompleteTextView subjectName_ACTV;
     ConstraintLayout signin_CL;
     TextView pdfName_TV, pdfSize_TV, lrg_text_view;
 
@@ -59,8 +69,8 @@ public class Upload extends Fragment implements View.OnClickListener {
     String userInstitute = "Nitte Meenakshi Institute of Technology";
     String userCourse = "Bachelors in Engineering";
     String userBranch = "Computer Science and Engineering";
-
-    String[] subjectLists, subjectListsShort;
+    String[] subjectListsShort;
+    List<String> subjectLists;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -88,15 +98,35 @@ public class Upload extends Fragment implements View.OnClickListener {
         signin_CL = rootView.findViewById(R.id.signin_CL);
         pdfName_TV = rootView.findViewById(R.id.pdfName_TV);
         pdfSize_TV = rootView.findViewById(R.id.pdfSize_TV);
-        subjectName_ET = rootView.findViewById(R.id.subjectName);
+        subjectName_ACTV = rootView.findViewById(R.id.subjectName_ACTV);
 
         lrg_text_view = rootView.findViewById(R.id.lrg_text_view);
 
-        subjectLists = getResources().getStringArray(R.array.full_cse_subject);
+        subjectLists = new ArrayList<>();
         subjectListsShort = getResources().getStringArray(R.array.cse_subject);
 
+        try {
+            SharedPreferences localDB = getActivity().getSharedPreferences("localDB", MODE_PRIVATE);
+
+            JSONObject userObject = new JSONObject(localDB.getString("user", "Error Fetching..."));
+
+            JSONObject institute = new JSONObject(localDB.getString("institute", "Error Fetching..."));
+
+            JSONObject subjects = institute.getJSONObject("courses").getJSONObject(userObject.getString("course"))
+                    .getJSONObject("branches").getJSONObject(userObject.getString("branch"))
+                    .getJSONObject("subjects");
+
+            Iterator<String> iterator = subjects.keys();
+            while (iterator.hasNext()) {
+                String subjectName = iterator.next();
+                subjectLists.add(subjectName);
+            }
+        } catch (JSONException e) {
+            Log.d(TAG, e.getMessage());
+        }
+
         // Populate the Subjects
-        subjectName_ET.setAdapter(new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+        subjectName_ACTV.setAdapter(new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                 R.layout.subject_recycler_view, R.id.lrg_text_view, subjectLists));
 
         // Initialize button activities
@@ -113,6 +143,7 @@ public class Upload extends Fragment implements View.OnClickListener {
 
         return rootView;
     }
+
 
     public void onClick(View v) {
 
@@ -132,7 +163,7 @@ public class Upload extends Fragment implements View.OnClickListener {
 
         } else if (buttonClicked == upload_button) {
 
-            if (subjectName_ET.getText().toString().equals("")) {
+            if (subjectName_ACTV.getText().toString().equals("")) {
 
                 Toast.makeText(getContext(), "Please Provide Full Details!", Toast.LENGTH_LONG).show();
 
@@ -140,7 +171,7 @@ public class Upload extends Fragment implements View.OnClickListener {
 
                 String branch = getActivity().getSharedPreferences("users", Context.MODE_PRIVATE).getString("branch", "_");
 
-                String subject = generateAbbreviation(subjectName_ET.getText().toString()).toLowerCase();
+                String subject = generateAbbreviation(subjectName_ACTV.getText().toString()).toLowerCase();
 
                 mStorageRef = mStorageRef.child("notes/" + "nmit_560064/" + "be/" + branch + "/" + subject + "/" +
                         pdfName_TV.getText().toString());
@@ -153,7 +184,7 @@ public class Upload extends Fragment implements View.OnClickListener {
 
             for (Button button : allButtons) {
                 button.setBackground(getResources().getDrawable(R.drawable.bg_br_radius_gray_smaller));
-                button.setTextColor(getResources().getColor(R.color.colorGray_AAAAAA));
+                button.setTextColor(getResources().getColor(R.color.colorGray_777777));
             }
 
             buttonClicked.setBackground(getResources().getDrawable(R.drawable.bg_apptheme_pill_5));
@@ -163,6 +194,7 @@ public class Upload extends Fragment implements View.OnClickListener {
         }
 
     }
+
 
     private void uploadFile() {
 
@@ -282,10 +314,9 @@ public class Upload extends Fragment implements View.OnClickListener {
     }
 
 
-
     public void setFileName() {
 
-        subjectName_ET.addTextChangedListener(new TextWatcher() {
+        subjectName_ACTV.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 Log.i(TAG,"On text change");
@@ -300,15 +331,16 @@ public class Upload extends Fragment implements View.OnClickListener {
             public void afterTextChanged(Editable editable) {
                 Log.i(TAG,"After text change");
 
-                pdfName_TV.setText(String.format("%s_%s.pdf", generateAbbreviation(subjectName_ET.getText().toString()),
+                pdfName_TV.setText(String.format("%s_%s.pdf", generateAbbreviation(subjectName_ACTV.getText().toString()),
                         generateAbbreviation(userInstitute)));
             }
         });
     }
 
+
     public void setFileName(final Button btn) {
         pdfName_TV.setText(String.format("U%s_%s_%s.pdf", btn.getText().toString(),
-                generateAbbreviation(subjectName_ET.getText().toString()), generateAbbreviation(userInstitute)));
+                generateAbbreviation(subjectName_ACTV.getText().toString()), generateAbbreviation(userInstitute)));
     }
 
 
@@ -334,6 +366,7 @@ public class Upload extends Fragment implements View.OnClickListener {
         }
         return result;
     }
+
 
     public String generateAbbreviation(String fullForm) {
         StringBuilder abbreviation = new StringBuilder();

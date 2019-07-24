@@ -4,20 +4,17 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -36,7 +33,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,10 +52,11 @@ public class SignIn extends AppCompatActivity {
 
 
     private String TAG = "SplashScreenOXET";
-    private int RC_SIGN_IN = 1234;
+    private int RC_SIGN_IN = 1000;
 
-    FirebaseUser user = null;
+    FirebaseFirestore db;
     FirebaseAuth firebaseAuth;
+    FirebaseUser user = null;
     GoogleSignInClient mGoogleSignInClient;
 
     Button googleSignin_B;
@@ -79,16 +83,22 @@ public class SignIn extends AppCompatActivity {
         googleSignIn_CL = findViewById(R.id.googleSignIn_CL);
         signInContainer_FL = findViewById(R.id.signInContainer_FL);
 
+        Bundle extras = getIntent().getExtras();
+        boolean isEmailVerified = true, isDetailsFilled = true;
+        if (extras != null) {
+            isEmailVerified = extras.getBoolean("isEmailVerified");
+            isDetailsFilled = extras.getBoolean("isDetailsFilled");
+        }
+
         // Get the last user which signed in
+        db = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         user = firebaseAuth.getCurrentUser();
-//        openHomePage();
-
 
         // GoogleSignInOptions will mention what and all we need
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 // Specifies that an ID token for authenticated users is requested.
-                .requestIdToken(getString(R.string.default_web_client_id))
+//                .requestIdToken("728484278414-frop7tokkhf422tm7ru3kjtlbqljbk4t.apps.googleusercontent.com")
                 // Specifies that email info is requested by your application.
                 .requestEmail()
                 .build();
@@ -99,48 +109,30 @@ public class SignIn extends AppCompatActivity {
         changeFragment(new LogIn(), false, true);
         if (user != null)
             // if user has sent an email to receive an e-mail Id
-            if (!user.isEmailVerified())
-                changeFragment(new EmailVerification(), true, true);
+            if (!isEmailVerified) {
                 // if e-mail is verified
-            else if (!isUserDetailsFilled())
+                changeFragment(new EmailVerification(), true, true);
+            } else if (!isDetailsFilled) {
                 changeFragment(new FillDetails(), false, false);
+            }
 
         // Google button which is lying outside every fragment
         googleSignin_B.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (new Internet(getBaseContext()).isAvailable()) {
-
                     startActivityForResult(mGoogleSignInClient.getSignInIntent(), RC_SIGN_IN);
-
                 }
             }
         });
-
-//        show_Password = (TextView) findViewById(R.id.show_Password);
-//
-//        show_Password.setVisibility(View.GONE);
-//
-//        show_Password.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(show_Password.getText() == "SHOW"){
-//
-//                    show_Password.setText("HIDE");
-//
-//
-//                }
-//                else {
-//
-//                    show_Password.setText("SHOW");
-//                }
-//            }
-//        });
-
-
-
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Log.d(TAG, "back");
+
+    }
 
     // for google signin, when the the user chooses which email he/she wants to login from
     // this function will have the desired result
@@ -163,8 +155,6 @@ public class SignIn extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 // authenticate with Firebase
                 firebaseAuthWithGoogle(account);
-
-
 
             } catch (ApiException e) {
 
@@ -189,79 +179,8 @@ public class SignIn extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success!
+                            // Google Sign in success!
 
-                            Log.d(TAG, String.valueOf(task.getResult()));
-                            Toast.makeText(SignIn.this, "Google Signin Success!", Toast.LENGTH_SHORT).show();
-
-                            FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-                            user = firebaseAuth.getCurrentUser();
-
-                            firebaseFirestore.collection("users").document(user.getUid())
-                                    .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                @Override
-                                public void onSuccess(DocumentSnapshot document) {
-                                    if (document.exists()) {
-                                        // fetch the details available in the user db
-                                        SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
-                                        final SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                                        String[] userDetailKeys = new String[]{"full_name", "institute", "course", "branch"};
-
-                                        for (String userDetailKey : userDetailKeys) {
-                                            editor.putString(userDetailKey, String.valueOf(document.getData().get(userDetailKey)));
-                                        }
-
-                                        editor.apply();
-
-                                        openHomePage();
-                                        progressDialog.dismiss();
-
-                                    } else {
-
-                                        // init User db
-                                        SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
-                                        final SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
-                                        FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                                        Map<String, Object> userDetails = new HashMap<>();
-
-                                        String[] keyNames = new String[]{"full_name", "institute", "course", "branch"};
-
-                                        for (String key : keyNames) {
-                                            userDetails.put(key, "_");
-                                            editor.putString(key, "_");
-                                        }
-
-                                        DocumentReference documentReference = db.collection("users").document(user.getUid());
-
-                                        documentReference.set(userDetails)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        editor.apply();
-                                                        Log.d(TAG, "Successfully initiated user details");
-                                                    }
-                                                })
-                                                .addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        Log.w(TAG, "Failed to initiate user details: ", e);
-                                                    }
-                                                });
-
-                                        progressDialog.dismiss();
-
-                                        changeFragment(new FillDetails(), false, false);
-                                    }
-                                }
-                            });
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.d(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(SignIn.this, "Authentication Failed.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -269,9 +188,40 @@ public class SignIn extends AppCompatActivity {
 
 
     public void openHomePage() {
-        // after loading data from firebase
-        startActivity(new Intent(SignIn.this, MainActivity.class));
-        overridePendingTransition(android.R.anim.fade_in, 0);
+        user = firebaseAuth.getCurrentUser();
+        db.collection("users").document(user.getUid())
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    SharedPreferences localDB = getSharedPreferences("localDB", MODE_PRIVATE);
+                    final SharedPreferences.Editor editor = localDB.edit();
+                    editor.putString("user", String.valueOf(new JSONObject(task.getResult().getData())))
+                            .apply();
+
+                    db.collection("institutes")
+                            .whereEqualTo("name", task.getResult().getData().get("institute"))
+                            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    editor.putString("institute"
+                                            , String.valueOf(new JSONObject(document.getData()))
+                                    ).apply();
+
+                                    // after loading data from firebase
+                                    startActivity(new Intent(SignIn.this, MainActivity.class));
+                                    overridePendingTransition(android.R.anim.fade_in, 0);
+                                }
+                            } else {
+                                Log.w(TAG, "Error getting documents.", task.getException());
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
 
 
@@ -295,14 +245,5 @@ public class SignIn extends AppCompatActivity {
         } else {
             googleSignIn_CL.setVisibility(View.GONE);
         }
-    }
-
-
-    public boolean isUserDetailsFilled() {
-        SharedPreferences sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
-
-        String pulledUserInstitute = sharedPreferences.getString("institute", "_");
-
-        return !pulledUserInstitute.equals("_");
     }
 }

@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/segoe_ui"
                 android:text="10:10PM"
-                android:textColor="@color/colorGray_AAAAAA"
+                android:textColor="@color/colorGray_777777"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="@+id/branchAbb_TV"
                 app:layout_constraintTop_toBottomOf="@+id/branchAbb_TV" />

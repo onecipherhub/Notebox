@@ -81,15 +81,15 @@ public class SignUp extends Fragment {
                 String filledPassword = password_ET.getText().toString();
                 String filledRepeatPassword = repeatPassword_ET.getText().toString();
 
-                if (new Internet(getActivity()).isAvailable())
+                if (new Internet(getActivity()).isAvailable()) {
                     // have internet to use signup service
 
                     if (!TextUtils.isEmpty(filledEmail)
                             && android.util.Patterns.EMAIL_ADDRESS.matcher(filledEmail).matches()
                             && filledPassword.length() >= 8
-                            && filledRepeatPassword.equals(filledPassword))
+                            && filledRepeatPassword.equals(filledPassword)) {
                         // email address is valid and password is greater than 8-digits
-                        FirebaseAuth.getInstance().createUserWithEmailAndPassword(filledEmail, filledPassword)
+                        firebaseAuth.createUserWithEmailAndPassword(filledEmail, filledPassword)
                                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -101,11 +101,8 @@ public class SignUp extends Fragment {
                                             Toast.makeText(getActivity(), "Signup Success!", Toast.LENGTH_SHORT).show();
 
                                             ((SignIn) getActivity()).changeFragment(new EmailVerification(),
-                                                    false, false);
+                                                    true, true);
 
-
-
-                                            initUserDetails();
                                             FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification()
                                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                         @Override
@@ -116,9 +113,6 @@ public class SignUp extends Fragment {
                                                         }
                                                     });
                                         } else {
-
-                                            progressDialog.dismiss();
-
                                             if (task.getException() != null)
                                                 try {
                                                     if (task.getException().getMessage().contains("email address is already in use"))
@@ -130,20 +124,23 @@ public class SignUp extends Fragment {
                                                 // If sign in fails, display a message to the user.
                                                 Toast.makeText(getActivity(), "Authentication failed.",
                                                         Toast.LENGTH_SHORT).show();
+                                            progressDialog.dismiss();
                                         }
                                     }
                                 });
-                    else if (filledPassword.length() < 8) {
+                    } else if (filledPassword.length() < 8) {
                         progressDialog.dismiss();
                         Toast.makeText(getActivity(), "Password should be greater than '8' characters", Toast.LENGTH_SHORT).show();
                     } else if (!filledRepeatPassword.equals(filledPassword)) {
                         progressDialog.dismiss();
                         Toast.makeText(getActivity(), "Password field and Repeat password field is different", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
+                    } else {
                         progressDialog.dismiss();
                         Toast.makeText(getActivity(), "Invalid E-mail or Password!!", Toast.LENGTH_SHORT).show();
                     }
+                } else {
+                    progressDialog.dismiss();
+                }
             }
         });
 
@@ -165,7 +162,7 @@ public class SignUp extends Fragment {
                 if (!email_ET.getText().toString().equals(""))
                     email_V.setBackgroundColor(getResources().getColor(R.color.colorAppTheme));
                 else
-                    email_V.setBackgroundColor(getResources().getColor(R.color.colorGray_AAAAAA));
+                    email_V.setBackgroundColor(getResources().getColor(R.color.colorGray_777777));
             }
 
             @Override
@@ -183,7 +180,7 @@ public class SignUp extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (password_ET.getText().toString().equals("")) {
-                    password_V.setBackgroundColor(getResources().getColor(R.color.colorGray_AAAAAA));
+                    password_V.setBackgroundColor(getResources().getColor(R.color.colorGray_777777));
                 } else {
                     if (password_ET.getText().toString().equals(repeatPassword_ET.getText().toString())) {
                         repeatPassword_V.setBackgroundColor(getResources().getColor(R.color.google_green));
@@ -208,7 +205,7 @@ public class SignUp extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (repeatPassword_ET.getText().toString().equals("")) {
-                    repeatPassword_V.setBackgroundColor(getResources().getColor(R.color.colorGray_AAAAAA));
+                    repeatPassword_V.setBackgroundColor(getResources().getColor(R.color.colorGray_777777));
                 } else {
                     if (repeatPassword_ET.getText().toString().equals(password_ET.getText().toString()))
                         repeatPassword_V.setBackgroundColor(getResources().getColor(R.color.google_green));
@@ -225,39 +222,5 @@ public class SignUp extends Fragment {
         });
 
         return rootView;
-    }
-
-    public void initUserDetails() {
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user", MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        FirebaseUser user = firebaseAuth.getCurrentUser();
-
-        Map<String, Object> userDetails = new HashMap<>();
-
-        String[] keyNames = new String[]{"full_name", "institute", "course", "branch"};
-
-        for(String key : keyNames) {
-            userDetails.put(key, "_");
-            editor.putString(key, "_");
-        }
-
-        DocumentReference documentReference = db.collection("users").document(user.getUid());
-
-        documentReference.set(userDetails)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        editor.apply();
-                        Log.d(TAG, "Successfully initiated user details");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Failed to initiate user details: ", e);
-                    }
-                });
     }
 }

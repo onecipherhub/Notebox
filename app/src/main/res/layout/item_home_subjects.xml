@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/itemHomeSubjects_CL"
     android:layout_height="wrap_content">
 
 
@@ -16,22 +17,28 @@
         android:fontFamily="@font/segoe_ui_bold"
         android:gravity="center"
         android:paddingBottom="3dp"
+        android:singleLine="true"
         android:text="CN2"
-        android:textColor="@color/colorGray_999999"
+        android:textColor="@color/colorGray_777777"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/subName_TV"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="@font/segoe_ui"
         android:text="Computer Networks - 2"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textColor="@color/colorAppTheme"
         android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/subBookmark_IB"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/subAbb_TV"
         app:layout_constraintTop_toTopOf="@+id/subAbb_TV" />
 
@@ -40,8 +47,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/josefin_sans_regular"
-        android:text="last update: 12 June, 2019"
-        android:textColor="@color/colorWhite_BFBFBF"
+        android:text="last update: NA"
+        android:textColor="@color/colorGray_777777"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/subName_TV"
         app:layout_constraintTop_toBottomOf="@+id/subName_TV" />
@@ -52,6 +59,7 @@
         android:layout_height="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:visibility="gone"
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:scaleType="centerCrop"

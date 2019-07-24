@@ -3,11 +3,12 @@ package in.cipherhub.notebox;
 import android.Manifest;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,19 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Objects;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
@@ -25,25 +39,34 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static String TAG = "MainActivityOXET";
-
+    public boolean checkPermission = false;
     private static final int STORAGE_PERM = 123;
+    String[] perms;
 
     Button home_B, explore_B, upload_B, profile_B, buttonClicked;
     FrameLayout signinTemplateContainer_FL;
     View bgBlurForBtmTemplate_V;
 
-    String[] perms;
-
-    public boolean checkPermission = false;
+    SharedPreferences localDB;
+    SharedPreferences.Editor editor;
+    FirebaseFirestore db;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Objects.requireNonNull(getSupportActionBar()).hide();
+
         askPermission();
 
-        Objects.requireNonNull(getSupportActionBar()).hide();
+        localDB = getSharedPreferences("localDB", MODE_PRIVATE);
+        editor = localDB.edit();
+        db = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+        user = firebaseAuth.getCurrentUser();
 
         home_B = findViewById(R.id.home_B);
         explore_B = findViewById(R.id.explore_B);
@@ -69,6 +92,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Home Page is launched onCreate to make it default
         buttonClicked = home_B;
         customButtonRadioGroup(buttonClicked);
+
+        setListener();
+    }
+
+
+    public void setListener() {
+        db.collection("users").document(user.getUid())
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                        @Nullable FirebaseFirestoreException e) {
+
+                        if (snapshot != null && snapshot.exists()) {
+                            editor.putString("user", String.valueOf(new JSONObject(snapshot.getData())))
+                                    .apply();
+
+                            db.collection("institutes")
+                                    .whereEqualTo("name", snapshot.getData().get("institute"))
+                                    .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots
+                                                , @Nullable FirebaseFirestoreException e) {
+                                            if (queryDocumentSnapshots != null) {
+                                                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                                    editor.putString("institute"
+                                                            , String.valueOf(new JSONObject(document.getData()))
+                                                    ).apply();
+                                                }
+                                            }
+                                        }
+                                    });
+                        } else {
+                            Log.d(TAG, "data: null");
+                        }
+                    }
+                });
     }
 
 
@@ -86,17 +145,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         perms = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(getApplicationContext(), perms)) {
-
-            Log.i(TAG, "Permission Granted");
-
+//            Log.i(TAG, "Permission Granted");
             checkPermission = true;
 
-        }else {
+        } else {
             // Do not have permissions, request them
             EasyPermissions.requestPermissions(this, "This app requires storage permission to function properly.",
                     STORAGE_PERM, perms);
         }
-
     }
 
 
@@ -154,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             // set icons only on the top // icons position is adjusted from XML
             button.setCompoundDrawablesRelativeWithIntrinsicBounds(null,
                     getResources().getDrawable(buttonIconDrawableId), null, null);
-            button.setTextColor(getResources().getColor(R.color.colorGray_AAAAAA));
+            button.setTextColor(getResources().getColor(R.color.colorGray_777777));
         }
     }
 
@@ -225,7 +281,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }, 100);
 
                 if (view != null) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
             }

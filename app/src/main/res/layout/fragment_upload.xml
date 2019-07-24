@@ -46,7 +46,7 @@
             android:fontFamily="@font/consolas_regular"
             android:lineSpacingExtra="4sp"
             android:text="Notes you upload will help many student and teachers to clear their doubts and assist them in exams!"
-            android:textColor="@color/colorGray_AAAAAA"
+            android:textColor="@color/colorGray_777777"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -76,8 +76,8 @@
             android:id="@+id/signin_CL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:alpha="0"
             android:overScrollMode="never"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -89,8 +89,7 @@
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="300dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/bg_br_radius_gray_smaller"
                 android:ems="10"
                 android:fontFamily="@font/segoe_ui"
@@ -99,53 +98,12 @@
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
                 android:textColor="@color/colorGray_999999"
-                android:textColorHint="@color/colorGray_AAAAAA"
+                android:textColorHint="@color/colorGray_777777"
                 android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/subjectName"
+                app:layout_constraintEnd_toEndOf="@+id/linearLayout4"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView_teacher"
                 app:layout_constraintTop_toBottomOf="@+id/textView_teacher" />
-
-            <Button
-                android:id="@+id/unitOne_B"
-                style="@style/unit_select_button"
-                android:layout_marginStart="16dp"
-                android:text="1"
-                app:layout_constraintBottom_toBottomOf="@+id/textView_unit"
-                app:layout_constraintStart_toEndOf="@+id/textView_unit"
-                app:layout_constraintTop_toTopOf="@+id/textView_unit" />
-
-            <Button
-                android:id="@+id/unitTwo_B"
-                style="@style/unit_select_button"
-                android:text="2"
-                app:layout_constraintBottom_toBottomOf="@+id/unitOne_B"
-                app:layout_constraintStart_toEndOf="@+id/unitOne_B"
-                app:layout_constraintTop_toTopOf="@+id/unitOne_B" />
-
-            <Button
-                android:id="@+id/unitThree_B"
-                style="@style/unit_select_button"
-                android:text="3"
-                app:layout_constraintBottom_toBottomOf="@+id/unitTwo_B"
-                app:layout_constraintStart_toEndOf="@+id/unitTwo_B"
-                app:layout_constraintTop_toTopOf="@+id/unitTwo_B" />
-
-            <Button
-                android:id="@+id/unitFour_B"
-                style="@style/unit_select_button"
-                android:text="4"
-                app:layout_constraintBottom_toBottomOf="@+id/unitThree_B"
-                app:layout_constraintStart_toEndOf="@+id/unitThree_B"
-                app:layout_constraintTop_toTopOf="@+id/unitThree_B" />
-
-            <Button
-                android:id="@+id/unitFive_B"
-                style="@style/unit_select_button"
-                android:text="5"
-                app:layout_constraintBottom_toBottomOf="@+id/unitFour_B"
-                app:layout_constraintStart_toEndOf="@+id/unitFour_B"
-                app:layout_constraintTop_toTopOf="@+id/unitFour_B" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -172,7 +130,7 @@
                 android:paddingEnd="15dp"
                 android:paddingBottom="5dp"
                 android:text="@string/sample_file_name"
-                android:textColor="@color/colorGray_AAAAAA"
+                android:textColor="@color/colorGray_777777"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView5"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -185,7 +143,7 @@
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/segoe_ui"
                 android:lineSpacingExtra="4sp"
                 android:maxLines="2"
@@ -206,7 +164,7 @@
                 android:paddingEnd="15dp"
                 android:paddingBottom="5dp"
                 android:text="@string/size"
-                android:textColor="@color/colorGray_AAAAAA"
+                android:textColor="@color/colorGray_777777"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="@+id/textView7"
                 app:layout_constraintStart_toStartOf="@+id/pdfName_TV"
@@ -242,85 +200,113 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView_details" />
 
             <AutoCompleteTextView
-                android:id="@+id/subjectName"
-                android:ems="10"
-                android:textSize="14sp"
-                android:hint="@string/subject_name"
+                android:id="@+id/subjectName_ACTV"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
-                android:textColor="@color/colorGray_999999"
-                android:textColorHint="@color/colorGray_AAAAAA"
-                android:fontFamily="@font/segoe_ui"
-                android:inputType="textPersonName"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
+                android:background="@drawable/bg_br_radius_gray_smaller"
+                android:ems="10"
+                android:fontFamily="@font/segoe_ui"
+                android:hint="@string/subject_name"
+                android:inputType="textPersonName"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
-                android:background="@drawable/bg_br_radius_gray_smaller"
+                android:textColor="@color/colorGray_999999"
+                android:textColorHint="@color/colorGray_777777"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView_subject"
                 app:layout_constraintTop_toBottomOf="@+id/textView_subject"
                 tools:ignore="Autofill" />
 
-            <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:id="@+id/subjectSelectorList_RV"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:overScrollMode="never"-->
-                <!--android:layout_marginStart="8dp"-->
-                <!--android:layout_marginTop="5dp"-->
-                <!--android:layout_marginEnd="32dp"-->
-                <!--android:paddingStart="15dp"-->
-                <!--android:paddingEnd="15dp"-->
-                <!--app:layout_constraintEnd_toEndOf="parent"-->
-                <!--app:layout_constraintStart_toStartOf="@+id/textView_subject"-->
-                <!--app:layout_constraintTop_toBottomOf="@+id/textView_subject"-->
-                <!--android:visibility="gone" />-->
-
             <TextView
                 android:id="@+id/textView_unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/segoe_ui"
                 android:text="@string/unit_colon"
                 android:textColor="#999999"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/textView_subject"
-                app:layout_constraintTop_toBottomOf="@+id/subjectName" />
+                app:layout_constraintTop_toBottomOf="@+id/subjectName_ACTV" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:weightSum="@integer/five"
+                app:layout_constraintEnd_toEndOf="@+id/subjectName_ACTV"
+                app:layout_constraintStart_toStartOf="@+id/textView_unit"
+                app:layout_constraintTop_toBottomOf="@+id/textView_unit">
+
+                <Button
+                    android:id="@+id/unitOne_B"
+                    style="@style/unit_select_button"
+                    android:layout_height="35dp"
+                    android:text="1" />
+
+                <Button
+                    android:id="@+id/unitTwo_B"
+                    style="@style/unit_select_button"
+                    android:layout_height="35dp"
+                    android:text="2" />
+
+                <Button
+                    android:id="@+id/unitThree_B"
+                    style="@style/unit_select_button"
+                    android:layout_height="35dp"
+                    android:text="3" />
+
+                <Button
+                    android:id="@+id/unitFour_B"
+                    style="@style/unit_select_button"
+                    android:layout_height="35dp"
+                    android:text="4" />
+
+                <Button
+                    android:id="@+id/unitFive_B"
+                    style="@style/unit_select_button"
+                    android:layout_height="35dp"
+                    android:layout_marginEnd="0dp"
+                    android:text="5" />
+            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/textView_teacher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/segoe_ui"
                 android:text="@string/teacher_slash_author_colon"
                 android:textColor="#999999"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="@+id/textView_unit"
-                app:layout_constraintTop_toBottomOf="@+id/unitFour_B" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
             <Button
                 android:id="@+id/upload_button"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="24dp"
                 android:background="@drawable/bg_apptheme_pill_20"
-                android:backgroundTint="@color/colorWhite_FFFFFF"
                 android:fontFamily="@font/consolas_regular"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
                 android:text="@string/upload_pdf"
                 android:textAllCaps="false"
-                android:textColor="@color/colorAppTheme"
+                android:textColor="@color/colorWhite_FFFFFF"
                 android:textSize="13sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/teacherName_ET"
                 app:layout_constraintTop_toBottomOf="@+id/teacherName_ET" />
 
 

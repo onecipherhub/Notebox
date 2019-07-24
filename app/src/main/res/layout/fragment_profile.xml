@@ -24,13 +24,13 @@
             android:layout_marginTop="10dp"
             android:fontFamily="@font/comfortaa_bold"
             android:text="@string/app_name"
-            android:textColor="@color/colorGray_888888"
+            android:textColor="@color/colorGray_777777"
             android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/fullName_TV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="27dp"
@@ -41,12 +41,12 @@
             android:text="Your Profile"
             android:textColor="@color/colorAppTheme"
             android:textSize="26sp"
-            app:layout_constraintEnd_toStartOf="@+id/bookmark_IB"
+            app:layout_constraintEnd_toStartOf="@+id/userDisplayPicture_IB"
             app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/bookmark_IB"
+            android:id="@+id/userDisplayPicture_IB"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginEnd="24dp"
@@ -54,44 +54,45 @@
             android:contentDescription="@string/button_with_icon"
             android:padding="0dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/icon_profile_but_unfocused"
-            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            android:src="@drawable/ic_profile_grayed_filled"
+            app:layout_constraintBottom_toBottomOf="@+id/fullName_TV"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView2" />
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/rating_TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:visibility="invisible"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/comfortaa_bold"
-            android:text="4.0"
             android:textColor="@color/colorGray_888888"
             android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@id/textView"
-            app:layout_constraintTop_toBottomOf="@id/textView" />
+            app:layout_constraintStart_toStartOf="@id/fullName_TV"
+            app:layout_constraintTop_toBottomOf="@id/fullName_TV" />
 
         <RatingBar
-            android:id="@+id/ratingBar"
+            android:id="@+id/rating_RB"
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:layout_marginStart="3dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView16"
-            app:layout_constraintStart_toEndOf="@+id/textView16"
-            app:layout_constraintTop_toTopOf="@+id/textView16" />
+            app:layout_constraintBottom_toBottomOf="@+id/rating_TV"
+            app:layout_constraintStart_toEndOf="@+id/rating_TV"
+            app:layout_constraintTop_toTopOf="@+id/rating_TV" />
 
         <android.support.v7.widget.CardView
             android:layout_width="120dp"
             android:layout_height="30dp"
             app:cardCornerRadius="15dp"
-            app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
-            app:layout_constraintEnd_toEndOf="@+id/bookmark_IB"
-            app:layout_constraintTop_toTopOf="@+id/ratingBar">
+            app:layout_constraintBottom_toBottomOf="@+id/rating_RB"
+            app:layout_constraintEnd_toEndOf="@+id/userDisplayPicture_IB"
+            app:layout_constraintTop_toTopOf="@+id/rating_RB">
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -110,7 +111,7 @@
                     app:srcCompat="@drawable/ic_file_upload_brown_24dp" />
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/userUploadsCount_TV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/segoe_ui"
@@ -138,13 +139,13 @@
                     android:id="@+id/imageView4"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textView22"
-                    app:layout_constraintEnd_toStartOf="@+id/textView22"
-                    app:layout_constraintTop_toTopOf="@+id/textView22"
+                    app:layout_constraintBottom_toBottomOf="@+id/userDownloadsCount_TV"
+                    app:layout_constraintEnd_toStartOf="@+id/userDownloadsCount_TV"
+                    app:layout_constraintTop_toTopOf="@+id/userDownloadsCount_TV"
                     app:srcCompat="@drawable/ic_file_download_brown_24dp" />
 
                 <TextView
-                    android:id="@+id/textView22"
+                    android:id="@+id/userDownloadsCount_TV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
@@ -160,7 +161,7 @@
 
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/instituteName_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -170,15 +171,15 @@
         android:fontFamily="@font/segoe_ui"
         android:maxLines="1"
         android:text="Nitte Meenakshi Institute of Technology"
-        android:textColor="@color/colorGray_888888"
+        android:textColor="@color/colorGray_777777"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageButton"
+        app:layout_constraintStart_toEndOf="@+id/editUserDetails_IB"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/courseName_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -186,14 +187,14 @@
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/segoe_ui"
         android:text="Bachelors in Engineering"
-        android:textColor="@color/colorGray_888888"
+        android:textColor="@color/colorGray_777777"
         android:maxLines="1"
         android:ellipsize="end"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintStart_toStartOf="@+id/instituteName_TV"
+        app:layout_constraintTop_toBottomOf="@+id/instituteName_TV" />
 
     <TextView
         android:id="@+id/branchName_TV"
@@ -204,39 +205,40 @@
         android:layout_marginEnd="24dp"
         android:fontFamily="@font/segoe_ui"
         android:text="Computer &amp; Science Engineering"
-        android:textColor="@color/colorGray_888888"
+        android:textColor="@color/colorGray_777777"
         android:textSize="12sp"
         android:maxLines="1"
         android:ellipsize="end"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintStart_toStartOf="@+id/courseName_TV"
+        app:layout_constraintTop_toBottomOf="@+id/courseName_TV" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:visibility="gone"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintBottom_toTopOf="@+id/textView15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/branchName_TV"
-        app:layout_constraintVertical_bias="0.13999999">
+        app:layout_constraintVertical_bias="0.1">
 
 
         <Button
-            android:id="@+id/button_bookmark"
+            android:id="@+id/bookmarks_B"
             style="@style/profile_four_buttons"
-            android:drawableLeft="@drawable/icon_bookmark_red_border"
+            android:drawableStart="@drawable/icon_bookmark_red_border"
             android:text="Bookmarks" />
 
         <Button
-            android:id="@+id/button_mynotes"
+            android:id="@+id/myNotes_B"
             style="@style/profile_four_buttons"
             android:drawableLeft="@drawable/ic_history_black_24dp"
             android:text="My Notes" />
@@ -248,6 +250,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:visibility="gone"
         android:orientation="horizontal"
         android:weightSum="2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -256,13 +259,13 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <Button
-            android:id="@+id/button_uploads"
+            android:id="@+id/uploads_B"
             style="@style/profile_four_buttons"
             android:drawableLeft="@drawable/ic_file_upload_blue_24dp"
             android:text="Uploads" />
 
         <Button
-            android:id="@+id/button_downloads"
+            android:id="@+id/downloads_B"
             style="@style/profile_four_buttons"
             android:drawableLeft="@drawable/ic_file_download_green_24dp"
             android:text="Downloads" />
@@ -273,17 +276,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/textView15"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <Button
-            android:id="@+id/signOut_btn"
+            android:id="@+id/logOut_B"
             style="@style/profile_lower_four_buttons"
+            android:layout_marginStart="4dp"
             android:drawableStart="@drawable/ic_logout"
             android:drawablePadding="10dp"
-            android:layout_marginStart="4dp"
             android:text="@string/log_out" />
 
         <Button
@@ -322,7 +326,7 @@
         android:layout_marginEnd="5dp"
         android:fontFamily="@font/comfortaa_bold"
         android:text="@string/developed_by"
-        android:textColor="@color/colorGray_888888"
+        android:textColor="@color/colorGray_777777"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView17"
         app:layout_constraintEnd_toStartOf="@+id/textView17"
@@ -342,7 +346,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/editUserDetails_IB"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="24dp"
@@ -354,7 +358,7 @@
         android:src="@drawable/ic_edit_black_24dp"
         app:layout_constraintBottom_toBottomOf="@+id/branchName_TV"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView9" />
+        app:layout_constraintTop_toTopOf="@+id/instituteName_TV" />
 
 
 

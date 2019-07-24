@@ -39,7 +39,7 @@
             android:inputType="text"
             android:paddingEnd="16dp"
             android:textColor="@color/colorAppTheme"
-            android:textColorHint="@color/colorGray_AAAAAA"
+            android:textColorHint="@color/colorGray_777777"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/child_TV"

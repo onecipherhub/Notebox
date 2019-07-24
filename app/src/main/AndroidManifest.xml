@@ -15,24 +15,42 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".Downloads"></activity>
-        <activity android:name=".Uploads" />
-        <activity android:name=".BookmarkActivity" />
+        <activity
+            android:name=".PDFList"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Downloads"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Uploads"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BookmarkActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".registration.SignIn"
-            android:noHistory="true" />
+            android:noHistory="true"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashScreen"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
 
         <service
-            android:name=".Notifications.FirebaseMessagingService"
+            android:name=".notifications.FirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -52,10 +70,7 @@ Set color used with incoming notification messages. This is used when no color i
         <!-- [START fcm_default_channel] -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/default_notification_channel_id" /> <!-- END fcm Default channel -->
-        <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:value="@string/default_notification_channel_id" />
     </application>
 
 </manifest>

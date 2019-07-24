@@ -19,13 +19,9 @@ import java.util.List;
 
 import in.cipherhub.notebox.adapters.AdapterRecentViews;
 
-public class Explore extends Fragment implements View.OnClickListener{
+public class Explore extends Fragment {
 
-    Button institutes_b, courses_b, branches_b, subjects_b;
-    EditText institute_ET;
-
-    View search_v, rootView;
-    public static final String FRAGMENT_PDF_RENDERER_BASIC = "PDF_RENDERER";
+    View rootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,96 +29,6 @@ public class Explore extends Fragment implements View.OnClickListener{
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_explore, container, false);
 
-       /* if (savedInstanceState == null) {
-            if (getFragmentManager() != null) {
-                getFragmentManager().beginTransaction()
-                        .add(R.id.container, new PdfRenderer())
-                        .commit();
-            }
-        }*/
-
-        final ConstraintLayout subjectsLayout_CL = rootView.findViewById(R.id.subjectsLayout_CL);
-        final ImageButton searchIconInSearchBar_IB = rootView.findViewById(R.id.searchIconInSearchBar_IB);
-        final EditText subjectsSearch_ET = rootView.findViewById(R.id.subjectsSearch_ET);
-        final ConstraintLayout recentViewsLayout_CL = rootView.findViewById(R.id.recentViewsLayout_CL);
-        RecyclerView recentViews_RV = rootView.findViewById(R.id.recentViews_RV);
-
-
-        institute_ET = rootView.findViewById(R.id.institute_ET);
-        search_v = rootView.findViewById(R.id.search_V);
-
-
-
-        List<AdapterRecentViews.recentViewsItemData> recentViews = new ArrayList<>();
-        recentViews.add(new AdapterRecentViews.recentViewsItemData(
-                "CN2", "CSE", "10:10PM", "Computer Networks - 2"
-        ));
-        recentViews.add(new AdapterRecentViews.recentViewsItemData(
-                "OS", "CSE", "09:11AM", "Operating System"
-        ));
-        recentViews.add(new AdapterRecentViews.recentViewsItemData(
-                "MDS", "ECE", "03:02PM", "Most Difficult Subject"
-        ));
-        recentViews.add(new AdapterRecentViews.recentViewsItemData(
-                "DS", "ECE", "07:54AM", "Data Structures using C++"
-        ));
-
-        AdapterRecentViews recentViewsAdapter = new AdapterRecentViews(recentViews);
-        recentViews_RV.setAdapter(recentViewsAdapter);
-        recentViews_RV.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-
-
-        institute_ET.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (institute_ET.getText().length() > 0)
-                    search_v.setBackgroundColor(getResources().getColor(R.color.google_yellow));
-
-                else
-                    search_v.setBackgroundColor(getResources().getColor(R.color.colorGray_AAAAAA));
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-
-        //BUTTON::
-//        institutes_b = rootView.findViewById(R.id.button_institutes);
-//        courses_b = rootView.findViewById(R.id.button_courses);
-//        branches_b = rootView.findViewById(R.id.button_branches);
-//        subjects_b = rootView.findViewById(R.id.button_subjects);
-//
-//
-//        institutes_b.setOnClickListener(this);
-//        courses_b.setOnClickListener(this);
-//        branches_b.setOnClickListener(this);
-//        subjects_b.setOnClickListener(this);
-//
-
-
         return rootView;
-    }
-
-
-
-    public void onClick(View v) {
-        Button button = rootView.findViewById(v.getId());
-
-        Button[] buttons = new Button[]{this.institutes_b, courses_b, branches_b, subjects_b};
-        for(Button thisButton : buttons){
-            thisButton.setBackground(getResources().getDrawable(R.drawable.bg_br_radius_gray_smaller));
-            thisButton.setTextColor(getResources().getColor(R.color.colorGray_AAAAAA));
-        }
-
-        button.setBackground(getResources().getDrawable(R.drawable.bg_apptheme_pill_5));
-        button.setTextColor(getResources().getColor(R.color.colorWhite_FFFFFF));
     }
 }

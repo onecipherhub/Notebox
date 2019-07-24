@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/pdfName_TV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/segoe_ui"
+            android:singleLine="true"
+            android:text="Sample.pdf"
+            android:textColor="@color/colorAppTheme"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/closeTemplateArrow_IB" />
+
+        <TextView
+            android:id="@+id/date_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/segoe_ui"
+            android:text="NA"
+            android:textColor="@color/colorGray_777777"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@+id/byValue_TV"
+            app:layout_constraintEnd_toEndOf="@+id/pdfName_TV"
+            app:layout_constraintTop_toTopOf="@+id/byValue_TV"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/by_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/segoe_ui"
+            android:text="by"
+            android:textColor="@color/colorGray_777777"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="@+id/pdfName_TV"
+            app:layout_constraintTop_toBottomOf="@+id/pdfName_TV" />
+
+        <TextView
+            android:id="@+id/author_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/segoe_ui"
+            android:text="author"
+            android:textColor="@color/colorGray_777777"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/pdfName_TV"
+            app:layout_constraintTop_toBottomOf="@+id/by_TV" />
+
+        <TextView
+            android:id="@+id/rating_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/josefin_sans_regular"
+            android:text="0.0"
+            android:textColor="@color/colorGray_777777"
+            android:visibility="invisible"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/downloadsCount_TV"
+            app:layout_constraintEnd_toStartOf="@+id/pdfRating_RB"
+            app:layout_constraintTop_toTopOf="@+id/downloadsCount_TV"
+            app:layout_constraintVertical_bias="0.23" />
+
+        <TextView
+            android:id="@+id/sharesCount_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:gravity="center"
+            android:text="0"
+            android:visibility="invisible"
+            android:textColor="@color/colorGray_777777"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/share_IV"
+            app:layout_constraintEnd_toStartOf="@+id/download_b"
+            app:layout_constraintTop_toTopOf="@+id/share_IV" />
+
+        <RatingBar
+            android:id="@+id/pdfRating_RB"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:layout_width="wrap_content"
+            android:visibility="invisible"
+            android:layout_height="wrap_content"
+            android:numStars="1"
+            android:progressTint="@color/colorGray_777777"
+            android:rating="1"
+            app:layout_constraintBottom_toBottomOf="@+id/rating_TV"
+            app:layout_constraintEnd_toEndOf="@+id/date_TV"
+            app:layout_constraintTop_toTopOf="@+id/rating_TV" />
+
+        <ImageView
+            android:id="@+id/share_IV"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:visibility="invisible"
+            android:layout_marginEnd="3dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/authorValue_TV"
+            app:layout_constraintEnd_toStartOf="@+id/sharesCount_TV"
+            app:layout_constraintTop_toTopOf="@+id/authorValue_TV"
+            app:srcCompat="@drawable/ic_share_brown_24dp" />
+
+        <ImageView
+            android:id="@+id/download_b"
+            android:layout_width="14dp"
+            android:visibility="invisible"
+            android:layout_height="14dp"
+            android:layout_marginEnd="3dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="@+id/share_IV"
+            app:layout_constraintEnd_toStartOf="@+id/downloadsCount_TV"
+            app:layout_constraintTop_toTopOf="@+id/share_IV"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_file_download_brown_24dp" />
+
+        <TextView
+            android:id="@+id/downloadsCount_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_marginEnd="24dp"
+            android:text="0"
+            android:textColor="@color/colorGray_777777"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/download_b"
+            app:layout_constraintEnd_toStartOf="@+id/rating_TV"
+            app:layout_constraintTop_toTopOf="@+id/download_b" />
+
+        <TextView
+            android:id="@+id/authorValue_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="1dp"
+            android:fontFamily="@font/segoe_ui_bold"
+            android:text="author name"
+            android:textColor="@color/colorGray_777777"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/author_TV"
+            app:layout_constraintStart_toEndOf="@+id/author_TV"
+            app:layout_constraintTop_toTopOf="@+id/author_TV" />
+
+        <TextView
+            android:id="@+id/byValue_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="1dp"
+            android:fontFamily="@font/segoe_ui_bold"
+            android:text="uploader name"
+            android:textColor="@color/colorGray_777777"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/by_TV"
+            app:layout_constraintStart_toEndOf="@+id/by_TV"
+            app:layout_constraintTop_toTopOf="@+id/by_TV" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/md_grey_300"
+            app:layout_constraintEnd_toEndOf="@+id/pdfRating_RB"
+            app:layout_constraintStart_toStartOf="@+id/author_TV"
+            app:layout_constraintTop_toBottomOf="@+id/authorValue_TV" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/pdfPreview_CV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view">
+
+            <ImageButton
+                android:id="@+id/pdfPreview_IB"
+                android:layout_width="140dp"
+                android:layout_height="200dp"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_gray_report_an_issue" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="32dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintStart_toEndOf="@+id/pdfPreview_CV"
+            app:layout_constraintTop_toTopOf="@+id/pdfPreview_CV">
+
+            <Button
+                android:id="@+id/download_B"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_file_download_brown_24dp"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/segoe_ui"
+                android:paddingStart="10dp"
+                android:paddingEnd="20dp"
+                android:text="Download"
+                android:textAllCaps="false"
+                android:textColor="@color/colorGray_777777" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/cardView"
+            app:layout_constraintStart_toStartOf="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+            <Button
+                android:id="@+id/sharePDF_B"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/ic_share_brown_24dp"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/segoe_ui"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Share PDF"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite_BFBFBF" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView3"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/cardView2"
+            app:layout_constraintStart_toStartOf="@+id/cardView2"
+            app:layout_constraintTop_toBottomOf="@+id/cardView2">
+
+            <Button
+                android:id="@+id/bookmark_B"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/icon_bookmark_gray_border"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/segoe_ui"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:text="Bookmark"
+                android:textAllCaps="false"
+                android:textColor="@color/colorWhite_BFBFBF" />
+        </android.support.v7.widget.CardView>
+
+        <!--<android.support.v7.widget.CardView-->
+            <!--android:id="@+id/cardView4"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--app:cardCornerRadius="20dp"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/cardView3"-->
+            <!--app:layout_constraintStart_toStartOf="@+id/cardView3"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/cardView3">-->
+
+            <!--<Button-->
+                <!--android:id="@+id/ratePDF_B"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:drawableLeft="@drawable/ic_star_border_black_24dp"-->
+                <!--android:drawablePadding="10dp"-->
+                <!--android:fontFamily="@font/segoe_ui"-->
+                <!--android:paddingStart="10dp"-->
+                <!--android:paddingEnd="10dp"-->
+                <!--android:text="Rate PDF"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textColor="@color/colorGray_777777" />-->
+        <!--</android.support.v7.widget.CardView>-->
+
+        <RatingBar
+            android:id="@+id/ratePDF_RB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:visibility="invisible"
+            android:progressTint="@color/google_yellow"
+            android:secondaryProgressTint="@color/google_yellow"
+            app:layout_constraintEnd_toEndOf="@+id/cardView3"
+            app:layout_constraintStart_toStartOf="@+id/cardView3"
+            app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+
+        <TextView
+            android:id="@+id/reportAnIssue_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:drawableStart="@drawable/ic_gray_report_an_issue"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/segoe_ui"
+            android:gravity="center"
+            android:text="@string/report_an_issue"
+            android:textColor="@color/colorGray_AAAAAA"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageButton
+            android:id="@+id/closeTemplateArrow_IB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_sharp_down_arrow" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

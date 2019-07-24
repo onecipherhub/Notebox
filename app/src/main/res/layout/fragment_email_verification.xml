@@ -8,7 +8,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="wrap_content">
 
 
         <TextView
@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/comfortaa_bold"
             android:text="Verify your email"
             android:textColor="@color/colorAppTheme"
@@ -30,14 +31,41 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
             android:fontFamily="@font/segoe_ui"
             android:lineSpacingExtra="3sp"
-            android:text="You have successfully created a Notebox account, click on the link sent at your registered email for verification"
-            android:textColor="@color/colorGray_AAAAAA"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="You have successfully created a Notebox account. Click on the E-mail verification link sent at"
+            android:textColor="@color/colorGray_777777"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textView23"
             app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+        <TextView
+            android:id="@+id/resetEmail_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/segoe_ui"
+            android:gravity="center"
+            android:text="&lt; reset email"
+            android:textColor="@color/colorGray_777777"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textView24"
+            app:layout_constraintTop_toBottomOf="@id/emailVerificationEmail_TV" />
+
+        <TextView
+            android:id="@+id/emailVerificationEmail_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/segoe_ui"
+            android:text="sample@xyz.com"
+            android:textColor="@color/colorGray_999999"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="@+id/textView24"
+            app:layout_constraintStart_toStartOf="@+id/textView24"
+            app:layout_constraintTop_toBottomOf="@+id/textView24" />
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>
