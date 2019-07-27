@@ -355,8 +355,8 @@ public class Upload extends Fragment implements View.OnClickListener {
     nestedData.put("by", userFullName);
     nestedData.put("date", new SimpleDateFormat("dd MMMM, yyyy", Locale.getDefault()).format(new Date()));
     nestedData.put("downloads", 0);
-    nestedData.put("rating", 0);
-    nestedData.put("rating_count", 0);
+    nestedData.put("likes", 0);
+    nestedData.put("dislikes", 0);
     nestedData.put("shares", 0);
     nestedData.put("url", downloadUrl);
 

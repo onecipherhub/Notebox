@@ -120,8 +120,7 @@ public class BookmarkActivity extends AppCompatActivity {
                 , pdf.getString("date")
                 , pdf.getInt("shares")
                 , pdf.getInt("downloads")
-                , pdf.getDouble("rating"),
-                pdf.getString("url")
+                , pdf.getInt("rating")
         ));
       } catch (JSONException e) {
         Log.d(TAG, String.valueOf(e));

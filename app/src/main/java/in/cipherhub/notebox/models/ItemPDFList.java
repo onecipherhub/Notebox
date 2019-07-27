@@ -4,10 +4,10 @@ public class ItemPDFList {
 
     private String name, by, author, date, url;
     private int totalShares, totalDownloads;
-    private double rating;
+    private int rating;
 
     public ItemPDFList(String name, String by, String author
-            , String date, int totalShares, int totalDownloads, double rating, String url) {
+            , String date, int totalShares, int totalDownloads, int rating) {
         this.name = name;
         this.by = by;
         this.author = author;
@@ -80,11 +80,11 @@ public class ItemPDFList {
     }
 
 
-    public double getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 }

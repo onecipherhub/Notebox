@@ -53,7 +53,6 @@ public class AdapterPDFList extends RecyclerView.Adapter<AdapterPDFList.pdfListI
         pdfListItemViewHolder.sharesCount_TV.setText(String.valueOf(list.get(i).getTotalShares()));
         pdfListItemViewHolder.downloadsCount_TV.setText(String.valueOf(list.get(i).getTotalDownloads()));
         pdfListItemViewHolder.authorValue_TV.setText(list.get(i).getAuthor());
-//        pdfListItemViewHolder.pdfRating_RB.setRating(Float.parseFloat(list.get(i).getRating()));
     }
 
 
@@ -72,7 +71,6 @@ public class AdapterPDFList extends RecyclerView.Adapter<AdapterPDFList.pdfListI
     class pdfListItemViewHolder extends RecyclerView.ViewHolder {
 
         TextView pdfName_TV, date_TV, rating_TV, sharesCount_TV, downloadsCount_TV, authorValue_TV, byValue_TV;
-        RatingBar pdfRating_RB;
         ConstraintLayout pdfList_CL;
 
         pdfListItemViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
@@ -86,7 +84,6 @@ public class AdapterPDFList extends RecyclerView.Adapter<AdapterPDFList.pdfListI
             downloadsCount_TV = itemView.findViewById(R.id.downloadsCount_TV);
             authorValue_TV = itemView.findViewById(R.id.authorValue_TV);
             byValue_TV = itemView.findViewById(R.id.byValue_TV);
-            pdfRating_RB = itemView.findViewById(R.id.pdfRating_RB);
 
             pdfList_CL.setOnClickListener(new View.OnClickListener() {
                 @Override

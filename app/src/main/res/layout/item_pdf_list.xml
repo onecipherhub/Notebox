@@ -71,7 +71,7 @@
         android:id="@+id/rating_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="2dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/josefin_sans_regular"
         android:text="0.0"
@@ -95,18 +95,14 @@
         app:layout_constraintEnd_toStartOf="@+id/download_b"
         app:layout_constraintTop_toTopOf="@+id/share_IV" />
 
-    <RatingBar
+    <ImageView
         android:id="@+id/pdfRating_RB"
-        style="@style/Widget.AppCompat.RatingBar.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:numStars="1"
-        android:progressBackgroundTint="@color/google_yellow"
-        android:progressTint="@color/google_yellow"
-        android:rating="1"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/rating_TV"
         app:layout_constraintEnd_toEndOf="@+id/date_TV"
-        app:layout_constraintTop_toTopOf="@+id/rating_TV" />
+        app:layout_constraintTop_toTopOf="@+id/rating_TV"
+        app:srcCompat="@drawable/ic_thumbs_up_down_black_24dp" />
 
 
     <ImageView
