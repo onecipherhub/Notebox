@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/comfortaa_bold"
             android:text="Bookmarks"
             android:textColor="@color/colorAppTheme"
@@ -41,14 +41,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <ImageButton
+            android:id="@+id/closeBookmark_IB"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/ic_book_black_24dp"
-            android:scaleType="center"
+            android:alpha="0.8"
+            android:background="@drawable/bg_br_radius_gray_medium"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_close_black_24dp"
             app:layout_constraintBottom_toBottomOf="@+id/pageTitleHere_TV"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView31" />
@@ -62,8 +65,9 @@
         android:layout_marginBottom="8dp"
         android:background="@color/colorWhite_FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bookmark_CL"
-        tools:layout_editor_absoluteX="34dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bookmark_CL">
 
 
         <EditText
@@ -71,7 +75,7 @@
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/bg_radius_gray"
             android:ems="10"
@@ -105,12 +109,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bookmarkSubjects_RV"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:overScrollMode="never"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bookmarkSearch_ET" />
@@ -137,15 +140,30 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:visibility="gone"
             android:layout_marginBottom="8dp"
-            android:text="@string/no_bookmarks_saved"
             android:fontFamily="@font/segoe_ui"
+            android:text="@string/no_bookmarks_saved"
             android:textStyle="italic"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/segoe_ui"
+            android:text="PDF details is same as when the PDF was bookmarked!"
+            android:textAlignment="center"
+            android:textColor="@color/colorGray_AAAAAA"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/bookmarkSearch_ET"
+            app:layout_constraintStart_toStartOf="@+id/bookmarkSearch_ET" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

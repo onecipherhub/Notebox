@@ -67,16 +67,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         askPermission();
 
-        AdView adsView = (AdView)findViewById(R.id.adView);
-
-        AdRequest adRequest = new AdRequest.Builder().build();
-        AdSize adSize = new AdSize(400, 50);
-//        adsView.setAdSize(adSize);
-//        adsView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
-
-        adsView.loadAd(adRequest);
-
-
         localDB = getSharedPreferences("localDB", MODE_PRIVATE);
         editor = localDB.edit();
         db = FirebaseFirestore.getInstance();
@@ -95,13 +85,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         upload_B.setOnClickListener(this);
         profile_B.setOnClickListener(this);
 
-        bgBlurForBtmTemplate_V.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                removeBottomTemplate();
-            }
-        });
-
         applyInitButState(new Button[]{home_B, explore_B, upload_B, profile_B});
 
         // Home Page is launched onCreate to make it default
@@ -109,8 +92,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         customButtonRadioGroup(buttonClicked);
 
         setListener();
-
-
 //        MobileAds.initialize(this, new OnInitializationCompleteListener() {
 //            @Override
 //            public void onInitializationComplete(InitializationStatus initializationStatus) {
@@ -119,10 +100,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //
 //            }
 //        });
-
-
-
-
     }
 
 
@@ -198,30 +175,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getWindow().setStatusBarColor(getResources().getColor(R.color.colorWhite_FFFFFF));
         bgBlurForBtmTemplate_V.setVisibility(View.GONE);
         bgBlurForBtmTemplate_V.setClickable(false);
-//
-//        final View view = this.getCurrentFocus();
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                signinTemplateContainer_FL.animate().translationY(0).setDuration(0);
-//                signinTemplateContainer_FL.setVisibility(View.GONE);
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        getSupportFragmentManager().popBackStack();
-//                    }
-//                }, 100);
-//
-//                if (view != null) {
-//                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-//                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-//                }
-//            }
-//        }, 500);
-//
-//        // to refresh the selected page // to remove current signin button
-//        customButtonRadioGroup(buttonClicked);
-
     }
 
 
@@ -264,57 +217,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         getSupportFragmentManager().beginTransaction().replace(R.id.mainPagesContainer_FL, fragment)
                 .commit();
-    }
-
-
-    public void openBottomTemplate() {
-        signinTemplateContainer_FL.setVisibility(View.VISIBLE);
-        bgBlurForBtmTemplate_V.setClickable(true);
-
-//        getSupportFragmentManager().beginTransaction()
-//                .setCustomAnimations(R.anim.slide_btm_entry, R.anim.slide_top_exit, R.anim.slide_btm_entry, R.anim.slide_top_exit)
-//                .replace(R.id.signinTemplateContainer_FL, new Signin())
-//                .addToBackStack(null)
-//                .commit();
-
-        tintSystemBars(getWindow().getStatusBarColor(), getResources().getColor(R.color.colorGray_E0E0E0));
-
-        bgBlurForBtmTemplate_V.setVisibility(View.VISIBLE);
-        bgBlurForBtmTemplate_V.animate().alpha(0.12f).setDuration(500);
-    }
-
-
-    public void removeBottomTemplate() {
-        tintSystemBars(getWindow().getStatusBarColor(), getResources().getColor(R.color.colorWhite_FFFFFF));
-
-        signinTemplateContainer_FL.animate().translationY(signinTemplateContainer_FL.getHeight()).setDuration(500);
-
-        bgBlurForBtmTemplate_V.animate().alpha(0).setDuration(500);
-
-        final View view = this.getCurrentFocus();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                bgBlurForBtmTemplate_V.setVisibility(View.GONE);
-                bgBlurForBtmTemplate_V.setClickable(false);
-                signinTemplateContainer_FL.animate().translationY(0).setDuration(0);
-                signinTemplateContainer_FL.setVisibility(View.GONE);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        getSupportFragmentManager().popBackStack();
-                    }
-                }, 100);
-
-                if (view != null) {
-                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
-            }
-        }, 500);
-
-        // to refresh the selected page // to remove current signin button
-        customButtonRadioGroup(buttonClicked);
     }
 
 
