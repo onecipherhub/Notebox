@@ -164,15 +164,6 @@ public class Home extends Fragment {
 
 		homeSubjectAdapter = new AdapterHomeSubjects(homeSubjects);
 
-
-
-		homeSubjectAdapter.setOnItemClickListener(new AdapterBranchSelector.OnItemClickListener() {
-			@Override
-			public void onItemClick(int position) {
-//                startActivity(new Intent(getActivity(), PDFList.class));
-			}
-		});
-
 		homeSubjects_RV.setAdapter(homeSubjectAdapter);
 		homeSubjects_RV.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -222,11 +213,8 @@ public class Home extends Fragment {
 				adView.loadAd(new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build());
 
 			}
-
 		}
-
 	}
-
 
 
 	private void filter(String text) {
@@ -235,12 +223,10 @@ public class Home extends Fragment {
 		for (ItemDataHomeSubjects s : homeSubjects) {
 			//new array list that will hold the filtered data
 			//if the existing elements contains the search input
-			if (s.subName.toLowerCase().contains(text.toLowerCase())) {
+			if (s != null && s.subName.toLowerCase().contains(text.toLowerCase())) {
 				filteredList.add(s);
 			}
 		}
 		homeSubjectAdapter.filterList(filteredList);
 	}
 }
-
-// TODO: recycler view heights stays short after keyboard is hidden... solve it :)

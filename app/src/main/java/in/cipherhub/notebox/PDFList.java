@@ -144,11 +144,12 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
         for (ItemPDFList s : pdfList) {
           //new array list that will hold the filtered data
           //if the existing elements contains the search input
-          if (s.getName().toLowerCase().contains(editable.toString().toLowerCase())
-                  || s.getBy().toLowerCase().contains(editable.toString().toLowerCase())
-                  || s.getAuthor().toLowerCase().contains(editable.toString().toLowerCase())) {
-            filteredList.add(s);
-          }
+          if (s != null)
+            if (s.getName().toLowerCase().contains(editable.toString().toLowerCase())
+                    || s.getBy().toLowerCase().contains(editable.toString().toLowerCase())
+                    || s.getAuthor().toLowerCase().contains(editable.toString().toLowerCase())) {
+              filteredList.add(s);
+            }
         }
         filteredPDFList = filteredList;
         adapterPDFList.filterList(filteredList);
@@ -202,7 +203,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
     pdfDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
       @Override
       public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-        if (documentSnapshot != null) {
+        if (documentSnapshot != null && documentSnapshot.getData() != null) {
           pdfList = new ArrayList<>();
 
           subject = new JSONObject(documentSnapshot.getData());
@@ -249,30 +250,33 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 
     pdfList.clear();
 
-    Iterator<String> pdfs = subject.keys();
-    while (pdfs.hasNext()) {
-      String pdfName = pdfs.next();
-      if (pdfName.startsWith("U" + buttonClicked.getText().toString())) {
-        try {
-          JSONObject pdf = subject.getJSONObject(pdfName);
-          likedCount = pdf.getInt("likes");
-          dislikedCount = pdf.getInt("dislikes");
-          totalRating = likedCount - dislikedCount;
-          pdfList.add(new ItemPDFList(
-                  pdfName
-                  , pdf.getString("by")
-                  , pdf.getString("author")
-                  , pdf.getString("date")
-                  , pdf.getInt("shares")
-                  , pdf.getInt("downloads")
-                  , totalRating
-          ));
-          Log.d(TAG, "pdfList: " + pdfList);
-        } catch (JSONException e1) {
-          Log.d(TAG, "error: " + e1);
+    if (subject != null) {
+
+      Iterator<String> pdfs = subject.keys();
+      while (pdfs.hasNext()) {
+        String pdfName = pdfs.next();
+        if (pdfName.startsWith("U" + buttonClicked.getText().toString())) {
+          try {
+            JSONObject pdf = subject.getJSONObject(pdfName);
+            likedCount = pdf.getInt("likes");
+            dislikedCount = pdf.getInt("dislikes");
+            totalRating = likedCount - dislikedCount;
+            pdfList.add(new ItemPDFList(
+                    pdfName
+                    , pdf.getString("by")
+                    , pdf.getString("author")
+                    , pdf.getString("date")
+                    , pdf.getInt("shares")
+                    , pdf.getInt("downloads")
+                    , totalRating
+            ));
+            Log.d(TAG, "pdfList: " + pdfList);
+          } catch (JSONException e1) {
+            Log.d(TAG, "error: " + e1);
+          }
         }
+        adapterPDFList.filterList(pdfList);
       }
-      adapterPDFList.filterList(pdfList);
     }
   }
 

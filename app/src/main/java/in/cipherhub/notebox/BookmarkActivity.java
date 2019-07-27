@@ -4,10 +4,14 @@ import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -37,7 +41,7 @@ public class BookmarkActivity extends AppCompatActivity {
   RecyclerView bookmarkSubjects_RV;
   EditText bookmarkSearch_ET;
   TextView noBookmarkSaved_TV;
-  ImageButton searchIconInSearchBar_IB;
+  ImageButton searchIconInSearchBar_IB, closeBookmark_IB;
 
   SharedPreferences localBookmarkDB, localBookmarkDBBoolean;
   SharedPreferences.Editor localBookmarkDBEditor, localBookmarkDBBooleanEditor;
@@ -61,6 +65,8 @@ public class BookmarkActivity extends AppCompatActivity {
     bookmarkSearch_ET = findViewById(R.id.bookmarkSearch_ET);
     noBookmarkSaved_TV = findViewById(R.id.noBookmarkSaved_TV);
     searchIconInSearchBar_IB = findViewById(R.id.searchIconInSearchBar_IB);
+    closeBookmark_IB = findViewById(R.id.closeBookmark_IB);
+    closeBookmark_IB.animate().rotation(90).setDuration(500);
 
     bookmarkSearch_ET.addTextChangedListener(new TextWatcher() {
       @Override
@@ -80,11 +86,12 @@ public class BookmarkActivity extends AppCompatActivity {
         for (ItemPDFList s : itemPDFLists) {
           //new array list that will hold the filtered data
           //if the existing elements contains the search input
-          if (s.getName().toLowerCase().contains(editable.toString().toLowerCase())
-                  || s.getBy().toLowerCase().contains(editable.toString().toLowerCase())
-                  || s.getAuthor().toLowerCase().contains(editable.toString().toLowerCase())) {
-            filteredList.add(s);
-          }
+          if (s != null)
+            if (s.getName().toLowerCase().contains(editable.toString().toLowerCase())
+                    || s.getBy().toLowerCase().contains(editable.toString().toLowerCase())
+                    || s.getAuthor().toLowerCase().contains(editable.toString().toLowerCase())) {
+              filteredList.add(s);
+            }
         }
         adapterPDFList.filterList(filteredList);
       }
@@ -126,7 +133,7 @@ public class BookmarkActivity extends AppCompatActivity {
         Log.d(TAG, String.valueOf(e));
       }
     }
-    if(itemPDFLists.isEmpty()){
+    if (itemPDFLists.isEmpty()) {
       bookmarkSearch_ET.setVisibility(View.GONE);
       searchIconInSearchBar_IB.setVisibility(View.GONE);
       noBookmarkSaved_TV.setVisibility(View.VISIBLE);
@@ -154,6 +161,11 @@ public class BookmarkActivity extends AppCompatActivity {
     TextView date_TV = dialogView.findViewById(R.id.date_TV);
     Button sharePDF_B = dialogView.findViewById(R.id.sharePDF_B);
     final Button bookmark_B = dialogView.findViewById(R.id.bookmark_B);
+    final Button like_IB = dialogView.findViewById(R.id.like_IB);
+    final Button dislike_IB = dialogView.findViewById(R.id.dislike_IB);
+
+    like_IB.setVisibility(View.GONE);
+    dislike_IB.setVisibility(View.GONE);
 
     pdfName_TV.setText(openedPDFItem.getName());
     byValue_TV.setText(openedPDFItem.getBy());

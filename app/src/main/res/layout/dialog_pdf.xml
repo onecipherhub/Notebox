@@ -274,7 +274,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:weightSum="2"
             app:layout_constraintEnd_toEndOf="@+id/cardView3"
             app:layout_constraintStart_toStartOf="@+id/cardView3"
@@ -286,7 +286,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:drawableTop="@drawable/ic_thumb_down_fill_aaaaaa"
+                android:drawableTop="@drawable/ic_thumb_up_fill_aaaaaa"
                 android:fontFamily="@font/segoe_ui"
                 android:text="0"
                 android:textColor="@color/colorGray_777777" />
@@ -300,7 +300,7 @@
                 android:drawableTop="@drawable/ic_thumb_down_fill_aaaaaa"
                 android:fontFamily="@font/segoe_ui"
                 android:text="0"
-                android:textColor="@color/colorGray_777777"/>
+                android:textColor="@color/colorGray_777777" />
 
         </LinearLayout>
 

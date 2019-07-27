@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -63,13 +62,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:visibility="invisible"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/comfortaa_bold"
             android:textColor="@color/colorGray_888888"
             android:textSize="13sp"
             android:textStyle="bold"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@id/fullName_TV"
             app:layout_constraintTop_toBottomOf="@id/fullName_TV" />
@@ -79,10 +78,10 @@
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
             android:layout_marginStart="3dp"
             android:numStars="5"
             android:stepSize=".5"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/rating_TV"
             app:layout_constraintStart_toEndOf="@+id/rating_TV"
             app:layout_constraintTop_toTopOf="@+id/rating_TV" />
@@ -91,6 +90,7 @@
             android:layout_width="120dp"
             android:layout_height="30dp"
             app:cardCornerRadius="15dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/rating_RB"
             app:layout_constraintEnd_toEndOf="@+id/userDisplayPicture_IB"
             app:layout_constraintTop_toTopOf="@+id/rating_RB">
@@ -160,173 +160,224 @@
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <TextView
-        android:id="@+id/instituteName_TV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:ellipsize="end"
-        android:fontFamily="@font/segoe_ui"
-        android:maxLines="1"
-        android:text="Nitte Meenakshi Institute of Technology"
-        android:textColor="@color/colorGray_777777"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/editUserDetails_IB"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-    <TextView
-        android:id="@+id/courseName_TV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="24dp"
-        android:fontFamily="@font/segoe_ui"
-        android:text="Bachelors in Engineering"
-        android:textColor="@color/colorGray_777777"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/instituteName_TV"
-        app:layout_constraintTop_toBottomOf="@+id/instituteName_TV" />
-
-    <TextView
-        android:id="@+id/branchName_TV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="24dp"
-        android:fontFamily="@font/segoe_ui"
-        android:text="Computer &amp; Science Engineering"
-        android:textColor="@color/colorGray_777777"
-        android:textSize="12sp"
-        android:maxLines="1"
-        android:ellipsize="end"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/courseName_TV"
-        app:layout_constraintTop_toBottomOf="@+id/courseName_TV" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:visibility="gone"
+        android:layout_height="0dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/textView15"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/branchName_TV"
-        app:layout_constraintVertical_bias="0.1">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/bookmarks_B"
-            style="@style/profile_four_buttons"
-            android:drawableStart="@drawable/icon_bookmark_red_border"
-            android:text="Bookmarks" />
+            <TextView
+                android:id="@+id/instituteName_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/segoe_ui"
+                android:maxLines="1"
+                android:text="Nitte Meenakshi Institute of Technology"
+                android:textColor="@color/colorGray_777777"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/editUserDetails_IB"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/myNotes_B"
-            style="@style/profile_four_buttons"
-            android:drawableLeft="@drawable/ic_history_black_24dp"
-            android:text="My Notes" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/courseName_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/segoe_ui"
+                android:maxLines="1"
+                android:text="Bachelors in Engineering"
+                android:textColor="@color/colorGray_777777"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/imageView2"
+                app:layout_constraintTop_toBottomOf="@+id/instituteName_TV" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:visibility="gone"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+            <TextView
+                android:id="@+id/branchName_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/segoe_ui"
+                android:maxLines="1"
+                android:text="Computer &amp; Science Engineering"
+                android:textColor="@color/colorGray_777777"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/imageView9"
+                app:layout_constraintTop_toBottomOf="@+id/courseName_TV" />
 
-        <Button
-            android:id="@+id/uploads_B"
-            style="@style/profile_four_buttons"
-            android:drawableLeft="@drawable/ic_file_upload_blue_24dp"
-            android:text="Uploads" />
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/branchName_TV">
 
-        <Button
-            android:id="@+id/downloads_B"
-            style="@style/profile_four_buttons"
-            android:drawableLeft="@drawable/ic_file_download_green_24dp"
-            android:text="Downloads" />
-    </LinearLayout>
+                <Button
+                    android:id="@+id/bookmarks_B"
+                    style="@style/profile_four_buttons"
+                    android:drawableStart="@drawable/icon_bookmark_red_border"
+                    android:text="Bookmarks" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="16dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/textView15"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+                <Button
+                    android:id="@+id/downloads_B"
+                    style="@style/profile_four_buttons"
+                    android:drawableLeft="@drawable/ic_file_download_green_24dp"
+                    android:text="Downloads" />
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/logOut_B"
-            style="@style/profile_lower_four_buttons"
-            android:layout_marginStart="4dp"
-            android:drawableStart="@drawable/ic_logout"
-            android:drawablePadding="10dp"
-            android:text="@string/log_out" />
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:weightSum="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-        <Button
-            android:id="@+id/report_b"
-            style="@style/profile_lower_four_buttons"
-            android:drawableStart="@drawable/ic_gray_report_an_issue"
-            android:drawablePadding="10dp"
-            android:text="@string/report_an_issue" />
+                <Button
+                    android:id="@+id/uploads_B"
+                    style="@style/profile_four_buttons"
+                    android:drawableLeft="@drawable/ic_file_upload_blue_24dp"
+                    android:text="Uploads" />
 
-        <Button
-            android:id="@+id/share_b"
-            style="@style/profile_lower_four_buttons"
-            android:drawableLeft="@drawable/ic_share_brown_24dp"
-            android:drawablePadding="10dp"
-            android:text="@string/share_this_app" />
+                <Button
+                    android:id="@+id/myNotes_B"
+                    style="@style/profile_four_buttons"
+                    android:drawableLeft="@drawable/ic_history_black_24dp"
+                    android:text="My Notes" />
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/feedback_b"
-            style="@style/profile_lower_four_buttons"
-            android:drawableLeft="@drawable/ic_feedback_brown_24dp"
-            android:drawablePadding="10dp"
-            android:text="@string/feedback" />
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-        <Button
-            android:id="@+id/about_b"
-            style="@style/profile_lower_four_buttons"
-            android:drawableStart="@drawable/icon_final_logo_with_border"
-            android:drawablePadding="10dp"
-            android:text="@string/about" />
-    </LinearLayout>
+                <Button
+                    android:id="@+id/logOut_B"
+                    style="@style/profile_lower_four_buttons"
+                    android:layout_marginStart="4dp"
+                    android:drawableStart="@drawable/ic_logout"
+                    android:text="@string/log_out" />
+
+                <View style="@style/divider_profile_btm_btn" />
+
+                <Button
+                    android:id="@+id/report_b"
+                    style="@style/profile_lower_four_buttons"
+                    android:drawableStart="@drawable/ic_gray_report_an_issue"
+                    android:text="@string/report_an_issue" />
+
+                <View style="@style/divider_profile_btm_btn" />
+
+                <Button
+                    android:id="@+id/share_b"
+                    style="@style/profile_lower_four_buttons"
+                    android:drawableLeft="@drawable/ic_share_brown_24dp"
+                    android:text="@string/share_this_app" />
+
+                <View style="@style/divider_profile_btm_btn" />
+
+                <Button
+                    android:id="@+id/feedback_b"
+                    style="@style/profile_lower_four_buttons"
+                    android:drawableLeft="@drawable/ic_feedback_brown_24dp"
+                    android:text="@string/feedback" />
+
+                <View style="@style/divider_profile_btm_btn" />
+
+                <Button
+                    android:id="@+id/about_b"
+                    style="@style/profile_lower_four_buttons"
+                    android:drawableStart="@drawable/icon_final_logo_with_border"
+                    android:text="@string/about" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/editUserDetails_IB"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/bg_br_radius_gray_medium"
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_edit_black_24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/branchName_TV"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/instituteName_TV" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="@+id/instituteName_TV"
+                app:layout_constraintTop_toBottomOf="@+id/instituteName_TV"
+                app:srcCompat="@drawable/ic_dot_for_hierarchy" />
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="20dp"
+                android:layout_height="15dp"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="@+id/courseName_TV"
+                app:layout_constraintTop_toBottomOf="@+id/courseName_TV"
+                app:srcCompat="@drawable/ic_dot_for_hierarchy" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <TextView
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="5dp"
-        android:fontFamily="@font/comfortaa_bold"
+        android:fontFamily="@font/segoe_ui"
         android:text="@string/developed_by"
+        android:textAllCaps="false"
         android:textColor="@color/colorGray_777777"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView17"
@@ -339,28 +390,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:fontFamily="@font/comfortaa_bold"
+        android:fontFamily="@font/segoe_ui_bold"
         android:text="@string/cipher_hub"
         android:textColor="@color/colorAppTheme"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageButton
-        android:id="@+id/editUserDetails_IB"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/bg_br_radius_gray_medium"
-        android:padding="5dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_edit_black_24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/branchName_TV"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/instituteName_TV" />
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

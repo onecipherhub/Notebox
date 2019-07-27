@@ -92,9 +92,6 @@ public class FillDetails extends Fragment {
 
         final List<ItemDataBranchSelector> list = new ArrayList<>();
 
-        getActivity().getSharedPreferences("user", MODE_PRIVATE)
-                .edit().remove("isDetailsFilled").apply();
-
         if (new Internet(getActivity()).isAvailable()) {
             //get the list of institutes, courses and branches
             FirebaseFirestore.getInstance().collection("institutes")
@@ -183,7 +180,7 @@ public class FillDetails extends Fragment {
                                     }
                                 });
                             } catch (JSONException e) {
-                                e.printStackTrace();
+                                Log.d(TAG, String.valueOf(e));
                             }
                         }
                     } else {
@@ -194,7 +191,6 @@ public class FillDetails extends Fragment {
         } else {
             Toast.makeText(getActivity(), "Try to restart Activity", Toast.LENGTH_SHORT).show();
         }
-
 
         fullName_ET.addTextChangedListener(new TextWatcher() {
             @Override
