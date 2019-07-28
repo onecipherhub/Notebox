@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -285,7 +286,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 //        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
     View dialogView = getLayoutInflater().inflate(R.layout.dialog_pdf, null);
-    Dialog dialog = new Dialog(this, R.style.DialogBottomAnimation);
+    final BottomSheetDialog dialog = new BottomSheetDialog(this, R.style.DialogBottomAnimation);
     dialog.getWindow().setGravity(Gravity.BOTTOM);
     dialog.setContentView(dialogView);
     dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
@@ -306,6 +307,14 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
     final Button bookmark_B = dialogView.findViewById(R.id.bookmark_B);
     final Button like_IB = dialogView.findViewById(R.id.like_IB);
     final Button dislike_IB = dialogView.findViewById(R.id.dislike_IB);
+    ImageButton closeTemplateArrow_IB = dialogView.findViewById(R.id.closeTemplateArrow_IB);
+
+    closeTemplateArrow_IB.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        dialog.dismiss();
+      }
+    });
 
     userLikedPDFs = "";
     userDislikedPDFs = "";
