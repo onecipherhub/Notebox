@@ -12,6 +12,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
@@ -44,28 +46,24 @@ import in.cipherhub.notebox.Downloads;
 import in.cipherhub.notebox.R;
 import in.cipherhub.notebox.registration.SignIn;
 import in.cipherhub.notebox.utils.ImageSaver;
+import in.cipherhub.notebox.utils.RoundImageView;
 
 import static android.app.Activity.RESULT_OK;
 
 
 public class Profile extends Fragment implements View.OnClickListener {
 
-    String TAG = "ProfileOX";
-    Button reportbutton, sharebutton, feedbackbutton, aboutbutton, bookmarks_B, downloads_B;
+    private String TAG = "ProfileOX";
+    private Button reportbutton, sharebutton, feedbackbutton, aboutbutton, bookmarks_B, downloads_B;
 
-    FirebaseAuth firebaseAuth;
-    SharedPreferences localDB;
-    JSONObject userObject;
+    private FirebaseAuth firebaseAuth;
+    private SharedPreferences localDB;
+    private JSONObject userObject;
 
-    ImageButton userDisplayPicture;
-
-    private static final int RESULT_LOAD_IMAGE = 203;
-
-    String filePath;
-
+    private RoundImageView userDisplayPicture;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -294,7 +292,8 @@ public class Profile extends Fragment implements View.OnClickListener {
 //                    }
 //                }
 //
-//                Uri uri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/notebox-1559903149503.appspot.com/o/CSE%2FPYTHON%2FNumpy%20Exercises%20(Unit-1).pdf?alt=media&token=daa8d108-24c4-482b-b4c0-d5a6fb9e15df");
+//                Uri uri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/notebox-1559903149503.appspot.
+//                com/o/CSE%2FPYTHON%2FNumpy%20Exercises%20(Unit-1).pdf?alt=media&token=daa8d108-24c4-482b-b4c0-d5a6fb9e15df");
 //
 //                DownloadManager mgr = (DownloadManager) Objects.requireNonNull(
 //                        getActivity()).getSystemService(Context.DOWNLOAD_SERVICE);
