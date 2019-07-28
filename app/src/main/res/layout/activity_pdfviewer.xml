@@ -1,16 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/container"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/pdfViewer_RV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity"
-        tools:ignore="MergeRootFrame" />
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pdfName_TV" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/pageCount_TV"
+        android:layout_width="70dp"
+        android:layout_height="30dp"
+        android:background="@color/colorWhite_FFFFFF"
+        android:fontFamily="@font/segoe_ui"
+        android:gravity="center"
+        android:text="0 / 0"
+        android:textColor="@color/colorGray_777777"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pdfName_TV"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:background="@color/colorWhite_FFFFFF"
+        android:fontFamily="@font/josefin_sans_regular"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:paddingEnd="10dp"
+        android:text="U1_CN2_CSE_BE_NMIT"
+        android:textColor="@color/colorAppTheme"
+        app:layout_constraintEnd_toStartOf="@+id/pageCount_TV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.transition.Transition;
@@ -57,6 +58,7 @@ import java.util.Objects;
 
 import in.cipherhub.notebox.MainActivity;
 import in.cipherhub.notebox.R;
+import in.cipherhub.notebox.utils.Internet;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -134,7 +136,7 @@ public class Upload extends Fragment implements View.OnClickListener {
     subjectAbbList = new ArrayList<>();
     for (Map.Entry<String, String> entry : getSubjectList().entrySet()) {
 
-      subjectList.add(entry.getKey());
+      subjectList.add("(" + entry.getValue() + ") " + entry.getKey());
       subjectAbbList.add(entry.getValue());
     }
 
@@ -150,7 +152,8 @@ public class Upload extends Fragment implements View.OnClickListener {
       public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                               long arg3) {
         isSubjectsNameValid = true;
-        subjectName = subjectAbbList.get(arg2);
+        subjectName = arg0.getItemAtPosition(arg2).toString();
+        subjectName = subjectName.substring(1, subjectName.indexOf(")"));
         setPDFName();
         getClickedSubjPDFNames(subjectName);
       }
@@ -246,10 +249,12 @@ public class Upload extends Fragment implements View.OnClickListener {
 
     } else if (buttonClicked == upload_button) {
 
+
       if (!isSubjectsNameValid) {
         Toast.makeText(getContext(), "Subject name must be selected from list(auto-fill)", Toast.LENGTH_LONG).show();
       } else {
-        uploadFile();
+        if (new Internet(getActivity()).isAvailable())
+          uploadFile();
       }
     } else {
       for (Button button : allButtons) {
@@ -376,6 +381,27 @@ public class Upload extends Fragment implements View.OnClickListener {
                 Log.w(TAG, "Error writing document", e);
               }
             });
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+    DocumentReference userDocRef = db.collection("users").document(user.getUid());
+
+    Map<String, Object> userUploads = new HashMap<>();
+    userUploads.put("uploads", pdf);
+
+    pdfDocRef.set(userUploads, SetOptions.merge())
+            .addOnSuccessListener(new OnSuccessListener<Void>() {
+              @Override
+              public void onSuccess(Void aVoid) {
+                Log.d(TAG, "DocumentSnapshot successfully written!");
+              }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+              @Override
+              public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Error writing document", e);
+              }
+            });
+
   }
 
 
