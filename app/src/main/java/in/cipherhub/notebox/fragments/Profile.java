@@ -106,10 +106,9 @@ public class Profile extends Fragment implements View.OnClickListener {
                 Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
                 shareIntent.setType("text/plain");
                 shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Insert Subject here");
-                String app_url = "cipherhub.ml";
+                String app_url = "acno.ml";
                 shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, app_url);
                 startActivity(Intent.createChooser(shareIntent, "Share via"));
-
             }
         });
 
@@ -148,9 +147,7 @@ public class Profile extends Fragment implements View.OnClickListener {
                     startActivity(Intent.createChooser(i, "Feedback"));
                 } catch (android.content.ActivityNotFoundException ex) {
                     //Toast.makeText(MyActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
-
                 }
-
             }
         });
 
@@ -166,13 +163,11 @@ public class Profile extends Fragment implements View.OnClickListener {
         userDisplayPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 CropImage.activity()
                         .setCropShape(CropImageView.CropShape.OVAL)
                         .setAspectRatio(2, 2)
                         .setMaxZoom(2)
                         .start(getActivity(), Profile.this);
-
 //                startActivityForResult(new Intent(Intent.ACTION_PICK,
 //                        android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), RESULT_LOAD_IMAGE);
 

@@ -27,7 +27,6 @@ import java.util.List;
 import in.cipherhub.notebox.adapters.AdapterPDFViewerList;
 import in.cipherhub.notebox.models.ItemPDFPage;
 import in.cipherhub.notebox.utils.OnPinchListener;
-import in.cipherhub.notebox.utils.PinchZoomItemTouchListener;
 
 public class PDFViewer extends AppCompatActivity {
 
