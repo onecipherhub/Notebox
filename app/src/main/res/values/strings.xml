@@ -54,6 +54,8 @@
 
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="no_bookmarks_saved">No Bookmarks saved!</string>
+    <string name="open_pdf">Open PDF</string>
+    <string name="downloads">Downloads</string>
     //Arrays of Subjects
     <string-array name="cse_subject">
         <item>DS</item>

@@ -21,13 +21,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import in.cipherhub.notebox.BookmarkActivity;
+import in.cipherhub.notebox.Downloads;
 import in.cipherhub.notebox.R;
 import in.cipherhub.notebox.registration.SignIn;
 
 public class Profile extends Fragment implements View.OnClickListener {
 
     String TAG = "ProfileOX";
-    Button reportbutton, sharebutton, feedbackbutton, aboutbutton, bookmarks_B;
+    Button reportbutton, sharebutton, feedbackbutton, aboutbutton, bookmarks_B, downloads_B;
 
     FirebaseAuth firebaseAuth;
     SharedPreferences localDB;
@@ -47,11 +48,19 @@ public class Profile extends Fragment implements View.OnClickListener {
         feedbackbutton = rootView.findViewById(R.id.feedback_b);
         aboutbutton = rootView.findViewById(R.id.about_b);
         bookmarks_B = rootView.findViewById(R.id.bookmarks_B);
+        downloads_B = rootView.findViewById(R.id.downloads_B);
 
         bookmarks_B.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), BookmarkActivity.class));
+            }
+        });
+
+        downloads_B.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), Downloads.class));
             }
         });
 
