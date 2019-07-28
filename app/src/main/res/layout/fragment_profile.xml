@@ -39,16 +39,16 @@
             android:text="Your Profile"
             android:textColor="@color/colorAppTheme"
             android:textSize="26sp"
-            app:layout_constraintEnd_toStartOf="@+id/userDisplayPicture_IB"
+            app:layout_constraintEnd_toStartOf="@+id/userDisplayPicture"
             app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
-            android:id="@+id/userDisplayPicture_IB"
+            android:id="@+id/userDisplayPicture"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginEnd="24dp"
-            android:backgroundTint="@color/colorWhite_FFFFFF"
+            android:backgroundTint="@color/md_white_1000"
             android:contentDescription="@string/button_with_icon"
             android:padding="0dp"
             android:scaleType="centerCrop"
@@ -56,6 +56,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/fullName_TV"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView2" />
+
 
         <TextView
             android:id="@+id/rating_TV"
@@ -92,7 +93,7 @@
             app:cardCornerRadius="15dp"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/rating_RB"
-            app:layout_constraintEnd_toEndOf="@+id/userDisplayPicture_IB"
+            app:layout_constraintEnd_toEndOf="@+id/userDisplayPicture"
             app:layout_constraintTop_toTopOf="@+id/rating_RB">
 
             <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,28 +1,51 @@
 package in.cipherhub.notebox.fragments;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Toast;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import in.cipherhub.notebox.BookmarkActivity;
 import in.cipherhub.notebox.R;
 import in.cipherhub.notebox.registration.SignIn;
+import in.cipherhub.notebox.utils.ImageSaver;
+
+import static android.app.Activity.RESULT_OK;
+
 
 public class Profile extends Fragment implements View.OnClickListener {
 
@@ -32,6 +55,13 @@ public class Profile extends Fragment implements View.OnClickListener {
     FirebaseAuth firebaseAuth;
     SharedPreferences localDB;
     JSONObject userObject;
+
+    ImageButton userDisplayPicture;
+
+    private static final int RESULT_LOAD_IMAGE = 203;
+
+    String filePath;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,6 +77,12 @@ public class Profile extends Fragment implements View.OnClickListener {
         feedbackbutton = rootView.findViewById(R.id.feedback_b);
         aboutbutton = rootView.findViewById(R.id.about_b);
         bookmarks_B = rootView.findViewById(R.id.bookmarks_B);
+        userDisplayPicture = rootView.findViewById(R.id.userDisplayPicture);
+
+        userDisplayPicture.setImageDrawable(getResources().getDrawable(R.drawable.ic_profile_grayed_filled));
+
+        loadImage();
+
 
         bookmarks_B.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,9 +111,9 @@ public class Profile extends Fragment implements View.OnClickListener {
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("message/rfc822");
 
-                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"onecipherhub@gmail.com"});
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"onecipherhub@gmail.com"});
                 i.putExtra(Intent.EXTRA_SUBJECT, "Report your issues.");
-                i.putExtra(Intent.EXTRA_TEXT   , "We will contact you soon. Please write in details.");
+                i.putExtra(Intent.EXTRA_TEXT, "We will contact you soon. Please write in details.");
                 //startActivity(Intent.createChooser(i, "Choose an Email client :"));
 
                 try {
@@ -95,9 +131,9 @@ public class Profile extends Fragment implements View.OnClickListener {
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("message/rfc822");
 
-                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"onecipherhub@gmail.com"});
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"onecipherhub@gmail.com"});
                 i.putExtra(Intent.EXTRA_SUBJECT, "Share your valuable feedback.");
-                i.putExtra(Intent.EXTRA_TEXT   , "Your feedback is highly appreciated and will help us to improve.");
+                i.putExtra(Intent.EXTRA_TEXT, "Your feedback is highly appreciated and will help us to improve.");
                 //startActivity(Intent.createChooser(i, "Choose an Email client :"));
 
                 try {
@@ -119,6 +155,23 @@ public class Profile extends Fragment implements View.OnClickListener {
         });
 
 
+        userDisplayPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                CropImage.activity()
+                        .setCropShape(CropImageView.CropShape.OVAL)
+                        .setAspectRatio(2, 2)
+                        .setMaxZoom(2)
+                        .start(getActivity(), Profile.this);
+
+//                startActivityForResult(new Intent(Intent.ACTION_PICK,
+//                        android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI), RESULT_LOAD_IMAGE);
+
+            }
+        });
+
+
         Button logOut_B = rootView.findViewById(R.id.logOut_B);
         TextView fullName_TV = rootView.findViewById(R.id.fullName_TV);
         TextView instituteName_TV = rootView.findViewById(R.id.instituteName_TV);
@@ -132,6 +185,7 @@ public class Profile extends Fragment implements View.OnClickListener {
 
 
         try {
+
             userObject = new JSONObject(localDB.getString("user", "Error Fetching..."));
 
             rating_RB.setRating((float) userObject.getDouble("rating"));
@@ -153,12 +207,56 @@ public class Profile extends Fragment implements View.OnClickListener {
     }
 
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+
+            try {
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                Uri resultUri = result.getUri();
+                Log.i(TAG, String.valueOf(resultUri));
+
+                Bitmap bitmap = null;
+                try {
+
+                    userDisplayPicture.setImageURI(resultUri);
+                    userDisplayPicture.setScaleType(ImageView.ScaleType.FIT_XY);
+                    bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), resultUri);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                new ImageSaver(getContext())
+                        .setFileName("profile.png")
+                        .setDirectoryName("images")
+                        .save(bitmap);
+
+            } catch (RuntimeException e) {
+
+                Toast.makeText(getContext(), "Couldn't Select the image!", Toast.LENGTH_SHORT).show();
+
+            }
+        }
+
+    }
+
+    private void loadImage() {
+        Bitmap bitmap = new ImageSaver(getContext()).
+                setFileName("profile.png").
+                setDirectoryName("images").
+                load();
+
+        userDisplayPicture.setImageBitmap(bitmap);
+    }
+
     //About button
     private void showAbout(View v) {
         ViewGroup viewGroup = v.findViewById(android.R.id.content);
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_about_profile, viewGroup, false);
-
         Button button = view.findViewById(R.id.webLink_B);
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -174,6 +272,9 @@ public class Profile extends Fragment implements View.OnClickListener {
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
+//    =================================== DO NOT REMOVE THIS CODE ===================================
+
 //            case R.id.download_pdf:
 //
 //                // Create our main directory for storing files
