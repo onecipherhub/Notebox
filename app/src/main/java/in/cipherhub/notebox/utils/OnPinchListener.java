@@ -69,37 +69,6 @@ public class OnPinchListener extends ScaleGestureDetector.SimpleOnScaleGestureLi
     );
     Log.d("OXET", layoutParams.width +" | " + layoutParams.height);
     srcImageView.setLayoutParams(layoutParams);
-//    // Get source image bitmap object.
-//    BitmapDrawable srcBitmapDrawable = (BitmapDrawable) srcImageView.getDrawable();
-//    Bitmap srcBitmap = srcBitmapDrawable.getBitmap();
-//
-//    // Get source image width and height.
-//    int srcImageWith = srcBitmap.getWidth();
-//    int srcImageHeight = srcBitmap.getHeight();
-//
-//    // Get source image config object.
-//    Config srcImageConfig = srcBitmap.getConfig();
-//
-//    // Create a new bitmap which has scaled width and height value from source bitmap.
-//    Bitmap scaleBitmap = Bitmap.createBitmap((int)(srcImageWith * xScale), (int)(srcImageHeight * yScale), srcImageConfig);
-//
-//    // Create the scaled canvas.
-//    Canvas scaleCanvas = new Canvas(scaleBitmap);
-//
-//    // Create the Matrix object which will scale the source bitmap to target.
-//    Matrix scaleMatrix = new Matrix();
-//
-//    // Set x y scale value.
-//    scaleMatrix.setScale(xScale, yScale);
-//
-//    // Create a new paint object.
-//    Paint paint = new Paint();
-//
-//    // Draw the new scaled bitmap in the canvas.
-//    scaleCanvas.drawBitmap(srcBitmap, scaleMatrix, paint);
-//
-//    // Display the new scaled bitmap to source image view object.
-//    srcImageView.setImageBitmap(scaleBitmap);
   }
 }
 

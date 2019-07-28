@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,12 +8,12 @@
     tools:context=".Downloads">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bookmark_CL"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/bookmark_CL">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView31"
@@ -34,22 +33,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/comfortaa_bold"
-            android:text="Downloads"
+            android:text="@string/downloads"
             android:textColor="@color/colorAppTheme"
             android:textSize="26sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <ImageButton
+            android:id="@+id/closeDownload_IB"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/ic_file_download_green_24dp"
-            android:scaleType="center"
+            android:alpha="0.8"
+            android:background="@drawable/bg_br_radius_gray_medium"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_close_black_24dp"
             app:layout_constraintBottom_toBottomOf="@+id/pageTitleHere_TV"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView31" />
@@ -60,21 +62,33 @@
         android:id="@+id/subjectsLayout_CL"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-
-
-        android:layout_marginBottom="8dp"
         android:background="@color/colorWhite_FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bookmark_CL"
-        tools:layout_editor_absoluteX="34dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bookmark_CL">
 
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/segoe_ui"
+            android:text="PDF details is same as when the PDF was downloaded!"
+            android:textAlignment="center"
+            android:textColor="@color/colorGray_AAAAAA"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/bookmarkSearch_ET"
+            app:layout_constraintStart_toStartOf="@+id/bookmarkSearch_ET" />
 
         <EditText
-            android:id="@+id/pdfSearch_ET"
+            android:id="@+id/bookmarkSearch_ET"
             android:layout_width="0dp"
             android:layout_height="35dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
             android:background="@drawable/bg_radius_gray"
             android:ems="10"
@@ -100,22 +114,24 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:src="@drawable/icon_search"
-            app:layout_constraintBottom_toBottomOf="@+id/pdfSearch_ET"
-            app:layout_constraintEnd_toEndOf="@+id/pdfSearch_ET"
-            app:layout_constraintTop_toTopOf="@+id/pdfSearch_ET" />
+            app:layout_constraintBottom_toBottomOf="@+id/bookmarkSearch_ET"
+            app:layout_constraintEnd_toEndOf="@+id/bookmarkSearch_ET"
+            app:layout_constraintTop_toTopOf="@+id/bookmarkSearch_ET" />
+
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/homeSubjects_RV"
+            android:id="@+id/bookmarkSubjects_RV"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:background="@color/colorWhite_FFFFFF"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:overScrollMode="never"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pdfSearch_ET" />
+            app:layout_constraintTop_toBottomOf="@+id/bookmarkSearch_ET" />
+
 
         <LinearLayout
             android:id="@+id/notSignedInTemplate_LL"
@@ -129,7 +145,25 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pdfSearch_ET" />
+            app:layout_constraintTop_toBottomOf="@+id/bookmarkSearch_ET" />
+
+        <TextView
+            android:id="@+id/noDownloadSaved_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/segoe_ui"
+            android:text="@string/no_bookmarks_saved"
+            android:textStyle="italic"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

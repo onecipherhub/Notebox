@@ -40,6 +40,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import in.cipherhub.notebox.BookmarkActivity;
+import in.cipherhub.notebox.Downloads;
 import in.cipherhub.notebox.R;
 import in.cipherhub.notebox.registration.SignIn;
 import in.cipherhub.notebox.utils.ImageSaver;
@@ -50,7 +51,7 @@ import static android.app.Activity.RESULT_OK;
 public class Profile extends Fragment implements View.OnClickListener {
 
     String TAG = "ProfileOX";
-    Button reportbutton, sharebutton, feedbackbutton, aboutbutton, bookmarks_B;
+    Button reportbutton, sharebutton, feedbackbutton, aboutbutton, bookmarks_B, downloads_B;
 
     FirebaseAuth firebaseAuth;
     SharedPreferences localDB;
@@ -77,17 +78,24 @@ public class Profile extends Fragment implements View.OnClickListener {
         feedbackbutton = rootView.findViewById(R.id.feedback_b);
         aboutbutton = rootView.findViewById(R.id.about_b);
         bookmarks_B = rootView.findViewById(R.id.bookmarks_B);
+        downloads_B = rootView.findViewById(R.id.downloads_B);
         userDisplayPicture = rootView.findViewById(R.id.userDisplayPicture);
 
         userDisplayPicture.setImageDrawable(getResources().getDrawable(R.drawable.ic_profile_grayed_filled));
 
         loadImage();
 
-
         bookmarks_B.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), BookmarkActivity.class));
+            }
+        });
+
+        downloads_B.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), Downloads.class));
             }
         });
 
