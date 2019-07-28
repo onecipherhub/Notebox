@@ -29,10 +29,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -47,7 +45,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,16 +59,12 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import in.cipherhub.notebox.adapters.AdapterPDFList;
-import in.cipherhub.notebox.models.ItemDataBranchSelector;
 import in.cipherhub.notebox.models.ItemPDFList;
-import in.cipherhub.notebox.utils.Internet;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class PDFList extends AppCompatActivity implements View.OnClickListener {
 
-  private String TAG = "PDFListOXET";
-  String userLikedPDFs = "", userDislikedPDFs = "";
+  boolean isAlreadyLiked = false, isAlreadyDisliked = false;
+  private String TAG = "PDFListOXET", userLikedPDFs = "", userDislikedPDFs = "";
   int likedCount = 0, dislikedCount = 0, totalRating = 0;
 
   Button unitOne_B, unitTwo_B, unitThree_B, unitFour_B, unitFive_B;
@@ -79,6 +72,8 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
   List<ItemPDFList> pdfList = new ArrayList<>();
   List<ItemPDFList> filteredPDFList = new ArrayList<>();
   ItemPDFList openedPDFItem;
+  Map<String, Object> pdfDetails;
+
 
   FirebaseFirestore db;
   FirebaseAuth firebaseAuth;
@@ -92,7 +87,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 
   RecyclerView PDFList_RV;
   AdapterPDFList adapterPDFList;
-  DocumentReference pdfDocRef;
+  DocumentReference pdfDocRef, userDocRef;
   Bundle extras;
 
   @Override
@@ -214,9 +209,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
             String pdfName = pdfs.next();
             try {
               pdf = subject.getJSONObject(pdfName);
-              likedCount = pdf.getInt("likes");
-              dislikedCount = pdf.getInt("dislikes");
-              totalRating = likedCount - dislikedCount;
+              totalRating = pdf.getInt("likes") - pdf.getInt("dislikes");
               pdfList.add(new ItemPDFList(
                       pdfName
                       , pdf.getString("by")
@@ -224,7 +217,8 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
                       , pdf.getString("date")
                       , pdf.getInt("shares")
                       , pdf.getInt("downloads")
-                      , totalRating
+                      , pdf.getInt("likes")
+                      , pdf.getInt("dislikes")
               ));
             } catch (JSONException e1) {
               Log.d(TAG, "error: " + e1);
@@ -259,9 +253,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
         if (pdfName.startsWith("U" + buttonClicked.getText().toString())) {
           try {
             JSONObject pdf = subject.getJSONObject(pdfName);
-            likedCount = pdf.getInt("likes");
-            dislikedCount = pdf.getInt("dislikes");
-            totalRating = likedCount - dislikedCount;
+            totalRating = pdf.getInt("likes") - pdf.getInt("dislikes");
             pdfList.add(new ItemPDFList(
                     pdfName
                     , pdf.getString("by")
@@ -269,7 +261,8 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
                     , pdf.getString("date")
                     , pdf.getInt("shares")
                     , pdf.getInt("downloads")
-                    , totalRating
+                    , pdf.getInt("likes")
+                    , pdf.getInt("dislikes")
             ));
             Log.d(TAG, "pdfList: " + pdfList);
           } catch (JSONException e1) {
@@ -283,8 +276,6 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 
 
   private void buildDialog() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
     View dialogView = getLayoutInflater().inflate(R.layout.dialog_pdf, null);
     final BottomSheetDialog dialog = new BottomSheetDialog(this, R.style.DialogBottomAnimation);
     dialog.getWindow().setGravity(Gravity.BOTTOM);
@@ -319,21 +310,23 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
     userLikedPDFs = "";
     userDislikedPDFs = "";
 
-    final DocumentReference userDocRef = db.collection("users").document(user.getUid());
-    Log.d(TAG, user.getUid());
+    userDocRef = db.collection("users").document(user.getUid());
+
+    likedCount = openedPDFItem.getLikes();
+    dislikedCount = openedPDFItem.getDislikes();
 
     userDocRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
       @Override
       public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
         if (documentSnapshot != null) {
           try {
-            JSONArray likedArray = new JSONObject(documentSnapshot.getData()).getJSONArray("liked");
-            JSONArray dislikedArray = new JSONObject(documentSnapshot.getData()).getJSONArray("disliked");
+            userLikedPDFs = String.valueOf(new JSONObject(documentSnapshot.getData()).getJSONArray("liked"));
+            userDislikedPDFs = String.valueOf(new JSONObject(documentSnapshot.getData()).getJSONArray("disliked"));
 
-            userLikedPDFs = String.valueOf(likedArray);
-            if (userLikedPDFs.contains(openedPDFItem.getName())) {
-//              like_IB.setCompoundDrawableTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorLightAppTheme)));
-//              like_IB.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorLightAppTheme)));
+            isAlreadyLiked = userLikedPDFs.contains(openedPDFItem.getName());
+            isAlreadyDisliked = userDislikedPDFs.contains(openedPDFItem.getName());
+
+            if (isAlreadyLiked) {
               like_IB.setCompoundDrawablesRelativeWithIntrinsicBounds(null
                       , getDrawable(R.drawable.ic_thumb_up_black_24dp), null, null);
             } else {
@@ -342,8 +335,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
             }
             like_IB.setText(String.valueOf(likedCount));
 
-            userDislikedPDFs = String.valueOf(dislikedArray);
-            if (userDislikedPDFs.contains(openedPDFItem.getName())) {
+            if (isAlreadyDisliked) {
               dislike_IB.setCompoundDrawablesRelativeWithIntrinsicBounds(null
                       , getDrawable(R.drawable.ic_thumb_down_black_24dp), null, null);
             } else {
@@ -405,7 +397,8 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
           pdfDetails.put("date", "\"" + openedPDFItem.getDate() + "\"");
           pdfDetails.put("shares", "\"" + openedPDFItem.getTotalShares() + "\"");
           pdfDetails.put("downloads", "\"" + openedPDFItem.getTotalDownloads() + "\"");
-          pdfDetails.put("rating", "\"" + openedPDFItem.getRating() + "\"");
+          pdfDetails.put("likes", "\"" + openedPDFItem.getLikes() + "\"");
+          pdfDetails.put("dislikes", "\"" + openedPDFItem.getDislikes() + "\"");
           try {
             pdfDetails.put("url", "\"" + subject.getJSONObject(openedPDFItem.getName()).getString("url") + "\"");
           } catch (JSONException e) {
@@ -475,10 +468,11 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
         }
 
         /*============= END OF -> DOWNLOADING AND VIEWING PDF CODE ==================*/
-
       }
     });
-    final Map<String, Object> pdfDetails = new HashMap<>();
+
+    // pdfDetails is the details of this PDF to update the firebase
+    pdfDetails = new HashMap<>();
     pdfDetails.put("author", openedPDFItem.getAuthor());
     pdfDetails.put("by", openedPDFItem.getBy());
     pdfDetails.put("date", openedPDFItem.getDate());
@@ -493,225 +487,92 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
       e.printStackTrace();
     }
 
-
     like_IB.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        if (!userLikedPDFs.contains(openedPDFItem.getName())) {
-          likedCount++;
-          pdfDetails.put("likes", likedCount);
-          // if user had previously disliked the PDF then remove dislike
-          if (userDislikedPDFs.contains(openedPDFItem.getName())) {
-            dislikedCount--;
-            pdfDetails.put("dislikes", dislikedCount);
-            // update the user dislikes array
-            userDocRef.update("disliked", FieldValue.arrayRemove(openedPDFItem.getName()))
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                      @Override
-                      public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "Un-disliked & updated");
-                      }
-                    });
-          }
-          // update the user liked array
-          userDocRef.update("liked", FieldValue.arrayUnion(openedPDFItem.getName()))
-                  .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                      userDocRef.update("disliked", FieldValue.arrayRemove(openedPDFItem.getName()))
-                              .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                  Log.d(TAG, "Un-disliked & updated");
-                                }
-                              });
-                      Log.d(TAG, "Liked & updated");
-                    }
-                  });
-        } else {
-          // if previously liked and user wants to remove the like
-          likedCount--;
-          pdfDetails.put("likes", likedCount);
-          // update user likes in the user section
-          userDocRef.update("liked", FieldValue.arrayRemove(openedPDFItem.getName()))
-                  .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                      Log.d(TAG, "Un-liked & updated");
-                    }
 
-                  });
+        if (isAlreadyLiked) {
+          // remove like
+          Log.d(TAG, "1.1: " + likedCount);
+          likedCount--;
+          Log.d(TAG, "1.2: " + likedCount);
+          addPDFToUserPDFs("liked", FieldValue.arrayRemove(openedPDFItem.getName()));
+        } else {
+          // add like
+          likedCount++;
+          addPDFToUserPDFs("liked", FieldValue.arrayUnion(openedPDFItem.getName()));
+          Log.d(TAG, "2: " + likedCount);
+          if (isAlreadyDisliked) {
+            // remove dislike
+            dislikedCount--;
+            addPDFToUserPDFs("disliked", FieldValue.arrayRemove(openedPDFItem.getName()));
+            Log.d(TAG, "3: " + likedCount + " | " + dislikedCount);
+          }
         }
-        // update in the notes section for likes
-        pdfDocRef.update(openedPDFItem.getName(), pdfDetails)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                  @Override
-                  public void onSuccess(Void aVoid) {
-                    Log.d(TAG, "Like updated in notes section");
-                  }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                  @Override
-                  public void onFailure(@NonNull Exception e) {
-                    Log.d(TAG, "Failed to update likes in notes section");
-                  }
-                });
+        updateLikes();
       }
     });
 
     dislike_IB.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        if (!userDislikedPDFs.contains(openedPDFItem.getName())) {
-          // if user wants to dislike the PDF
-          dislikedCount++;
-          pdfDetails.put("dislikes", dislikedCount);
-          if (userLikedPDFs.contains(openedPDFItem.getName())) {
-            // if user had previously liked the PDF then his like should be removed
-            likedCount--;
-            pdfDetails.put("likes", likedCount);
-            userDocRef.update("liked", FieldValue.arrayRemove(openedPDFItem.getName()))
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                      @Override
-                      public void onSuccess(Void aVoid) {
-                        Log.i(TAG, "Un-liked & updated");
-                      }
-                    });
-          }
-          // add this PDF to user disliked PDFs
-          userDocRef.update("disliked", FieldValue.arrayUnion(openedPDFItem.getName()))
-                  .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                      userDocRef.update("liked", FieldValue.arrayRemove(openedPDFItem.getName()))
-                              .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                  Log.d(TAG, "Un-liked & updated");
-                                }
-                              });
-                      Log.i(TAG, "Disliked & updated");
-                    }
-                  });
-        } else {
-          // if user wants to remove dislike from this PDF
+
+        if (isAlreadyDisliked) {
           dislikedCount--;
-          pdfDetails.put("dislikes", dislikedCount);
-          // remove dislike from user disliked PDFs
-          userDocRef.update("disliked", FieldValue.arrayRemove(openedPDFItem.getName()))
-                  .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                      Log.d(TAG, "Un-disliked & updated");
-                    }
-                  });
+          addPDFToUserPDFs("disliked", FieldValue.arrayRemove(openedPDFItem.getName()));
+          Log.d(TAG, "4");
+        } else {
+          dislikedCount++;
+          addPDFToUserPDFs("disliked", FieldValue.arrayUnion(openedPDFItem.getName()));
+          Log.d(TAG, "5");
+          if (isAlreadyLiked) {
+            likedCount--;
+            addPDFToUserPDFs("liked", FieldValue.arrayRemove(openedPDFItem.getName()));
+            Log.d(TAG, "6");
+          }
         }
-        // update dislike count in notes section
-        pdfDocRef.update(openedPDFItem.getName(), pdfDetails)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                  @Override
-                  public void onSuccess(Void aVoid) {
-                    Log.d(TAG, "Dislike updated in notes section");
-                  }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                  @Override
-                  public void onFailure(@NonNull Exception e) {
-                    Log.d(TAG, "Failed to update dislikes in notes section");
-                  }
-                });
+        updateLikes();
       }
     });
+  }
 
-//    like_IB.setOnClickListener(new View.OnClickListener() {
-//      @Override
-//      public void onClick(View view) {
-//        // initialize variables for local use
-//        final int afterRating;
-//        boolean likeThisPDF;
-//
-//        // inflate all the PDF details to change just one value #beingCheap
-//        Map<String, Object> pdfDetails = new HashMap<>();
-//        pdfDetails.put("name", openedPDFItem.getName());
-//        pdfDetails.put("by", openedPDFItem.getBy());
-//        pdfDetails.put("author", openedPDFItem.getAuthor());
-//        pdfDetails.put("date", openedPDFItem.getDate());
-//        pdfDetails.put("shares", openedPDFItem.getTotalShares());
-//        pdfDetails.put("downloads", openedPDFItem.getTotalDownloads());
-//        try {
-//          pdfDetails.put("url", subject.getJSONObject(openedPDFItem.getName()).getString("url"));
-//          pdfDetails.put("liked_users", subject.getJSONObject(openedPDFItem.getName()).getJSONArray("liked_users"));
-//        } catch (JSONException e) {
-//          Log.e(TAG, String.valueOf(e));
-//        }
-//
-//        if (likedUsers.toString().contains(user.getUid())) {
-//          // UNLIKE code here
-//
-//          like_IB.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorGray_AAAAAA)));
-//          afterRating = openedPDFItem.getRating() - 1;
-//          likeThisPDF = false;
-//        } else {
-//          // LIKE code here
-//
-//          like_IB.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorLightAppTheme)));
-//          afterRating = openedPDFItem.getRating() + 1;
-//          likeThisPDF = true;
-//        }
-//
-//        pdfDetails.put("rating", afterRating);
-//
-//        // update new rating in the cloud
-//        final boolean finalLike = likeThisPDF;
-//        pdfDocRef.update(openedPDFItem.getName(), pdfDetails)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                  @Override
-//                  public void onSuccess(Void aVoid) {
-//                    rating_TV.setText(String.valueOf(afterRating));
-//                    localLikeDBBooleanEditor.putBoolean(openedPDFItem.getName(), finalLike);
-//                    Toast.makeText(PDFList.this, "Updated!", Toast.LENGTH_SHORT).show();
-//                  }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                  @Override
-//                  public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(PDFList.this, "Failed to update likes!", Toast.LENGTH_SHORT).show();
-//                  }
-//                });
-//      }
-//    });
 
-//    dislike_IB.setOnClickListener(new View.OnClickListener() {
-//      @Override
-//      public void onClick(View view) {
-//        like_IB.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorGray_AAAAAA)));
-//        dislike_IB.setImageTintList(ColorStateList.valueOf(getResources().getColor(R.color.colorLightAppTheme)));
-//        int afterRating = openedPDFItem.getRating() - 1;
-//        rating_TV.setText(String.valueOf(afterRating));
-//
-//        Map<String, Object> pdfDetails = new HashMap<>();
-//        pdfDetails.put("name", openedPDFItem.getName());
-//        pdfDetails.put("by", openedPDFItem.getBy());
-//        pdfDetails.put("author", openedPDFItem.getAuthor());
-//        pdfDetails.put("date", openedPDFItem.getDate());
-//        pdfDetails.put("shares", openedPDFItem.getTotalShares());
-//        pdfDetails.put("downloads", openedPDFItem.getTotalDownloads());
-//        pdfDetails.put("rating", afterRating);
-//        pdfDocRef.update(openedPDFItem.getName(), pdfDetails)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                  @Override
-//                  public void onSuccess(Void aVoid) {
-//                  }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                  @Override
-//                  public void onFailure(@NonNull Exception e) {
-//
-//                    Toast.makeText(PDFList.this, "Failed to update likes!", Toast.LENGTH_SHORT).show();
-//                  }
-//                });
-//      }
-//    });
+  public void updateLikes() {
+    pdfDetails.put("likes", likedCount);
+    pdfDetails.put("dislikes", dislikedCount);
+
+    pdfDocRef.update(openedPDFItem.getName(), pdfDetails)
+            .addOnSuccessListener(new OnSuccessListener<Void>() {
+              @Override
+              public void onSuccess(Void aVoid) {
+                Log.d(TAG, "Like updated in notes section");
+              }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+              @Override
+              public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "Failed to update likes in notes section");
+              }
+            });
+  }
+
+
+  public void addPDFToUserPDFs(String arrayName, Object fieldValue) {
+
+    // update the user liked array
+    userDocRef.update(arrayName, fieldValue)
+            .addOnSuccessListener(new OnSuccessListener<Void>() {
+              @Override
+              public void onSuccess(Void aVoid) {
+                Log.d(TAG, "Liked & updated");
+              }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+              @Override
+              public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "Failed to Liked & updated");
+              }
+            });
   }
 
 

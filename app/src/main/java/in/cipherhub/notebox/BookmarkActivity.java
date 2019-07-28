@@ -133,7 +133,8 @@ public class BookmarkActivity extends AppCompatActivity {
                 , pdf.getString("date")
                 , pdf.getInt("shares")
                 , pdf.getInt("downloads")
-                , pdf.getInt("rating")
+                , pdf.getInt("likes")
+                , pdf.getInt("dislikes")
         ));
       } catch (JSONException e) {
         Log.d(TAG, String.valueOf(e));
@@ -179,7 +180,7 @@ public class BookmarkActivity extends AppCompatActivity {
     date_TV.setText(openedPDFItem.getDate());
     sharesCount_TV.setText(String.valueOf(openedPDFItem.getTotalShares()));
     downloadsCount_TV.setText(String.valueOf(openedPDFItem.getTotalDownloads()));
-    rating_TV.setText(String.valueOf(openedPDFItem.getRating()));
+    rating_TV.setText(String.valueOf((openedPDFItem.getLikes() - openedPDFItem.getDislikes())));
     if (localBookmarkDBBoolean.getBoolean(openedPDFItem.getName(), false)) {
       bookmark_B.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.icon_bookmark_red_fill)
               , null, null, null);

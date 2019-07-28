@@ -1,5 +1,6 @@
 package in.cipherhub.notebox;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
@@ -61,6 +62,7 @@ public class PDFViewer extends AppCompatActivity {
     }
   }
 
+
   public void createBitmapList(String fileName) throws IOException {
     File file = new File(fileName);
 
@@ -93,18 +95,11 @@ public class PDFViewer extends AppCompatActivity {
 
     if (pdfRenderer != null) {
       for (int i = 0; i < pdfRenderer.getPageCount(); i++) {
-        // Use `openPage` to open a specific page in PDF.
         android.graphics.pdf.PdfRenderer.Page page = pdfRenderer.openPage(i);
 
-        // Important: the destination bitmap must be ARGB (not RGB).
         Bitmap bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(),
                 Bitmap.Config.ARGB_8888);
 
-
-        // Here, we render the page onto the Bitmap.
-        // To render a portion of the page, use the second and third parameter. Pass nulls to get
-        // the default result.
-        // Pass either RENDER_MODE_FOR_DISPLAY or RENDER_MODE_FOR_PRINT for the last parameter.
         page.render(bitmap, null, null, android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
 
         bitmapList.add(new ItemPDFPage("", bitmap));
@@ -117,6 +112,7 @@ public class PDFViewer extends AppCompatActivity {
   }
 
 
+  @SuppressLint("ClickableViewAccessibility")
   public void inflatePDFPages() {
 
     AdapterPDFViewerList adapterPDFViewerList = new AdapterPDFViewerList(bitmapList);
@@ -134,7 +130,7 @@ public class PDFViewer extends AppCompatActivity {
     });
 
     if (scaleGestureDetector == null) {
-      // Create an instance of OnPinchListner custom class.
+      // Create an instance of OnPinchListener custom class.
       OnPinchListener onPinchListener = new OnPinchListener(this, pdfViewer_RV);
 
       // Create the new scale gesture detector object use above pinch zoom gesture listener.
@@ -143,12 +139,6 @@ public class PDFViewer extends AppCompatActivity {
     createPDFInterface();
   }
 
-//  @Override
-//  public boolean onTouchEvent(MotionEvent event) {
-//    // Dispatch activity on touch event to the scale gesture detector.
-//    scaleGestureDetector.onTouchEvent(event);
-//    return true;
-//  }
 
   public void createPDFInterface(){
     String pageCount = "1 / " + layoutManagerPDFViewer.getItemCount();

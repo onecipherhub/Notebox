@@ -26,8 +26,8 @@ public class AdapterPDFList extends RecyclerView.Adapter<RecyclerView.ViewHolder
   private int adPosition;
 
   public AdapterPDFList(List<ItemPDFList> list) {
-    if (list.size() > 3) {
-      adPosition = 3;
+    if (list.size() > 2) {
+      adPosition = 2;
     } else {
       adPosition = list.size();
     }
@@ -85,7 +85,7 @@ public class AdapterPDFList extends RecyclerView.Adapter<RecyclerView.ViewHolder
       pdfListItemViewHolder.pdfName_TV.setText(pdfName);
       pdfListItemViewHolder.byValue_TV.setText(list.get(i).getBy());
       pdfListItemViewHolder.date_TV.setText(list.get(i).getDate());
-      pdfListItemViewHolder.rating_TV.setText(String.valueOf(list.get(i).getRating()));
+      pdfListItemViewHolder.rating_TV.setText(String.valueOf(list.get(i).getLikes() - list.get(i).getDislikes()));
       pdfListItemViewHolder.sharesCount_TV.setText(String.valueOf(list.get(i).getTotalShares()));
       pdfListItemViewHolder.downloadsCount_TV.setText(String.valueOf(list.get(i).getTotalDownloads()));
       pdfListItemViewHolder.authorValue_TV.setText(list.get(i).getAuthor());
@@ -100,8 +100,8 @@ public class AdapterPDFList extends RecyclerView.Adapter<RecyclerView.ViewHolder
   }
 
   public void filterList(List<ItemPDFList> filteredList) {
-    if (list.size() > 3) {
-      adPosition = 3;
+    if (list.size() > 2) {
+      adPosition = 2;
     } else {
       adPosition = filteredList.size();
     }
