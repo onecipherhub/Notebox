@@ -136,7 +136,7 @@ public class Upload extends Fragment implements View.OnClickListener {
     subjectAbbList = new ArrayList<>();
     for (Map.Entry<String, String> entry : getSubjectList().entrySet()) {
 
-      subjectList.add(entry.getKey());
+      subjectList.add("(" + entry.getValue() + ") " + entry.getKey());
       subjectAbbList.add(entry.getValue());
     }
 
@@ -152,7 +152,8 @@ public class Upload extends Fragment implements View.OnClickListener {
       public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                               long arg3) {
         isSubjectsNameValid = true;
-        subjectName = subjectAbbList.get(arg2);
+        subjectName = arg0.getItemAtPosition(arg2).toString();
+        subjectName = subjectName.substring(1, subjectName.indexOf(")"));
         setPDFName();
         getClickedSubjPDFNames(subjectName);
       }
