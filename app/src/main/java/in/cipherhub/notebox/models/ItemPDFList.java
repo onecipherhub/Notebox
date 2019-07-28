@@ -3,18 +3,18 @@ package in.cipherhub.notebox.models;
 public class ItemPDFList {
 
     private String name, by, author, date, url;
-    private int totalShares, totalDownloads;
-    private int rating;
+    private int totalShares, totalDownloads, likes, dislikes;
 
     public ItemPDFList(String name, String by, String author
-            , String date, int totalShares, int totalDownloads, int rating) {
+            , String date, int totalShares, int totalDownloads, int likes, int dislikes) {
         this.name = name;
         this.by = by;
         this.author = author;
         this.date = date;
         this.totalShares = totalShares;
         this.totalDownloads = totalDownloads;
-        this.rating = rating;
+        this.likes = likes;
+        this.dislikes = dislikes;
         this.url = url;
     }
 
@@ -28,6 +28,22 @@ public class ItemPDFList {
 
     public String getName() {
         return name;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
+    }
+
+    public int getDislikes() {
+        return dislikes;
+    }
+
+    public void setDislikes(int dislikes) {
+        this.dislikes = dislikes;
     }
 
     public void setName(String name) {
@@ -77,14 +93,5 @@ public class ItemPDFList {
 
     public void setTotalDownloads(int totalDownloads) {
         this.totalDownloads = totalDownloads;
-    }
-
-
-    public int getRating() {
-        return rating;
-    }
-
-    public void setRating(int rating) {
-        this.rating = rating;
     }
 }

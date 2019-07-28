@@ -55,7 +55,7 @@
 
         <activity
             android:name=".Downloads"
-            android:noHistory="true"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait" />
 
         <activity
