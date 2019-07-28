@@ -1,10 +1,13 @@
 package in.cipherhub.notebox;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -24,10 +27,21 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,11 +57,17 @@ public class BookmarkActivity extends AppCompatActivity {
   TextView noBookmarkSaved_TV;
   ImageButton searchIconInSearchBar_IB, closeBookmark_IB;
 
+  SharedPreferences localDownloadDB, localDownloadDBBoolean;
+  SharedPreferences.Editor localDownloadDBEditor, localDownloadDBBooleanEditor;
   SharedPreferences localBookmarkDB, localBookmarkDBBoolean;
   SharedPreferences.Editor localBookmarkDBEditor, localBookmarkDBBooleanEditor;
   List<ItemPDFList> itemPDFLists = new ArrayList<>();
   ItemPDFList openedPDFItem;
   AdapterPDFList adapterPDFList;
+
+
+  FirebaseStorage storage = FirebaseStorage.getInstance();
+  StorageReference httpsReference;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +76,10 @@ public class BookmarkActivity extends AppCompatActivity {
 
     getSupportActionBar().hide();
 
+    localDownloadDB = getSharedPreferences("localDownloadDB", MODE_PRIVATE);
+    localDownloadDBBoolean = getSharedPreferences("localDownloadDBBoolean", MODE_PRIVATE);
+    localDownloadDBEditor = localDownloadDB.edit();
+    localDownloadDBBooleanEditor = localDownloadDBBoolean.edit();
     localBookmarkDB = getSharedPreferences("localBookmarkDB", MODE_PRIVATE);
     localBookmarkDBBoolean = getSharedPreferences("localBookmarkDBBoolean", MODE_PRIVATE);
     localBookmarkDBEditor = localBookmarkDB.edit();
@@ -151,11 +175,8 @@ public class BookmarkActivity extends AppCompatActivity {
 
   private void buildDialog() {
     View dialogView = getLayoutInflater().inflate(R.layout.dialog_pdf, null);
-    final Dialog dialog = new Dialog(this, R.style.DialogBottomAnimation);
-    dialog.getWindow().setGravity(Gravity.BOTTOM);
+    final BottomSheetDialog dialog = new BottomSheetDialog(this, R.style.DialogBottomAnimation);
     dialog.setContentView(dialogView);
-    dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     dialog.getWindow().getAttributes().windowAnimations = R.style.DialogBottomAnimation;
     dialog.show();
 
@@ -164,12 +185,22 @@ public class BookmarkActivity extends AppCompatActivity {
     TextView authorValue_TV = dialogView.findViewById(R.id.authorValue_TV);
     TextView sharesCount_TV = dialogView.findViewById(R.id.sharesCount_TV);
     TextView downloadsCount_TV = dialogView.findViewById(R.id.downloadsCount_TV);
-    final TextView rating_TV = dialogView.findViewById(R.id.rating_TV);
     TextView date_TV = dialogView.findViewById(R.id.date_TV);
+    final TextView rating_TV = dialogView.findViewById(R.id.rating_TV);
+    final Button download_B = dialogView.findViewById(R.id.download_B);
+
     Button sharePDF_B = dialogView.findViewById(R.id.sharePDF_B);
     final Button bookmark_B = dialogView.findViewById(R.id.bookmark_B);
     final Button like_IB = dialogView.findViewById(R.id.like_IB);
     final Button dislike_IB = dialogView.findViewById(R.id.dislike_IB);
+    ImageButton closeTemplateArrow_IB = dialogView.findViewById(R.id.closeTemplateArrow_IB);
+
+    closeTemplateArrow_IB.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        dialog.dismiss();
+      }
+    });
 
     like_IB.setVisibility(View.GONE);
     dislike_IB.setVisibility(View.GONE);
@@ -180,10 +211,16 @@ public class BookmarkActivity extends AppCompatActivity {
     date_TV.setText(openedPDFItem.getDate());
     sharesCount_TV.setText(String.valueOf(openedPDFItem.getTotalShares()));
     downloadsCount_TV.setText(String.valueOf(openedPDFItem.getTotalDownloads()));
-    rating_TV.setText(String.valueOf((openedPDFItem.getLikes() - openedPDFItem.getDislikes())));
+    rating_TV.setText(String.valueOf(openedPDFItem.getLikes() - openedPDFItem.getDislikes()));
+
     if (localBookmarkDBBoolean.getBoolean(openedPDFItem.getName(), false)) {
       bookmark_B.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.icon_bookmark_red_fill)
               , null, null, null);
+    }
+    if (localDownloadDBBoolean.getBoolean(openedPDFItem.getName(), false)) {
+      download_B.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.ic_offline_pin_black_24dp)
+              , null, null, null);
+      download_B.setText(getResources().getString(R.string.open_pdf));
     }
 
     sharePDF_B.setOnClickListener(new View.OnClickListener() {
@@ -196,17 +233,119 @@ public class BookmarkActivity extends AppCompatActivity {
     bookmark_B.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        // if already bookmarked
-        bookmark_B.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.icon_bookmark_gray_border)
-                , null, null, null);
+        if (localBookmarkDBBoolean.getBoolean(openedPDFItem.getName(), false)) {
+          // if already bookmarked
+          bookmark_B.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.icon_bookmark_gray_border)
+                  , null, null, null);
 
-        localBookmarkDBEditor.remove(openedPDFItem.getName()).apply();
-        localBookmarkDBBooleanEditor.remove(openedPDFItem.getName()).apply();
-        dialog.dismiss();
-        inflateBookmarksList();
-        Toast.makeText(BookmarkActivity.this, openedPDFItem.getName() + " removed from bookmarks!", Toast.LENGTH_SHORT).show();
+          localBookmarkDBEditor.remove(openedPDFItem.getName()).apply();
+          localBookmarkDBBooleanEditor.remove(openedPDFItem.getName()).apply();
+          Toast.makeText(BookmarkActivity.this, openedPDFItem.getName() + " removed from bookmarks!", Toast.LENGTH_SHORT).show();
+        } else {
+          // if not bookmarked
+          bookmark_B.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.icon_bookmark_red_fill)
+                  , null, null, null);
+          Map<String, Object> pdfDetails = new HashMap<>();
+          pdfDetails.put("name", "\"" + openedPDFItem.getName() + "\"");
+          pdfDetails.put("by", "\"" + openedPDFItem.getBy() + "\"");
+          pdfDetails.put("author", "\"" + openedPDFItem.getAuthor() + "\"");
+          pdfDetails.put("date", "\"" + openedPDFItem.getDate() + "\"");
+          pdfDetails.put("shares", "\"" + openedPDFItem.getTotalShares() + "\"");
+          pdfDetails.put("downloads", "\"" + openedPDFItem.getTotalDownloads() + "\"");
+          pdfDetails.put("likes", "\"" + openedPDFItem.getLikes() + "\"");
+          pdfDetails.put("dislikes", "\"" + openedPDFItem.getDislikes() + "\"");
+          pdfDetails.put("url", "\"" + openedPDFItem.getUrl() + "\"");
+          localBookmarkDBEditor.putString(openedPDFItem.getName(), String.valueOf(pdfDetails)).apply();
+          localBookmarkDBBooleanEditor.putBoolean(openedPDFItem.getName(), true).apply();
+          Toast.makeText(BookmarkActivity.this, openedPDFItem.getName() + " added to your bookmarks!", Toast.LENGTH_SHORT).show();
+        }
       }
     });
+
+    download_B.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        if (localDownloadDBBoolean.getBoolean(openedPDFItem.getName(), false)) {
+          // PDF is downloaded and can be opened in viewer
+
+          String localFileName = "";
+          try {
+            localFileName = new JSONObject(localDownloadDB.getString(openedPDFItem.getName(), "")).getString("localFileName");
+          } catch (JSONException e) {
+            e.printStackTrace();
+          }
+
+          Intent intent = new Intent(BookmarkActivity.this, PDFViewer.class);
+          intent.putExtra("file_name", localFileName);
+          intent.putExtra("pdf_name", openedPDFItem.getName());
+          startActivity(intent);
+        } else {
+          /*=============================== DOWNLOADING AND VIEWING PDF CODE ====================================*/
+          final ProgressDialog progressDialog;
+          progressDialog = new ProgressDialog(BookmarkActivity.this);
+          progressDialog.setTitle("Downloading File");
+          progressDialog.setCancelable(false);
+          progressDialog.show();
+
+          httpsReference = storage.getReferenceFromUrl(openedPDFItem.getUrl());
+          try {
+            // saved to cache directory
+            final File localFile = File.createTempFile(openedPDFItem.getName(), ".pdf", getCacheDir());
+
+            Log.i(TAG, String.valueOf(localFile));
+            Log.i(TAG, String.valueOf(getCacheDir()));
+
+            httpsReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+              @Override
+              public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+                // Local temp file has been created
+                Toast.makeText(BookmarkActivity.this, openedPDFItem.getName() + " download complete!"
+                        , Toast.LENGTH_SHORT).show();
+
+                progressDialog.dismiss();
+
+                download_B.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.ic_offline_pin_black_24dp)
+                        , null, null, null);
+                download_B.setText(getResources().getString(R.string.open_pdf));
+                Map<String, Object> pdfDetails = new HashMap<>();
+                pdfDetails.put("name", "\"" + openedPDFItem.getName() + "\"");
+                pdfDetails.put("by", "\"" + openedPDFItem.getBy() + "\"");
+                pdfDetails.put("author", "\"" + openedPDFItem.getAuthor() + "\"");
+                pdfDetails.put("date", "\"" + openedPDFItem.getDate() + "\"");
+                pdfDetails.put("shares", "\"" + openedPDFItem.getTotalShares() + "\"");
+                pdfDetails.put("downloads", "\"" + openedPDFItem.getTotalDownloads() + "\"");
+                pdfDetails.put("likes", "\"" + openedPDFItem.getLikes() + "\"");
+                pdfDetails.put("dislikes", "\"" + openedPDFItem.getDislikes() + "\"");
+                pdfDetails.put("localFileName", "\"" + localFile + "\"");
+                pdfDetails.put("url", "\"" + openedPDFItem.getUrl() + "\"");
+                localDownloadDBEditor.putString(openedPDFItem.getName(), String.valueOf(pdfDetails)).apply();
+                localDownloadDBBooleanEditor.putBoolean(openedPDFItem.getName(), true).apply();
+
+              }
+            }).addOnFailureListener(new OnFailureListener() {
+              @Override
+              public void onFailure(@NonNull Exception exception) {
+                progressDialog.dismiss();
+                Toast.makeText(BookmarkActivity.this, "Failed to download!", Toast.LENGTH_SHORT).show();
+              }
+            }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
+              @Override
+              public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                // percentage in progress dialog
+                double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                progressDialog.setMessage("File: " + openedPDFItem.getName() + "\n" + "Downloaded " + ((int) progress) + "%");
+              }
+            });
+          } catch (IOException e) {
+            Log.e(TAG, String.valueOf(e));
+          }
+
+          /*============= END OF -> DOWNLOADING AND VIEWING PDF CODE ==================*/
+        }
+      }
+    });
+
 
   }
 }

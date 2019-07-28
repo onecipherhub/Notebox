@@ -466,10 +466,6 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
                         , Toast.LENGTH_SHORT).show();
 
                 progressDialog.dismiss();
-                Intent intent = new Intent(PDFList.this, PDFViewer.class);
-                intent.putExtra("file_name", String.valueOf(localFile));
-                intent.putExtra("pdf_name", openedPDFItem.getName());
-                startActivity(intent);
 
                 download_B.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.ic_offline_pin_black_24dp)
                         , null, null, null);
