@@ -67,6 +67,12 @@ public class BookmarkActivity extends AppCompatActivity {
     searchIconInSearchBar_IB = findViewById(R.id.searchIconInSearchBar_IB);
     closeBookmark_IB = findViewById(R.id.closeBookmark_IB);
     closeBookmark_IB.animate().rotation(90).setDuration(500);
+    closeBookmark_IB.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        onBackPressed();
+      }
+    });
 
     bookmarkSearch_ET.addTextChangedListener(new TextWatcher() {
       @Override

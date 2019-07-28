@@ -32,7 +32,7 @@ public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewH
     if (list.size() > 3) {
       adPosition = 3;
     } else {
-      adPosition = 0;
+      adPosition = list.size();
     }
     list.add(adPosition, null);
     this.list = list;
@@ -136,7 +136,7 @@ public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewH
     if (list.size() > 3) {
       adPosition = 3;
     } else {
-      adPosition = 0;
+      adPosition = filteredList.size();
     }
     filteredList.add(adPosition, null);
     this.list = filteredList;

@@ -422,7 +422,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
         try {
           httpsReference = storage.getReferenceFromUrl(subject.getJSONObject(openedPDFItem.getName()).getString("url"));
         } catch (JSONException e) {
-          e.printStackTrace();
+          Log.e(TAG, String.valueOf(e));
         }
 
         try {
@@ -443,6 +443,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
               progressDialog.dismiss();
               Intent intent = new Intent(PDFList.this, PDFViewer.class);
               intent.putExtra("file_name", String.valueOf(localFile));
+              intent.putExtra("pdf_name", openedPDFItem.getName());
               startActivity(intent);
             }
           }).addOnFailureListener(new OnFailureListener() {
@@ -461,7 +462,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
           });
 
         } catch (IOException e) {
-          e.printStackTrace();
+          Log.e(TAG, String.valueOf(e));
         }
 
         /*============= END OF -> DOWNLOADING AND VIEWING PDF CODE ==================*/
