@@ -139,6 +139,11 @@ public class Home extends Fragment {
 
 		homeSubjects = new ArrayList<>();
 
+
+		homeSubjectAdapter = new AdapterHomeSubjects(homeSubjects, true);
+
+		homeSubjects_RV.setAdapter(homeSubjectAdapter);
+		homeSubjects_RV.setLayoutManager(new LinearLayoutManager(getActivity()));
 		try {
 			SharedPreferences localDB = getActivity().getSharedPreferences("localDB", MODE_PRIVATE);
 
@@ -158,17 +163,11 @@ public class Home extends Fragment {
 						,subjectName, subjectObject.getString("last_update")));
 			}
 
+			homeSubjectAdapter.filterList(homeSubjects);
+
 		} catch (JSONException e) {
 			Log.d(TAG, e.getMessage());
 		}
-
-		homeSubjectAdapter = new AdapterHomeSubjects(homeSubjects);
-
-		homeSubjects_RV.setAdapter(homeSubjectAdapter);
-		homeSubjects_RV.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-//		getAds();
-//		loadAds();
 
 		subjectsSearch_ET.addTextChangedListener(new TextWatcher() {
 			@Override
@@ -184,36 +183,6 @@ public class Home extends Fragment {
 		});
 
 		return rootView;
-	}
-
-
-	private void getAds() {
-
-		for (int i = 0; i < homeSubjects.size(); i += ITEM_PER_AD) {
-
-			final AdView adView = new AdView(getContext());
-			adView.setAdSize(AdSize.BANNER);
-			adView.setAdUnitId(BANNER_APP_ID);
-			homeSubjects.add(new ItemDataHomeSubjects(adView));
-
-		}
-
-	}
-
-
-	private void loadAds() {
-
-		for (int i = 0; i < homeSubjects.size(); i++) {
-
-			Object item = homeSubjects.get(i);
-
-			if (item instanceof AdView) {
-
-				final AdView adView = (AdView) item;
-				adView.loadAd(new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build());
-
-			}
-		}
 	}
 
 

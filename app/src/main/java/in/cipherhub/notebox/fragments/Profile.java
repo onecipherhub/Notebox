@@ -1,15 +1,10 @@
 package in.cipherhub.notebox.fragments;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -35,10 +30,6 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 
 import in.cipherhub.notebox.BookmarkActivity;
@@ -46,7 +37,6 @@ import in.cipherhub.notebox.Downloads;
 import in.cipherhub.notebox.R;
 import in.cipherhub.notebox.registration.SignIn;
 import in.cipherhub.notebox.utils.ImageSaver;
-import in.cipherhub.notebox.utils.RoundImageView;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -60,7 +50,7 @@ public class Profile extends Fragment implements View.OnClickListener {
     private SharedPreferences localDB;
     private JSONObject userObject;
 
-    private RoundImageView userDisplayPicture;
+    private ImageView userDisplayPicture;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
