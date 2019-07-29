@@ -57,6 +57,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import in.cipherhub.notebox.MainActivity;
+import in.cipherhub.notebox.MainActivity2;
 import in.cipherhub.notebox.R;
 import in.cipherhub.notebox.utils.Internet;
 
@@ -237,7 +238,7 @@ public class Upload extends Fragment implements View.OnClickListener {
 
     if (buttonClicked == selectPDF_B) {
 
-      if (((MainActivity) Objects.requireNonNull(this.getActivity())).checkPermission) {
+      if (((MainActivity2) Objects.requireNonNull(this.getActivity())).checkPermission) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.setType("application/pdf");

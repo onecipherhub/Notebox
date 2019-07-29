@@ -73,7 +73,6 @@ public class SplashScreen extends AppCompatActivity {
           @Override
           public void run() {
             Intent intent;
-            // open registration page
             intent = new Intent(SplashScreen.this, SignIn.class);
             if (user != null) {
               intent.putExtra("isEmailVerified", user.isEmailVerified());
@@ -86,7 +85,6 @@ public class SplashScreen extends AppCompatActivity {
       }
     }, 1200);
   }
-
 
   public boolean isDetailsFilled() {
     return getSharedPreferences("user", MODE_PRIVATE).getBoolean("isDetailsFilled", false);

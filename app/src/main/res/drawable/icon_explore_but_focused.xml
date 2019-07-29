@@ -9,23 +9,46 @@
         <group
             android:translateX="-117"
             android:translateY="1514">
-            <path
-                android:pathData="M0 0H117V117H0V0Z"
-                android:fillColor="#FFFFFF" />
         </group>
         <group
             android:translateX="54.001"
             android:translateY="-17">
             <path
                 android:pathData="M-88.938 1612.315h-71.085c-21.035 -8.467 -5.078 -29.513 3.143 -26.61 1.451 -24.191 25.629 -22.255 30.223 -18.869 19.585 -21.288 44.489 1.693 39.653 15.966C-66.936 1594.656 -81.926 1613.041 -88.938 1612.315Z"
-                android:fillColor="#1564C0" />
+                android:fillColor="@color/colorGray_999999" />
         </group>
         <group
             android:translateX="76"
             android:translateY="-6">
             <path
                 android:pathData="M-158.45 1612.315h71.121c21.046 -8.467 5.08 -29.513 -3.145 -26.61 -1.451 -24.191 -25.642 -22.255 -30.238 -18.869 -19.595 -21.288 -44.511 1.693 -39.673 15.966C-180.463 1594.656 -165.465 1613.041 -158.45 1612.315Z"
-                android:fillColor="#2196F3" />
+                android:fillColor="@color/colorGray_AAAAAA" />
         </group>
     </group>
 </vector>
+
+<!--<group-->
+<!--android:translateX="117"-->
+<!--android:translateY="-1514">-->
+<!--<group-->
+    <!--android:translateX="-117"-->
+    <!--android:translateY="1514">-->
+    <!--<path-->
+        <!--android:pathData="M0 0H117V117H0V0Z"-->
+        <!--android:fillColor="#FFFFFF" />-->
+<!--</group>-->
+<!--<group-->
+    <!--android:translateX="54.001"-->
+    <!--android:translateY="-17">-->
+    <!--<path-->
+        <!--android:pathData="M-88.938 1612.315h-71.085c-21.035 -8.467 -5.078 -29.513 3.143 -26.61 1.451 -24.191 25.629 -22.255 30.223 -18.869 19.585 -21.288 44.489 1.693 39.653 15.966C-66.936 1594.656 -81.926 1613.041 -88.938 1612.315Z"-->
+        <!--android:fillColor="#1564C0" />-->
+<!--</group>-->
+<!--<group-->
+    <!--android:translateX="76"-->
+    <!--android:translateY="-6">-->
+    <!--<path-->
+        <!--android:pathData="M-158.45 1612.315h71.121c21.046 -8.467 5.08 -29.513 -3.145 -26.61 -1.451 -24.191 -25.642 -22.255 -30.238 -18.869 -19.595 -21.288 -44.511 1.693 -39.673 15.966C-180.463 1594.656 -165.465 1613.041 -158.45 1612.315Z"-->
+        <!--android:fillColor="#2196F3" />-->
+<!--</group>-->
+<!--</group>-->
