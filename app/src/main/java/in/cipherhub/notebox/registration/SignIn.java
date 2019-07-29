@@ -35,6 +35,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.json.JSONObject;
 
 import in.cipherhub.notebox.MainActivity;
+import in.cipherhub.notebox.MainActivity2;
 import in.cipherhub.notebox.R;
 import in.cipherhub.notebox.utils.Internet;
 
@@ -201,7 +202,7 @@ public class SignIn extends AppCompatActivity {
                                     ).apply();
 
                                     // after loading data from firebase
-                                    startActivity(new Intent(SignIn.this, MainActivity.class));
+                                    startActivity(new Intent(SignIn.this, MainActivity2.class));
                                     overridePendingTransition(android.R.anim.fade_in, 0);
                                 }
                             } else {
