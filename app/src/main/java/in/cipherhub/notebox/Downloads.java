@@ -192,7 +192,25 @@ public class Downloads extends AppCompatActivity {
     Button sharePDF_B = dialogView.findViewById(R.id.sharePDF_B);
     final Button bookmark_B = dialogView.findViewById(R.id.bookmark_B);
     final Button like_IB = dialogView.findViewById(R.id.like_IB);
-    final Button dislike_IB = dialogView.findViewById(R.id.dislike_IB);
+    TextView reportAnIssue_TV = dialogView.findViewById(R.id.reportAnIssue_TV);
+    reportAnIssue_TV.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+
+        i.putExtra(Intent.EXTRA_EMAIL, new String[]{"onecipherhub@gmail.com"});
+        i.putExtra(Intent.EXTRA_SUBJECT, "Report your issues.");
+        i.putExtra(Intent.EXTRA_TEXT, "We will contact you soon. Please write in details.");
+        //startActivity(Intent.createChooser(i, "Choose an Email client :"));
+
+        try {
+          startActivity(Intent.createChooser(i, "Report your issues."));
+        } catch (android.content.ActivityNotFoundException ex) {
+          Toast.makeText(Downloads.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+        }
+      }
+    });  final Button dislike_IB = dialogView.findViewById(R.id.dislike_IB);
     ImageButton closeTemplateArrow_IB = dialogView.findViewById(R.id.closeTemplateArrow_IB);
 
     closeTemplateArrow_IB.setOnClickListener(new View.OnClickListener() {

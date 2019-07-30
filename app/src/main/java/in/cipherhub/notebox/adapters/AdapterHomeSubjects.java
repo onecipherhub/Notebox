@@ -24,26 +24,29 @@ import in.cipherhub.notebox.models.ItemDataHomeSubjects;
 public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
   private List<ItemDataHomeSubjects> list;
-  private AdapterBranchSelector.OnItemClickListener mListener;
+  private OnItemClickListener mListener;
 
   private int adPosition = 0;
+  boolean isHomePage;
 
-  public AdapterHomeSubjects(List<ItemDataHomeSubjects> list) {
-    if (list.size() > 3) {
-      adPosition = 3;
-    } else {
-      adPosition = list.size();
-    }
-    list.add(adPosition, null);
+  public AdapterHomeSubjects(List<ItemDataHomeSubjects> list, boolean isHomePage) {
     this.list = list;
+    this.isHomePage = isHomePage;
   }
 
+  public interface OnItemClickListener {
+    void onItemClick(int position);
+  }
+
+  public void setOnItemClickListener(OnItemClickListener listener) {
+    this.mListener = listener;
+  }
 
   class HomeSubjectsItemViewHolder extends RecyclerView.ViewHolder {
     TextView subAbb_TV, subName_TV, lastUpdate_TV;
     ConstraintLayout itemHomeSubjects_CL;
 
-    HomeSubjectsItemViewHolder(@NonNull View itemView) {
+    HomeSubjectsItemViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
       super(itemView);
 
       subAbb_TV = itemView.findViewById(R.id.subAbb_TV);
@@ -51,13 +54,24 @@ public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewH
       lastUpdate_TV = itemView.findViewById(R.id.lastUpdate_TV);
       itemHomeSubjects_CL = itemView.findViewById(R.id.itemHomeSubjects_CL);
 
+
       itemHomeSubjects_CL.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          Intent intent = new Intent(view.getContext(), PDFList.class);
-          intent.putExtra("subjectName", subName_TV.getText());
-          intent.putExtra("subjectAbbreviation", subAbb_TV.getText());
-          view.getContext().startActivity(intent);
+          if (isHomePage) {
+            Intent intent = new Intent(view.getContext(), PDFList.class);
+            intent.putExtra("subjectName", subName_TV.getText());
+            intent.putExtra("subjectAbbreviation", subAbb_TV.getText());
+            view.getContext().startActivity(intent);
+          } else {
+            // upload page subject selector
+            if (listener != null) {
+              int position = getAdapterPosition();
+              if (position != RecyclerView.NO_POSITION) {
+                listener.onItemClick(position);
+              }
+            }
+          }
         }
       });
     }
@@ -90,6 +104,7 @@ public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewH
   @Override
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
     if (i == 1) {
+      // show ad
       View view = LayoutInflater
               .from(viewGroup.getContext())
               .inflate(R.layout.item_smart_ad, viewGroup, false);
@@ -98,7 +113,7 @@ public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewH
       View view = LayoutInflater
               .from(viewGroup.getContext())
               .inflate(R.layout.item_home_subjects, viewGroup, false);
-      return new HomeSubjectsItemViewHolder(view);
+      return new HomeSubjectsItemViewHolder(view, mListener);
     }
   }
 
@@ -126,15 +141,15 @@ public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewH
 
   @Override
   public int getItemViewType(int position) {
-    if (position == adPosition)
+    if (position == adPosition && isHomePage)
       return 1;
     return 0;
   }
 
 
   public void filterList(List<ItemDataHomeSubjects> filteredList) {
-    if (list.size() > 3) {
-      adPosition = 3;
+    if (list.size() > 2) {
+      adPosition = 2;
     } else {
       adPosition = filteredList.size();
     }
