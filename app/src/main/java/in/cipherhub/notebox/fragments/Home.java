@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,12 +21,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,9 +32,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import in.cipherhub.notebox.BookmarkActivity;
 import in.cipherhub.notebox.R;
-import in.cipherhub.notebox.adapters.AdapterBranchSelector;
+import in.cipherhub.notebox.BookmarkActivity;
 import in.cipherhub.notebox.adapters.AdapterHomeSubjects;
 import in.cipherhub.notebox.adapters.AdapterRecentViews;
 import in.cipherhub.notebox.models.ItemDataHomeSubjects;
@@ -47,43 +42,19 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class Home extends Fragment {
 
+	private static final String TAG = "HomePage";
+
 	private FirebaseAuth mAuth;
 	private FirebaseUser user;
 	private FirebaseFirestore db;
 
-	AdapterHomeSubjects homeSubjectAdapter;
-	List<ItemDataHomeSubjects> homeSubjects;
-
-	// for ads
-	private static final String BANNER_APP_ID = "ca-app-pub-3940256099942544/6300978111";
-	private static int ITEM_PER_AD = 1;
-
-
-
-
-	private static final String TAG = "HomePage";
+	private AdapterHomeSubjects homeSubjectAdapter;
+	private List<ItemDataHomeSubjects> homeSubjects;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-
-
-//		MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
-//			@Override
-//			public void onInitializationComplete(InitializationStatus initializationStatus) {
-//
-//				Log.i(TAG, "Ads Loaded!!!");
-//
-//			}
-//		});
-
-//		adsView.setAdSize(AdSize.BANNER);
-//		adsView.setAdUnitId(BANNER_APP_ID);
-
-//		adsView = rootView.findViewById(R.id.adView);
-//		AdRequest adRequest = new AdRequest.Builder().build();
-//		adsView.loadAd(adRequest);
 
 		// Initialize Firebase Auth
 		db = FirebaseFirestore.getInstance();
@@ -100,8 +71,6 @@ public class Home extends Fragment {
 		RecyclerView homeSubjects_RV = rootView.findViewById(R.id.homeSubjects_RV);
 		ImageButton bookmark_IB = rootView.findViewById(R.id.bookmarks_IB);
 
-
-
 		bookmark_IB.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -116,7 +85,10 @@ public class Home extends Fragment {
 				if (subjectsSearch_ET.isFocused()) {
 					subjectsLayout_CL.animate().translationY(-recentViewsLayout_CL.getHeight()).setDuration(500);
 					searchIconInSearchBar_IB.setImageDrawable(getResources().getDrawable(R.drawable.icon_down_arrow));
-				} else {    // when click on background root Constraint Layout
+
+				} else {
+
+					// when click on background root Constraint Layout
 					subjectsLayout_CL.animate().translationY(0).setDuration(500);
 					searchIconInSearchBar_IB.setImageDrawable(getResources().getDrawable(R.drawable.icon_search));
 
@@ -167,9 +139,6 @@ public class Home extends Fragment {
 		homeSubjects_RV.setAdapter(homeSubjectAdapter);
 		homeSubjects_RV.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-//		getAds();
-//		loadAds();
-
 		subjectsSearch_ET.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -184,36 +153,6 @@ public class Home extends Fragment {
 		});
 
 		return rootView;
-	}
-
-
-	private void getAds() {
-
-		for (int i = 0; i < homeSubjects.size(); i += ITEM_PER_AD) {
-
-			final AdView adView = new AdView(getContext());
-			adView.setAdSize(AdSize.BANNER);
-			adView.setAdUnitId(BANNER_APP_ID);
-			homeSubjects.add(new ItemDataHomeSubjects(adView));
-
-		}
-
-	}
-
-
-	private void loadAds() {
-
-		for (int i = 0; i < homeSubjects.size(); i++) {
-
-			Object item = homeSubjects.get(i);
-
-			if (item instanceof AdView) {
-
-				final AdView adView = (AdView) item;
-				adView.loadAd(new AdRequest.Builder().addTestDevice(AdRequest.DEVICE_ID_EMULATOR).build());
-
-			}
-		}
 	}
 
 

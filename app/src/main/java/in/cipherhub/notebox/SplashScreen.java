@@ -76,7 +76,7 @@ public class SplashScreen extends AppCompatActivity {
                         Intent intent;
                         if (byPassRegistration) {
                             // open Main Home page
-                            intent = new Intent(SplashScreen.this, MainActivity2.class);
+                            intent = new Intent(SplashScreen.this, MainActivity.class);
 
                         } else {
                             // open registration page
