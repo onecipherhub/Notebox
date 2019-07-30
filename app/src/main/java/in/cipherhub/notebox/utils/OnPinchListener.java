@@ -31,7 +31,7 @@ public class OnPinchListener extends ScaleGestureDetector.SimpleOnScaleGestureLi
   // Related appication context.
   private Context context = null;
 
-  // The default constructor pass context and imageview object.
+  // The default constructor pass context and imageView object.
   public OnPinchListener(Context context, RecyclerView srcImageView) {
     this.context = context;
     this.srcImageView = srcImageView;
@@ -43,14 +43,16 @@ public class OnPinchListener extends ScaleGestureDetector.SimpleOnScaleGestureLi
 
     if (detector != null) {
 
-      float scaleFactor = detector.getScaleFactor();
+//      float scaleFactor = detector.getScaleFactor();
+      float something = detector.getFocusX();
+      Log.d("OXET", "detector.getFocusX() => " + something);
 
       if (srcImageView != null) {
 
         // Scale the image with pinch zoom value.
-        scaleImage(scaleFactor, scaleFactor);
-
+        scaleImage(detector);
       } else {
+
         if (context != null) {
           Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
         } else {
@@ -65,20 +67,27 @@ public class OnPinchListener extends ScaleGestureDetector.SimpleOnScaleGestureLi
   }
 
   /* This method is used to scale the image when user pinch zoom it. */
-  private void scaleImage(float xScale, float yScale) {
-    int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
-    int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+  private void scaleImage(ScaleGestureDetector detector) {
+    float scale = detector.getScaleFactor();
 
-    int desiringWidth = (int) (srcImageView.getWidth() * xScale);
-    int desiringHeight = (int) (srcImageView.getHeight() * yScale);
+    int screenWidth = Resources.getSystem().getDisplayMetrics().widthPixels;
+    //    int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
+
+    int desiringWidth = (int) (srcImageView.getWidth() * scale);
+    int desiringHeight = (int) (srcImageView.getHeight() * scale);
+
     if (desiringWidth > screenWidth) {
       ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(desiringWidth, desiringHeight);
       srcImageView.setLayoutParams(layoutParams);
 
-      Log.d("OXET xScale | yScale", xScale + " | " + yScale);
-      Log.d("OXET Width | Height", layoutParams.width + " | " + layoutParams.height);
-      Log.d("OXET screen", screenWidth + " | " + screenHeight);
+      // Log.d("OXET xScale = yScale = ", "" + scale);
+      // Log.d("OXET Width | Height", layoutParams.width + " | " + layoutParams.height);
+      // Log.d("OXET screen", screenWidth + " | " + screenHeight);
     }
   }
 }
 
+/* useful methods
+ * detector.getCurrentSpan() will give the distance between two finger will pinching
+ * detector.getCurrentSpanX() will give the distance between two fingers in X direction while pinching
+ * */
