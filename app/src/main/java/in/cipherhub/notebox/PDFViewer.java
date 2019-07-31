@@ -20,6 +20,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -133,12 +134,11 @@ public class PDFViewer extends AppCompatActivity {
 
         page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
 
-        bitmapList.add(new ItemPDFPage("", bitmap));
+        bitmapList.add(new ItemPDFPage(true, bitmap));
 
         page.close();
       }
-      if(page != null)
-      bitmapList.add(new ItemPDFPage("", Bitmap.createBitmap(page.getWidth(), 1,
+      bitmapList.add(new ItemPDFPage(false, Bitmap.createBitmap(page.getWidth(), page.getHeight(),
               Bitmap.Config.ARGB_8888)));
     }
 
@@ -221,7 +221,7 @@ public class PDFViewer extends AppCompatActivity {
       public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
         String pageCount = (layoutManagerPDFViewer.findFirstVisibleItemPosition() + 1)
-                + " / " + (layoutManagerPDFViewer.getItemCount() - 1);
+                + " / " + (layoutManagerPDFViewer.getItemCount());
 
         pageCount_TV.setText(pageCount);
       }
@@ -230,7 +230,7 @@ public class PDFViewer extends AppCompatActivity {
 
 
   public void createPDFInterface() {
-    String pageCount = "1 / " + (layoutManagerPDFViewer.getItemCount() - 1);
+    String pageCount = "1 / " + (layoutManagerPDFViewer.getItemCount());
 
     pdfName_TV.setText(getIntent().getStringExtra("pdf_name"));
     pageCount_TV.setText(pageCount);

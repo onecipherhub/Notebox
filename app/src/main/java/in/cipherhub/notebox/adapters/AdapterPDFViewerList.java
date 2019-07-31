@@ -54,23 +54,13 @@ public class AdapterPDFViewerList extends RecyclerView.Adapter<RecyclerView.View
 
     HomeSubjectsItemViewHolder homeSubjectsItemViewHolder = (HomeSubjectsItemViewHolder) holder;
 
-    homeSubjectsItemViewHolder.pdfPage_IV.setImageBitmap(list.get(i).getImage());
-
-    if ((i+1) == getItemCount()){
-      homeSubjectsItemViewHolder.pdfPage_CV.setLayoutParams(new ViewGroup.LayoutParams(0,0));
-    }
+      homeSubjectsItemViewHolder.pdfPage_IV.setImageBitmap(list.get(i).getImage());
   }
 
 
   @Override
   public int getItemCount() {
     return list.size();
-  }
-
-
-  public void filterList(List<ItemPDFPage> filteredList) {
-    this.list = filteredList;
-    notifyDataSetChanged();
   }
 }
 
