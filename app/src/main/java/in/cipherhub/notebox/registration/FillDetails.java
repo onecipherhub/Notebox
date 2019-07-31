@@ -241,7 +241,6 @@ public class FillDetails extends Fragment {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    progressDialog.dismiss();
 
                                     Toast.makeText(getActivity(),
                                             "Your Details has been registered for you better experience with Notebox!",
@@ -251,6 +250,7 @@ public class FillDetails extends Fragment {
                                             .edit().putBoolean("isDetailsFilled", true).apply();
 
                                     ((SignIn) getActivity()).openHomePage();
+                                    progressDialog.dismiss();
                                 }
                             });
                 } else {

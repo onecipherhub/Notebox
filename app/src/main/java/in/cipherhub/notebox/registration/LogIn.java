@@ -180,33 +180,36 @@ public class LogIn extends Fragment implements View.OnClickListener {
                                         if (task.isSuccessful()) {
                                             // Sign in success, update UI with the signed-in user's information
 
-                                            Toast.makeText(getActivity(), "LogIn Success!", Toast.LENGTH_SHORT).show();
+//                                            Toast.makeText(getActivity(), "LogIn Success!", Toast.LENGTH_SHORT).show();
 
                                             getActivity().getSharedPreferences("user", MODE_PRIVATE)
                                                     .edit().putBoolean("isDetailsFilled", true).apply();
 
                                             ((SignIn) getActivity()).openHomePage();
 
+
                                             // will store the user details to shared preferences
                                             pullUserDetails();
+
                                         } else {
                                             // If sign in fails, display a message to the user.
 
                                             if (task.getException() != null)
                                                 try {
+                                                    progressDialog.dismiss();
                                                     if (task.getException().getMessage().contains("no user record")) {
                                                         Toast.makeText(getActivity(), "Login Failed!\nUser E-mail does not exists!", Toast.LENGTH_SHORT).show();
                                                     }
                                                 } catch (Exception e) {
+                                                    progressDialog.dismiss();
                                                     Log.e(TAG, String.valueOf(e));
                                                 } finally {
+                                                    progressDialog.dismiss();
                                                     // If sign in fails, display a message to the user.
                                                     Toast.makeText(getActivity(), "Authentication failed.",
                                                             Toast.LENGTH_SHORT).show();
                                                 }
                                         }
-
-                                        progressDialog.dismiss();
                                     }
                                 });
                     else if (filledPassword.length() < 8) {
