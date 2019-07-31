@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import in.cipherhub.notebox.models.ItemPDFList;
@@ -86,6 +88,7 @@ public class AdapterPDFList extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
   }
 
+
   @Override
   public int getItemViewType(int position) {
     if (position == adPosition)
@@ -93,7 +96,16 @@ public class AdapterPDFList extends RecyclerView.Adapter<RecyclerView.ViewHolder
     return 0;
   }
 
+
   public void filterList(List<ItemPDFList> filteredList) {
+    Collections.sort(filteredList, new Comparator<ItemPDFList>() {
+      @Override
+      public int compare(ItemPDFList itemPDFList, ItemPDFList t1) {
+        int LHS = itemPDFList.getLikes() - itemPDFList.getDislikes();
+        int RHS = t1.getLikes() - t1.getDislikes();
+        return Integer.compare(RHS, LHS);
+      }
+    });
     if (filteredList.size() > 2) {
       adPosition = 2;
     } else {

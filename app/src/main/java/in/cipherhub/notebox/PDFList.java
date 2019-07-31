@@ -65,7 +65,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 
   boolean isAlreadyLiked = false, isAlreadyDisliked = false;
   private String TAG = "PDFListOXET", userLikedPDFs = "", userDislikedPDFs = "";
-  int likedCount = 0, dislikedCount = 0, totalRating = 0;
+  int likedCount = 0, dislikedCount = 0, totalRating = 0, downloadsCount = 0;
 
   Button unitOne_B, unitTwo_B, unitThree_B, unitFour_B, unitFive_B;
   Button[] allButtons;
@@ -73,7 +73,6 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
   List<ItemPDFList> filteredPDFList = new ArrayList<>();
   ItemPDFList openedPDFItem;
   Map<String, Object> pdfDetails;
-
 
   FirebaseFirestore db;
   FirebaseAuth firebaseAuth;
@@ -130,14 +129,10 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 
     pdfSearch_ET.addTextChangedListener(new TextWatcher() {
       @Override
-      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-      }
+      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
       @Override
-      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-      }
+      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
       @Override
       public void afterTextChanged(Editable editable) {
@@ -276,6 +271,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
           }
         }
       }
+
       adapterPDFList.filterList(pdfList);
     }
   }
@@ -292,12 +288,11 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
     TextView byValue_TV = dialogView.findViewById(R.id.byValue_TV);
     TextView authorValue_TV = dialogView.findViewById(R.id.authorValue_TV);
     TextView sharesCount_TV = dialogView.findViewById(R.id.sharesCount_TV);
-    TextView downloadsCount_TV = dialogView.findViewById(R.id.downloadsCount_TV);
+    final TextView downloadsCount_TV = dialogView.findViewById(R.id.downloadsCount_TV);
     TextView date_TV = dialogView.findViewById(R.id.date_TV);
     final TextView rating_TV = dialogView.findViewById(R.id.rating_TV);
     TextView reportAnIssue_TV = dialogView.findViewById(R.id.reportAnIssue_TV);
     final Button download_B = dialogView.findViewById(R.id.download_B);
-
 
     Button sharePDF_B = dialogView.findViewById(R.id.sharePDF_B);
     final Button bookmark_B = dialogView.findViewById(R.id.bookmark_B);
@@ -364,6 +359,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
             }
             dislike_IB.setText(String.valueOf(dislikedCount));
             totalRating = likedCount - dislikedCount;
+            downloadsCount_TV.setText(String.valueOf(downloadsCount));
             rating_TV.setText(String.valueOf(totalRating));
 
           } catch (JSONException e1) {
@@ -377,6 +373,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 
     likedCount = openedPDFItem.getLikes();
     dislikedCount = openedPDFItem.getDislikes();
+    downloadsCount = openedPDFItem.getTotalDownloads();
 
     pdfName_TV.setText(openedPDFItem.getName());
     byValue_TV.setText(openedPDFItem.getBy());
@@ -439,6 +436,22 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
       }
     });
 
+    // pdfDetails is the details of this PDF to update the firebase
+    pdfDetails = new HashMap<>();
+    pdfDetails.put("author", openedPDFItem.getAuthor());
+    pdfDetails.put("by", openedPDFItem.getBy());
+    pdfDetails.put("date", openedPDFItem.getDate());
+    pdfDetails.put("downloads", openedPDFItem.getTotalDownloads());
+    pdfDetails.put("name", openedPDFItem.getName());
+    pdfDetails.put("shares", openedPDFItem.getTotalShares());
+    pdfDetails.put("likes", likedCount);
+    pdfDetails.put("dislikes", dislikedCount);
+    try {
+      pdfDetails.put("url", subject.getJSONObject(openedPDFItem.getName()).getString("url"));
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
+
     download_B.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -457,7 +470,6 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
           intent.putExtra("pdf_name", openedPDFItem.getName());
           startActivity(intent);
         } else {
-          /*=============================== DOWNLOADING AND VIEWING PDF CODE ====================================*/
           final ProgressDialog progressDialog;
           progressDialog = new ProgressDialog(PDFList.this);
           progressDialog.setTitle("Downloading File");
@@ -484,6 +496,9 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
                 // Local temp file has been created
                 Toast.makeText(PDFList.this, openedPDFItem.getName() + " download complete!"
                         , Toast.LENGTH_SHORT).show();
+
+                downloadsCount++;
+                updateLikesPDFDocRef();
 
                 progressDialog.dismiss();
 
@@ -532,22 +547,6 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
       }
     });
 
-    // pdfDetails is the details of this PDF to update the firebase
-    pdfDetails = new HashMap<>();
-    pdfDetails.put("author", openedPDFItem.getAuthor());
-    pdfDetails.put("by", openedPDFItem.getBy());
-    pdfDetails.put("date", openedPDFItem.getDate());
-    pdfDetails.put("downloads", openedPDFItem.getTotalDownloads());
-    pdfDetails.put("name", openedPDFItem.getName());
-    pdfDetails.put("shares", openedPDFItem.getTotalShares());
-    pdfDetails.put("likes", likedCount);
-    pdfDetails.put("dislikes", dislikedCount);
-    try {
-      pdfDetails.put("url", subject.getJSONObject(openedPDFItem.getName()).getString("url"));
-    } catch (JSONException e) {
-      e.printStackTrace();
-    }
-
     like_IB.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
@@ -592,6 +591,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
   public void updateLikesPDFDocRef() {
     pdfDetails.put("likes", likedCount);
     pdfDetails.put("dislikes", dislikedCount);
+    pdfDetails.put("downloads", downloadsCount);
 
     pdfDocRef.update(openedPDFItem.getName(), pdfDetails)
             .addOnSuccessListener(new OnSuccessListener<Void>() {
