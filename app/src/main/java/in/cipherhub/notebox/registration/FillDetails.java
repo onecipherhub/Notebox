@@ -74,7 +74,6 @@ public class FillDetails extends Fragment {
         progressDialog.setTitle("Filling Up Details...");
         progressDialog.setCancelable(false);
 
-        final FirebaseFirestore db = FirebaseFirestore.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         branch_ET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -100,11 +99,8 @@ public class FillDetails extends Fragment {
                     .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                    if (task.isSuccessful()) {
-
+                    if (task.isSuccessful() && task.getResult() != null) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
-
                             JSONObject userInstitute = new JSONObject(document.getData());
                             try {
 
@@ -146,9 +142,7 @@ public class FillDetails extends Fragment {
 
                                 branch_ET.addTextChangedListener(new TextWatcher() {
                                     @Override
-                                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                                    }
+                                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
                                     @Override
                                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -172,7 +166,8 @@ public class FillDetails extends Fragment {
                                         for (ItemDataBranchSelector s : list) {
                                             //new array list that will hold the filtered data
                                             //if the existing elements contains the search input
-                                            if (s.getBranchName().toLowerCase().contains(branch_ET.getText().toString().toLowerCase())) {
+                                            if (s.getBranchName().toLowerCase().contains(editable.toString().toLowerCase())
+                                                    || s.getBranchAbb().toLowerCase().contains(editable.toString().toLowerCase())) {
                                                 filteredList.add(s);
                                             }
                                         }

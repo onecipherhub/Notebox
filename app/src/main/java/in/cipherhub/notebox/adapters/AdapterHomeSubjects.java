@@ -132,8 +132,8 @@ public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewH
         homeSubjectsItemViewHolder.lastUpdate_TV.setVisibility(View.GONE);
       } else {
         homeSubjectsItemViewHolder.lastUpdate_TV.setVisibility(View.VISIBLE);
-        String last_update = "last update: " + lastUpdateDate;
-        homeSubjectsItemViewHolder.lastUpdate_TV.setText(last_update);
+        String last_update = "Subject Type: " + lastUpdateDate;
+        homeSubjectsItemViewHolder.lastUpdate_TV.setText(lastUpdateDate);
       }
     }
   }
