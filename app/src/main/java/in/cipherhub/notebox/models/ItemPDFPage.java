@@ -3,16 +3,16 @@ package in.cipherhub.notebox.models;
 import android.graphics.Bitmap;
 
 public class ItemPDFPage {
-  private String title;
+  private boolean title;
   private Bitmap imageUrl;
 
-  public ItemPDFPage(String title, Bitmap imageUrl) {
+  public ItemPDFPage(boolean title, Bitmap imageUrl) {
 
     this.title = title;
     this.imageUrl = imageUrl;
   }
 
-  public String getTitle() {
+  public boolean getTitle() {
     return title;
   }
 
