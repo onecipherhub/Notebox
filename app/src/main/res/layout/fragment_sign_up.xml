@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:background="@color/colorWhite_FFFFFF"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite_FFFFFF"
     tools:context=".registration.SignUp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +15,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appIcon_CV">
@@ -51,14 +51,14 @@
                     android:id="@+id/email_V"
                     android:layout_width="5dp"
                     android:layout_height="match_parent"
-                    android:background="@color/colorGray_777777" />
+                    android:background="@color/colorGray_999999" />
 
                 <EditText
                     android:id="@+id/email_ET"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@null"
-                    android:fontFamily="@font/comfortaa_bold"
+                    android:fontFamily="@font/segoe_ui"
                     android:foregroundTint="#00DBBDBD"
                     android:hint="@string/e_mail"
                     android:inputType="textEmailAddress"
@@ -93,7 +93,7 @@
             app:layout_constraintStart_toStartOf="@+id/password_TV"
             app:layout_constraintTop_toBottomOf="@+id/password_TV">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
@@ -102,7 +102,10 @@
                     android:id="@+id/password_V"
                     android:layout_width="5dp"
                     android:layout_height="40dp"
-                    android:background="@color/colorGray_777777" />
+                    android:background="@color/colorGray_999999"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/password_ET"
@@ -110,7 +113,7 @@
                     android:layout_height="40dp"
                     android:background="@null"
                     android:ellipsize="end"
-                    android:fontFamily="@font/comfortaa_bold"
+                    android:fontFamily="@font/segoe_ui"
                     android:foregroundTint="#00DBBDBD"
                     android:hint="@string/password"
                     android:inputType="textPassword"
@@ -120,8 +123,28 @@
                     android:paddingBottom="5dp"
                     android:singleLine="true"
                     android:textColor="@color/colorAppTheme"
-                    android:textSize="14sp"/>
-            </LinearLayout>
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/password_V"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/show_Password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:fontFamily="@font/segoe_ui"
+                    android:gravity="center"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="SHOW"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/password_ET"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
 
@@ -147,33 +170,56 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/repeatPassword_TV"
             app:layout_constraintTop_toBottomOf="@+id/repeatPassword_TV">
-
-            <LinearLayout
+            
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
+                
                 <View
                     android:id="@+id/repeatPassword_V"
                     android:layout_width="5dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorGray_777777" />
+                    android:layout_height="40dp"
+                    android:background="@color/colorGray_AAAAAA"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <EditText
                     android:id="@+id/repeatPassword_ET"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@null"
-                    android:fontFamily="@font/comfortaa_bold"
+                    android:fontFamily="@font/segoe_ui"
                     android:foregroundTint="#00DBBDBD"
                     android:hint="repeat password"
                     android:inputType="textPassword"
                     android:paddingStart="20dp"
                     android:paddingTop="5dp"
+                    android:paddingEnd="20dp"
                     android:paddingBottom="5dp"
+                    android:singleLine="true"
                     android:textColor="@color/colorAppTheme"
-                    android:textSize="14sp" />
-            </LinearLayout>
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/repeatPassword_V"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/show_Password2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:fontFamily="@font/segoe_ui"
+                    android:gravity="center"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="SHOW"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/repeatPassword_ET"
+                    app:layout_constraintTop_toTopOf="parent" />
+               </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.cardview.widget.CardView>
 
         <Button
@@ -181,7 +227,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="22dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/bg_apptheme_pill_20"
             android:fontFamily="@font/consolas_regular"
@@ -191,13 +237,15 @@
             android:textAllCaps="false"
             android:textColor="@color/colorWhite_FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/repeatPassword_CV" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <TextView
             android:id="@+id/doNotHaveAnAccount_TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/segoe_ui"
@@ -205,22 +253,58 @@
             android:textColor="@color/colorGray_777777"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/signUp_B"
-            app:layout_constraintHorizontal_bias="0.87"
-            app:layout_constraintStart_toStartOf="@+id/signUp_B"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/signUp_B"
-            app:layout_constraintVertical_bias="0.111" />
+            app:layout_constraintVertical_bias="0.272" />
 
         <TextView
             android:id="@+id/logIn_TV"
             android:layout_width="50dp"
             android:layout_height="40dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/segoe_ui"
-            android:gravity="start|center_vertical"
+            android:gravity="center_horizontal|center_vertical"
             android:text="LogIn"
             android:textColor="@color/colorAppTheme"
             app:layout_constraintBottom_toBottomOf="@+id/doNotHaveAnAccount_TV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/doNotHaveAnAccount_TV"
-            app:layout_constraintTop_toTopOf="@+id/doNotHaveAnAccount_TV" />
+            app:layout_constraintTop_toTopOf="@+id/doNotHaveAnAccount_TV"
+            app:layout_constraintVertical_bias="0.45" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/segoe_ui"
+            android:text="By creating an account, I accept Notebox's"
+            android:textColor="@color/colorGray_999999"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.273"
+            app:layout_constraintStart_toStartOf="@+id/repeatPassword_CV"
+            app:layout_constraintTop_toBottomOf="@+id/repeatPassword_CV"
+            app:layout_constraintVertical_bias="0.067" />
+
+        <TextView
+            android:id="@+id/terms_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"
+            android:text="Terms of Service"
+            android:textColor="@color/colorAppTheme"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/repeatPassword_CV"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/repeatPassword_CV"
+            app:layout_constraintVertical_bias="0.082" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
