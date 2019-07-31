@@ -68,23 +68,6 @@ public class Home extends Fragment {
 	                         Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
-
-//		MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
-//			@Override
-//			public void onInitializationComplete(InitializationStatus initializationStatus) {
-//
-//				Log.i(TAG, "Ads Loaded!!!");
-//
-//			}
-//		});
-
-//		adsView.setAdSize(AdSize.BANNER);
-//		adsView.setAdUnitId(BANNER_APP_ID);
-
-//		adsView = rootView.findViewById(R.id.adView);
-//		AdRequest adRequest = new AdRequest.Builder().build();
-//		adsView.loadAd(adRequest);
-
 		// Initialize Firebase Auth
 		db = FirebaseFirestore.getInstance();
 		mAuth = FirebaseAuth.getInstance();
@@ -100,8 +83,6 @@ public class Home extends Fragment {
 		RecyclerView homeSubjects_RV = rootView.findViewById(R.id.homeSubjects_RV);
 		ImageButton bookmark_IB = rootView.findViewById(R.id.bookmarks_IB);
 
-
-
 		bookmark_IB.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -114,11 +95,11 @@ public class Home extends Fragment {
 			@Override
 			public void onFocusChange(View view, boolean b) {
 				if (subjectsSearch_ET.isFocused()) {
-					subjectsLayout_CL.animate().translationY(-recentViewsLayout_CL.getHeight()).setDuration(500);
-					searchIconInSearchBar_IB.setImageDrawable(getResources().getDrawable(R.drawable.icon_down_arrow));
+//					subjectsLayout_CL.animate().translationY(-recentViewsLayout_CL.getHeight()).setDuration(500);
+//					searchIconInSearchBar_IB.setImageDrawable(getResources().getDrawable(R.drawable.icon_down_arrow));
 				} else {    // when click on background root Constraint Layout
-					subjectsLayout_CL.animate().translationY(0).setDuration(500);
-					searchIconInSearchBar_IB.setImageDrawable(getResources().getDrawable(R.drawable.icon_search));
+//					subjectsLayout_CL.animate().translationY(0).setDuration(500);
+//					searchIconInSearchBar_IB.setImageDrawable(getResources().getDrawable(R.drawable.icon_search));
 
 					// to hide the keyboard
 					InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -138,7 +119,6 @@ public class Home extends Fragment {
 		}
 
 		homeSubjects = new ArrayList<>();
-
 
 		homeSubjectAdapter = new AdapterHomeSubjects(homeSubjects, true);
 
@@ -192,7 +172,10 @@ public class Home extends Fragment {
 		for (ItemDataHomeSubjects s : homeSubjects) {
 			//new array list that will hold the filtered data
 			//if the existing elements contains the search input
-			if (s != null && s.subName.toLowerCase().contains(text.toLowerCase())) {
+			if(s != null)
+			if (s.subName.toLowerCase().contains(text.toLowerCase())
+							|| s.subAbb.toLowerCase().contains(text.toLowerCase())
+							|| s.lastUpdate.toLowerCase().contains(text.toLowerCase())) {
 				filteredList.add(s);
 			}
 		}
