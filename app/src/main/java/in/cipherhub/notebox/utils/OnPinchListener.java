@@ -42,11 +42,6 @@ public class OnPinchListener extends ScaleGestureDetector.SimpleOnScaleGestureLi
   public boolean onScale(ScaleGestureDetector detector) {
 
     if (detector != null) {
-
-//      float scaleFactor = detector.getScaleFactor();
-      float something = detector.getFocusX();
-      Log.d("OXET", "detector.getFocusX() => " + something);
-
       if (srcImageView != null) {
 
         // Scale the image with pinch zoom value.

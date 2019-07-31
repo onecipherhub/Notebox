@@ -3,6 +3,7 @@ package in.cipherhub.notebox;
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.pdf.PdfRenderer;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,12 +13,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,6 +32,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import in.cipherhub.notebox.adapters.AdapterPDFViewerList;
 import in.cipherhub.notebox.models.ItemPDFPage;
@@ -43,13 +47,15 @@ public class PDFViewer extends AppCompatActivity {
   TextView pdfName_TV, pageCount_TV;
   ConstraintLayout thisIsIt;
   LinearLayout ll;
+  ImageButton zoomIn_IB, zoomOut_IB;
 
   LinearLayoutManager layoutManagerPDFViewer;
 
   // Used to detect pinch zoom gesture.
   private ScaleGestureDetector scaleGestureDetector = null;
 
-  float dX, dY, getX, getRawX;
+  float getY, getRawY, getX, getRawX;
+  ConstraintLayout.LayoutParams layoutParams;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,7 +68,21 @@ public class PDFViewer extends AppCompatActivity {
     pdfName_TV = findViewById(R.id.pdfName_TV);
     pageCount_TV = findViewById(R.id.pageCount_TV);
     thisIsIt = findViewById(R.id.thisIsIt);
+    zoomOut_IB = findViewById(R.id.zoomOut_IB);
     ll = findViewById(R.id.ll);
+
+    zoomOut_IB.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        layoutParams = new ConstraintLayout.LayoutParams(ll.getWidth(), ll.getHeight());
+        pdfViewer_RV.setLayoutParams(layoutParams);
+        zoomOut_IB.setVisibility(View.GONE);
+        pdfViewer_RV.animate()
+                .x(0)
+                .setDuration(0)
+                .start();
+      }
+    });
 
     try {
       // createBitmapList(fileName) will inflate the list with PDFs once the list is created
@@ -104,60 +124,79 @@ public class PDFViewer extends AppCompatActivity {
     }
 
     if (pdfRenderer != null) {
+      PdfRenderer.Page page = null;
       for (int i = 0; i < pdfRenderer.getPageCount(); i++) {
-        android.graphics.pdf.PdfRenderer.Page page = pdfRenderer.openPage(i);
+        page = pdfRenderer.openPage(i);
 
         Bitmap bitmap = Bitmap.createBitmap(page.getWidth(), page.getHeight(),
                 Bitmap.Config.ARGB_8888);
 
-        page.render(bitmap, null, null, android.graphics.pdf.PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
+        page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY);
 
         bitmapList.add(new ItemPDFPage("", bitmap));
 
         page.close();
       }
+      if(page != null)
+      bitmapList.add(new ItemPDFPage("", Bitmap.createBitmap(page.getWidth(), 1,
+              Bitmap.Config.ARGB_8888)));
     }
 
     inflatePDFPages();
   }
 
 
-  @SuppressLint("ClickableViewAccessibility")
   public void inflatePDFPages() {
-
-    AdapterPDFViewerList adapterPDFViewerList = new AdapterPDFViewerList(bitmapList);
+    final AdapterPDFViewerList adapterPDFViewerList = new AdapterPDFViewerList(bitmapList);
     pdfViewer_RV.setAdapter(adapterPDFViewerList);
     layoutManagerPDFViewer = new LinearLayoutManager(this);
     pdfViewer_RV.setLayoutManager(layoutManagerPDFViewer);
 
-    pdfViewer_RV.smoothScrollBy(0, 100);
+    setPDFListeners();
+    createPDFInterface();
+  }
+
+
+  @SuppressLint("ClickableViewAccessibility")
+  public void setPDFListeners() {
+
     pdfViewer_RV.setOnTouchListener(new View.OnTouchListener() {
       @Override
       public boolean onTouch(View view, MotionEvent event) {
         // Dispatch activity on touch event to the scale gesture detector.
         scaleGestureDetector.onTouchEvent(event);
+
+        pdfViewer_RV.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+          @Override
+          public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
+            zoomOut_IB.setVisibility(View.VISIBLE);
+          }
+        });
+
         switch (event.getAction()) {
           case MotionEvent.ACTION_DOWN:
             getX = view.getX();
             getRawX = event.getRawX();
+            getY = view.getY();
+            getRawY = event.getRawY();
             break;
           case MotionEvent.ACTION_MOVE:
-            view.animate()
-                    .x(event.getRawX() + (getX - getRawX))
-//                    .y(event.getRawY() + dY)
-                    .setDuration(0)
-                    .start();
+            if (pdfViewer_RV.getWidth() - Math.abs(view.getX()) - Resources.getSystem().getDisplayMetrics().widthPixels > 0
+                    || view.getX() < 0)
+              view.animate()
+                      .x(event.getRawX() + (getX - getRawX))
+                      .setDuration(0)
+                      .start();
+
             if (view.getX() > 0) {
               // RV has visible start margin
               view.animate()
                       .x(0)
-//                    .y(event.getRawY() + dY)
                       .setDuration(100)
                       .start();
             } else if (pdfViewer_RV.getWidth() - Math.abs(view.getX()) - Resources.getSystem().getDisplayMetrics().widthPixels < 0) {
               view.animate()
                       .x(-(pdfViewer_RV.getWidth() - Resources.getSystem().getDisplayMetrics().widthPixels))
-//                    .y(event.getRawY() + dY)
                       .setDuration(100)
                       .start();
             }
@@ -176,54 +215,24 @@ public class PDFViewer extends AppCompatActivity {
       // Create the new scale gesture detector object use above pinch zoom gesture listener.
       scaleGestureDetector = new ScaleGestureDetector(getApplicationContext(), onPinchListener);
     }
-    createPDFInterface();
-  }
-
-
-  public void createPDFInterface() {
-    String pageCount = "1 / " + layoutManagerPDFViewer.getItemCount();
-
-    pdfName_TV.setText(getIntent().getStringExtra("pdf_name"));
-    pageCount_TV.setText(pageCount);
 
     pdfViewer_RV.addOnScrollListener(new RecyclerView.OnScrollListener() {
       @Override
-      public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-        super.onScrollStateChanged(recyclerView, newState);
+      public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+        super.onScrolled(recyclerView, dx, dy);
         String pageCount = (layoutManagerPDFViewer.findFirstVisibleItemPosition() + 1)
-                + " / " + (layoutManagerPDFViewer.getItemCount());
+                + " / " + (layoutManagerPDFViewer.getItemCount() - 1);
 
         pageCount_TV.setText(pageCount);
       }
     });
   }
-//
-//  @Override
-//  public boolean onTouch(View view, MotionEvent event) {
-//    final int X = (int) event.getRawX();
-//    final int Y = (int) event.getRawY();
-//    switch (event.getAction() & MotionEvent.ACTION_MASK) {
-//      case MotionEvent.ACTION_DOWN:
-//        ConstraintLayout.LayoutParams lParams = (ConstraintLayout.LayoutParams) view.getLayoutParams();
-//        _xDelta = X - lParams.leftMargin;
-//        _yDelta = Y - lParams.topMargin;
-//        break;
-//      case MotionEvent.ACTION_UP:
-//        break;
-//      case MotionEvent.ACTION_POINTER_DOWN:
-//        break;
-//      case MotionEvent.ACTION_POINTER_UP:
-//        break;
-//      case MotionEvent.ACTION_MOVE:
-//        ConstraintLayout.LayoutParams layoutParams = (ConstraintLayout.LayoutParams) view.getLayoutParams();
-//        layoutParams.leftMargin = X - _xDelta;
-//        layoutParams.topMargin = Y - _yDelta;
-//        layoutParams.rightMargin = -250;
-//        layoutParams.bottomMargin = -250;
-//        view.setLayoutParams(layoutParams);
-//        break;
-//    }
-//    _root.invalidate();
-//    return false;
-//  }
+
+
+  public void createPDFInterface() {
+    String pageCount = "1 / " + (layoutManagerPDFViewer.getItemCount() - 1);
+
+    pdfName_TV.setText(getIntent().getStringExtra("pdf_name"));
+    pageCount_TV.setText(pageCount);
+  }
 }
