@@ -65,7 +65,6 @@ public class BookmarkActivity extends AppCompatActivity {
   ItemPDFList openedPDFItem;
   AdapterPDFList adapterPDFList;
 
-
   FirebaseStorage storage = FirebaseStorage.getInstance();
   StorageReference httpsReference;
 
