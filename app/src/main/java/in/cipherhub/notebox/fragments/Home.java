@@ -10,6 +10,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -28,6 +30,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -110,8 +113,7 @@ public class Home extends Fragment {
 
 		homeSubjectAdapter = new AdapterHomeSubjects(homeSubjects);
 
-		homeSubjects_RV.setAdapter(homeSubjectAdapter);
-		homeSubjects_RV.setLayoutManager(new LinearLayoutManager(getActivity()));
+
 		try {
 			SharedPreferences localDB = getActivity().getSharedPreferences("localDB", MODE_PRIVATE);
 
@@ -137,10 +139,16 @@ public class Home extends Fragment {
 			Log.d(TAG, e.getMessage());
 		}
 
-		homeSubjectAdapter = new AdapterHomeSubjects(homeSubjects);
+
 
 		homeSubjects_RV.setAdapter(homeSubjectAdapter);
 		homeSubjects_RV.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+//		homeSubjectAdapter = new AdapterHomeSubjects(homeSubjects);
+
+//		homeSubjects_RV.setAdapter(homeSubjectAdapter);
+//		homeSubjects_RV.setLayoutManager(new LinearLayoutManager(getActivity()));
+
 		subjectsSearch_ET.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}

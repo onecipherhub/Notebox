@@ -502,62 +502,82 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 							Log.e(TAG, String.valueOf(e));
 						}
 
-						try {
-							// saved to cache directory
-							final File localFile = File.createTempFile(openedPDFItem.getName(), ".pdf", getCacheDir());
 
-							Log.i(TAG, String.valueOf(localFile));
-							Log.i(TAG, String.valueOf(getCacheDir()));
+						/*NOT CACHE CODE*/
 
-							httpsReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-								@Override
-								public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+						final File directPath = new File(getFilesDir(), "PDF");
 
-									// Local temp file has been created
-									Toast.makeText(PDFList.this, openedPDFItem.getName() + " download complete!"
-											, Toast.LENGTH_SHORT).show();
+						Log.i(TAG, "" + directPath);
 
-									progressDialog.dismiss();
+						if (!directPath.exists()) {
+							boolean mkdir = directPath.mkdir();
+							if (!mkdir) {
+								Log.i(TAG, "Directory creation failed.");
+							} else {
+								Log.i(TAG, "Directory created!!");
 
-									download_B.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.ic_offline_pin_black_24dp)
-											, null, null, null);
-									download_B.setText(getResources().getString(R.string.open_pdf));
-									Map<String, Object> pdfDetails = new HashMap<>();
-									pdfDetails.put("name", "\"" + openedPDFItem.getName() + "\"");
-									pdfDetails.put("by", "\"" + openedPDFItem.getBy() + "\"");
-									pdfDetails.put("author", "\"" + openedPDFItem.getAuthor() + "\"");
-									pdfDetails.put("date", "\"" + openedPDFItem.getDate() + "\"");
-									pdfDetails.put("shares", "\"" + openedPDFItem.getTotalShares() + "\"");
-									pdfDetails.put("downloads", "\"" + openedPDFItem.getTotalDownloads() + "\"");
-									pdfDetails.put("likes", "\"" + openedPDFItem.getLikes() + "\"");
-									pdfDetails.put("dislikes", "\"" + openedPDFItem.getDislikes() + "\"");
-									pdfDetails.put("localFileName", "\"" + localFile + "\"");
-									try {
-										pdfDetails.put("url", "\"" + subject.getJSONObject(openedPDFItem.getName()).getString("url") + "\"");
-									} catch (JSONException e) {
-										Log.e(TAG, String.valueOf(e));
-									}
-									localDownloadDBEditor.putString(openedPDFItem.getName(), String.valueOf(pdfDetails)).apply();
-									localDownloadDBBooleanEditor.putBoolean(openedPDFItem.getName(), true).apply();
-
-								}
-							}).addOnFailureListener(new OnFailureListener() {
-								@Override
-								public void onFailure(@NonNull Exception exception) {
-									progressDialog.dismiss();
-									Toast.makeText(PDFList.this, "Failed to download!", Toast.LENGTH_SHORT).show();
-								}
-							}).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
-								@Override
-								public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
-									// percentage in progress dialog
-									double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-									progressDialog.setMessage("File: " + openedPDFItem.getName() + "\n" + "Downloaded " + ((int) progress) + "%");
-								}
-							});
-						} catch (IOException e) {
-							Log.e(TAG, String.valueOf(e));
+							}
 						}
+
+						final File pdf_file_download = new File(getApplicationContext().getFilesDir() + "/PDF", openedPDFItem.getName() + ".pdf");
+
+						Log.i(TAG, "" + pdf_file_download);
+
+						/*=============*/
+
+						// saved to cache directory
+//							final File localFile = File.createTempFile(openedPDFItem.getName(), ".pdf", getCacheDir());
+//							Log.i(TAG, String.valueOf(localFile));
+//							Log.i(TAG, String.valueOf(getCacheDir()));
+
+
+						httpsReference.getFile(pdf_file_download).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+							@Override
+							public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+
+								// Local temp file has been created
+								Toast.makeText(PDFList.this, openedPDFItem.getName() + " download complete!"
+										, Toast.LENGTH_SHORT).show();
+
+								progressDialog.dismiss();
+
+								download_B.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.ic_offline_pin_black_24dp)
+										, null, null, null);
+
+								download_B.setText(getResources().getString(R.string.open_pdf));
+								Map<String, Object> pdfDetails = new HashMap<>();
+								pdfDetails.put("name", "\"" + openedPDFItem.getName() + "\"");
+								pdfDetails.put("by", "\"" + openedPDFItem.getBy() + "\"");
+								pdfDetails.put("author", "\"" + openedPDFItem.getAuthor() + "\"");
+								pdfDetails.put("date", "\"" + openedPDFItem.getDate() + "\"");
+								pdfDetails.put("shares", "\"" + openedPDFItem.getTotalShares() + "\"");
+								pdfDetails.put("downloads", "\"" + openedPDFItem.getTotalDownloads() + "\"");
+								pdfDetails.put("likes", "\"" + openedPDFItem.getLikes() + "\"");
+								pdfDetails.put("dislikes", "\"" + openedPDFItem.getDislikes() + "\"");
+								pdfDetails.put("localFileName", "\"" + pdf_file_download + "\"");
+								try {
+									pdfDetails.put("url", "\"" + subject.getJSONObject(openedPDFItem.getName()).getString("url") + "\"");
+								} catch (JSONException e) {
+									Log.e(TAG, String.valueOf(e));
+								}
+								localDownloadDBEditor.putString(openedPDFItem.getName(), String.valueOf(pdfDetails)).apply();
+								localDownloadDBBooleanEditor.putBoolean(openedPDFItem.getName(), true).apply();
+
+							}
+						}).addOnFailureListener(new OnFailureListener() {
+							@Override
+							public void onFailure(@NonNull Exception exception) {
+								progressDialog.dismiss();
+								Toast.makeText(PDFList.this, "Failed to download!", Toast.LENGTH_SHORT).show();
+							}
+						}).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
+							@Override
+							public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
+								// percentage in progress dialog
+								double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+								progressDialog.setMessage("File: " + openedPDFItem.getName() + "\n" + "Downloaded " + ((int) progress) + "%");
+							}
+						});
 
 						/*============= END OF -> DOWNLOADING AND VIEWING PDF CODE ==================*/
 					} else {
