@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,12 +21,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -36,9 +32,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import in.cipherhub.notebox.BookmarkActivity;
 import in.cipherhub.notebox.R;
-import in.cipherhub.notebox.adapters.AdapterBranchSelector;
+import in.cipherhub.notebox.BookmarkActivity;
 import in.cipherhub.notebox.adapters.AdapterHomeSubjects;
 import in.cipherhub.notebox.adapters.AdapterRecentViews;
 import in.cipherhub.notebox.models.ItemDataHomeSubjects;
@@ -47,24 +42,17 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class Home extends Fragment {
 
+	private static final String TAG = "HomePage";
+
 	private FirebaseAuth mAuth;
 	private FirebaseUser user;
 	private FirebaseFirestore db;
 
-	AdapterHomeSubjects homeSubjectAdapter;
-	List<ItemDataHomeSubjects> homeSubjects;
-
-	// for ads
-	private static final String BANNER_APP_ID = "ca-app-pub-3940256099942544/6300978111";
-	private static int ITEM_PER_AD = 1;
-
-
-
-
-	private static final String TAG = "HomePage";
+	private AdapterHomeSubjects homeSubjectAdapter;
+	private List<ItemDataHomeSubjects> homeSubjects;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
@@ -120,8 +108,7 @@ public class Home extends Fragment {
 
 		homeSubjects = new ArrayList<>();
 
-		homeSubjectAdapter = new AdapterHomeSubjects(homeSubjects, true);
-
+		homeSubjectAdapter = new AdapterHomeSubjects(homeSubjects);
 		homeSubjects_RV.setAdapter(homeSubjectAdapter);
 		homeSubjects_RV.setLayoutManager(new LinearLayoutManager(getActivity()));
 		try {

@@ -73,7 +73,6 @@ public class AdapterPDFList extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
   @Override
   public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i) {
-
     if (i != adPosition) {
       PdfListItemViewHolder pdfListItemViewHolder = (PdfListItemViewHolder) holder;
 
@@ -106,12 +105,14 @@ public class AdapterPDFList extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return Integer.compare(RHS, LHS);
       }
     });
+
     if (filteredList.size() > 2) {
       adPosition = 2;
     } else {
       adPosition = filteredList.size();
     }
     filteredList.add(adPosition, null);
+
     this.list = filteredList;
     notifyDataSetChanged();
   }

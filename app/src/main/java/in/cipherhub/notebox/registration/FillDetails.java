@@ -14,6 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -65,7 +68,7 @@ public class FillDetails extends Fragment {
         final EditText fullName_ET = rootView.findViewById(R.id.fullName_ET);
         final EditText institute_ET = rootView.findViewById(R.id.institute_ET);
         final EditText course_ET = rootView.findViewById(R.id.course_ET);
-        final EditText branch_ET = rootView.findViewById(R.id.branch_ET);
+        final AutoCompleteTextView branch_ACTV = rootView.findViewById(R.id.branch_ACTV);
         final LinearLayout instituteAndCourseHolder_LL = rootView.findViewById(R.id.instituteAndCourseHolder_LL);
         final View branch_V = rootView.findViewById(R.id.branch_V);
         final RecyclerView recyclerView = rootView.findViewById(R.id.branchSelectorList_RV);
@@ -76,23 +79,20 @@ public class FillDetails extends Fragment {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        branch_ET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+        branch_ACTV.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (branch_ET.isFocused()) {
-                    instituteAndCourseHolder_LL.setVisibility(View.GONE);
-                    recyclerView.setVisibility(View.VISIBLE);
-                } else {
-                    instituteAndCourseHolder_LL.setVisibility(View.VISIBLE);
-                    recyclerView.setVisibility(View.GONE);
+                if (b) {
+                    branch_ACTV.showDropDown();
                 }
             }
         });
 
-        final List<ItemDataBranchSelector> list = new ArrayList<>();
+        final List<String> branchList = new ArrayList<>();
 
         if (new Internet(getActivity()).isAvailable()) {
-            //get the list of institutes, courses and branches
+            //get the branchList of institutes, courses and branches
             FirebaseFirestore.getInstance().collection("institutes")
                     .whereEqualTo("name", institute_ET.getText().toString())
                     .whereEqualTo("pin_code", 560064)
@@ -113,67 +113,14 @@ public class FillDetails extends Fragment {
                                 while (iterator.hasNext()) {
                                     String key = iterator.next();
                                     JSONObject branchName = branches.getJSONObject(key);
-                                    list.add(new ItemDataBranchSelector(key
-                                            , branchName.getString("abbreviation_color")
-                                            , branchName.getString("total_uploads")
-                                            , branchName.getString("abbreviation")));
+                                    branchList.add(key);
                                 }
 
-                                final AdapterBranchSelector adapterBranchSelector = new AdapterBranchSelector(list);
+                                // Populate the Subjects
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                                        R.layout.subject_recycler_view, R.id.lrg_text_view, branchList);
+                                branch_ACTV.setAdapter(adapter);
 
-                                adapterBranchSelector.setOnItemClickListener(new AdapterBranchSelector.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(int position) {
-                                        branch_ET.setText(list.get(position).getBranchName());
-                                        instituteAndCourseHolder_LL.setVisibility(View.VISIBLE);
-                                        recyclerView.setVisibility(View.GONE);
-                                        submit_B.setVisibility(View.VISIBLE);
-                                        View view = getActivity().getCurrentFocus();
-                                        if (view != null) {
-                                            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                                        }
-                                    }
-                                });
-
-                                recyclerView.setAdapter(adapterBranchSelector);
-                                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-
-                                branch_ET.addTextChangedListener(new TextWatcher() {
-                                    @Override
-                                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-                                    @Override
-                                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                                        // keeping the recycler view visible
-                                        instituteAndCourseHolder_LL.setVisibility(View.GONE);
-                                        recyclerView.setVisibility(View.VISIBLE);
-
-                                        submit_B.setVisibility(View.GONE);
-                                        if (branch_ET.getText().toString().equals("")) {
-                                            branch_V.setBackgroundColor(getResources().getColor(R.color.colorGray_777777));
-                                        } else {
-                                            branch_V.setBackgroundColor(getResources().getColor(R.color.colorAppTheme));
-                                        }
-                                    }
-
-                                    @Override
-                                    public void afterTextChanged(Editable editable) {
-
-                                        List<ItemDataBranchSelector> filteredList = new ArrayList<>();
-
-                                        for (ItemDataBranchSelector s : list) {
-                                            //new array list that will hold the filtered data
-                                            //if the existing elements contains the search input
-                                            if (s.getBranchName().toLowerCase().contains(editable.toString().toLowerCase())
-                                                    || s.getBranchAbb().toLowerCase().contains(editable.toString().toLowerCase())) {
-                                                filteredList.add(s);
-                                            }
-                                        }
-                                        adapterBranchSelector.filterList(filteredList);
-                                    }
-                                });
                             } catch (JSONException e) {
                                 Log.d(TAG, String.valueOf(e));
                             }
@@ -241,7 +188,6 @@ public class FillDetails extends Fragment {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    progressDialog.dismiss();
 
                                     Toast.makeText(getActivity(),
                                             "Your Details has been registered for you better experience with Notebox!",
@@ -251,6 +197,7 @@ public class FillDetails extends Fragment {
                                             .edit().putBoolean("isDetailsFilled", true).apply();
 
                                     ((SignIn) getActivity()).openHomePage();
+                                    progressDialog.dismiss();
                                 }
                             });
                 } else {

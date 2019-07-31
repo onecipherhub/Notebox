@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -35,7 +36,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import org.json.JSONObject;
 
 import in.cipherhub.notebox.MainActivity;
-import in.cipherhub.notebox.MainActivity2;
 import in.cipherhub.notebox.R;
 import in.cipherhub.notebox.utils.Internet;
 
@@ -201,9 +201,11 @@ public class SignIn extends AppCompatActivity {
                                             , String.valueOf(new JSONObject(document.getData()))
                                     ).apply();
 
+                                    progressDialog.dismiss();
                                     // after loading data from firebase
-                                    startActivity(new Intent(SignIn.this, MainActivity2.class));
+                                    startActivity(new Intent(SignIn.this, MainActivity.class));
                                     overridePendingTransition(android.R.anim.fade_in, 0);
+                                    Toast.makeText(getApplicationContext(), "LogIn Success!", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
                                 Log.w(TAG, "Error getting documents.", task.getException());
