@@ -122,4 +122,44 @@
     <string name="title_notifications">Notifications</string>
     <string name="downloading">Downloading..</string>
 
+
+    <string name="terms_conditions">
+        <![CDATA[
+        <h6>Community Guidelines :</h6>
+        <p>When you use NoteBox, you join a community of people from all over the world. Every cool, new community feature on NoteBox involves a certain level of trust. Millions of users respect that trust and we trust you to be responsible too. Following the guidelines below helps to keep NoteBox fun and enjoyable for everyone.
+         You might not like everything you read on NoteBox. If you think content is inappropriate, use the report feature to submit it for review by our Notebox staff. Our staff carefully reviews flagged content 24 hours a day, 7 days a week to determine whether there’s a violation of our Community Guidelines.</p>
+        <h7><u>Nudity and sexual content:</u></h7>
+        <p>NoteBox is not for pornography or sexually explicit content. If this describes your documents, even if it\'s a photo/Document of yourself, don\'t post it on NoteBox. Also, be advised that we work closely with law enforcement and we report child exploitation.
+</p>
+        <h7><u><b>Harmful or dangerous content:</b></u></h7>
+        <p>Don\'t post content that encourage others to do things that might cause them to get badly hurt, especially kids. Content showing such harmful or dangerous acts may get age-restricted or removed depending on their severity.
+</p>
+
+        <h8><u><b>Hateful content:</b></u></h8>
+        <p>Our products are platforms for free expression. But we don\'t support content that promotes or condones violence against individuals or groups based on race or ethnic origin, religion, disability, gender, age, nationality, veteran status, or sexual orientation/gender identity, or whose primary purpose is inciting hatred on the basis of these core characteristics. This can be a delicate balancing act, but if the primary purpose is to attack a protected group, the content crosses the line.
+
+</p>
+
+        <h7><u><b>Violent or graphic content:</b></u></h7>
+        <p>It\'s not okay to post violent or gory content that's primarily intended to be shocking, sensational, or gratuitous. If posting graphic content in a news or documentary context, please be mindful to provide enough information to help people understand what's going on. Don't encourage others to commit specific acts of violence.
+</p>
+        <h7><u><b>Spam, misleading metadata, and scams:</b></u></h7>
+        <p>Everyone hates spam. Don't create misleading descriptions, titles, or units in order to increase views. It's not okay to post large amounts of untargeted, unwanted or repetitive content.
+</p>
+        <h7><u><b>Threats:</b></u></h7>
+        <p>Things like predatory behaviour, stalking, threats, harassment, intimidation, invading privacy, revealing other people's personal information, and inciting others to commit violent acts or to violate the Terms of Use are taken very seriously. Anyone caught doing these things may be permanently banned from NoteBox.
+</p>
+        <h7><u><b>Copyright:</b></u></h7>
+        <p>Respect copyright. Only upload content that you made or that you're authorized to use. This means don't upload content you didn't make, or use content in your pdf,docs that someone else owns the copyright to, snippets of copyrighted programs, or content made by other users, without necessary authorizations
+</p>
+        <h7><u><b>Impersonation:</b></u></h7>
+        <p>Accounts that are established to impersonate another channel or individual may be removed under our impersonation policy.
+</p>
+
+
+        ]]>
+    </string>
+
+
+
 </resources>
