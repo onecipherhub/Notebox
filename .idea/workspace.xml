@@ -133,19 +133,51 @@
     <last-search-timestamp>1563451734404</last-search-timestamp>
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="778786b8-85d4-40b0-94d7-a7fff2b7fb3f" name="Default Changelist" comment="Bottom Navigation with ViewPager Added">
+=======
+    <list default="true" id="778786b8-85d4-40b0-94d7-a7fff2b7fb3f" name="Default Changelist" comment="">
+<<<<<<< HEAD
+=======
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/utils/RoundImageView.java" afterDir="false" />
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" afterDir="false" />
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/PDFViewer.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/PDFViewer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/SplashScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/SplashScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/fragments/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/fragments/Profile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/utils/PinchZoomItemTouchListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/utils/ZoomInZoomOut.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/utils/ZoomableImageView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_pdflist.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_pdflist.xml" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/taskHistory.bin" afterDir="false" />
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+=======
+      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/fragments/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/fragments/Profile.java" afterDir="false" />
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
     </list>
     <ignored path="$PROJECT_DIR$/build/classes/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -154,11 +186,14 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
+=======
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
   </component>
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -174,7 +209,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+<<<<<<< HEAD
       <file pinned="false" current-in-tab="true">
+=======
+      <file pinned="false" current-in-tab="false">
+<<<<<<< HEAD
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/fragments/Profile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="262">
+              <caret line="57" column="26" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="26" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="382">
+              <caret line="221" selection-start-line="221" selection-end-line="254" selection-end-column="5" />
+              <folding>
+                <element signature="method#onCreate#0;class#MainActivity#0" />
+                <element signature="method#setListener#0;class#MainActivity#0" />
+                <element signature="method#onRequestPermissionsResult#0;class#MainActivity#0" />
+                <element signature="method#askPermission#0;class#MainActivity#0" />
+                <element signature="method#onClick#0;class#MainActivity#0" />
+                <element signature="method#onBackPressed#0;class#MainActivity#0" />
+                <element signature="method#applyInitButState#0;class#MainActivity#0" />
+                <element signature="method#customButtonRadioGroup#0;class#MainActivity#0" />
+                <element signature="method#tintSystemBars#0;class#MainActivity#0" />
+                <element signature="method#blendColors#0;class#MainActivity#0" />
+              </folding>
+=======
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
         <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="632">
@@ -186,12 +255,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/PDFList.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="816">
               <caret line="476" selection-start-line="476" selection-end-line="476" />
+=======
+            <state relative-caret-position="304">
+              <caret line="16" selection-start-line="16" selection-end-line="16" />
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
           <provider editor-type-id="text-editor">
@@ -222,6 +298,22 @@
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/registration/SignUp.java">
+=======
+      <file pinned="false" current-in-tab="true">
+<<<<<<< HEAD
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/SplashScreen.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="646">
+              <caret line="58" column="40" selection-start-line="58" selection-start-column="40" selection-end-line="58" selection-end-column="40" />
+              <folding>
+                <element signature="e#2254#2995#0" expanded="true" />
+                <element signature="e#2472#2974#0" expanded="true" />
+                <element signature="e#2973#2974#0" expanded="true" />
+                <element signature="e#2994#2995#0" expanded="true" />
+              </folding>
+=======
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/fragments/Profile.java">
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-794">
               <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
@@ -232,8 +324,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/registration/FillDetails.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="493">
               <caret line="257" column="45" selection-start-line="257" selection-start-column="45" selection-end-line="257" selection-end-column="45" />
+=======
+            <state relative-caret-position="323">
+              <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
             </state>
           </provider>
         </entry>
@@ -253,6 +351,21 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+      <find>.pdf</find>
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
+      <find>temp</find>
+      <find>homeSubjects_RV</find>
+      <find>pdfSearch_ET</find>
+      <find>itemPDFList</find>
+      <find>pdfName</find>
+      <find>Log.d</find>
+      <find>PDFList</find>
+      <find>localLikesDBBoolean</find>
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
       <find>like</find>
       <find>alreadyLiked</find>
       <find>getActivity()</find>
@@ -273,7 +386,12 @@
       <find>BookmarkActivity</find>
       <find>Bookmark</find>
       <find>Downloads</find>
+<<<<<<< HEAD
+      <find>Const</find>
+      <find>layout</find>
+=======
       <find>Rounded</find>
+<<<<<<< HEAD
       <find>Main</find>
       <find>pdfPreview_IB</find>
       <find>localFileName</find>
@@ -283,6 +401,9 @@
       <find>pdfPre</find>
       <find>progress</find>
       <find>LogIn Success</find>
+=======
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
     </findStrings>
     <replaceStrings>
       <replace>downloadsCount_TV</replace>
@@ -337,6 +458,38 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_login.xml" />
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
+        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_upload.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/pdf_viewer.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_thumb_up_black_24dp.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_thumb_down_black_24dp.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_thumb_down_fill_777777.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_thumb_up_fill_aaaaaa.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/fragments/Explore.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/adapters/AdapterBranchSelector.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/registration/FillDetails.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/models/ItemDataBranchSelector.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_home.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_smart_ad.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/fragments/Home.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/gradient_profile_btm_btn.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_book_black_24dp.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_about_profile.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/ic_close_black_24dp.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/adapters/AdapterHomeSubjects.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/fragments/Upload.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/models/ItemPDFImages.java" />
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
         <option value="$PROJECT_DIR$/app/src/main/res/layout/item_pdf_images.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/models/ItemPDFPage.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/utils/PdfRenderer.java" />
@@ -348,12 +501,23 @@
         <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/utils/OnPinchListener.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/models/ItemPDFList.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/adapters/AdapterPDFList.java" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/app/src/main/res/layout/item_pdf_list.xml" />
+=======
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_bookmark.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_downloads.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/Downloads.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/rounded_bottom_sheet.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/BookmarkActivity.java" />
+<<<<<<< HEAD
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_pdf_list.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_pdflist.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/fragments/Profile.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/SplashScreen.java" />
+=======
         <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/utils/RoundImageView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/adapters/AdapterBottomSlider.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/icon_profile_but_unfocused.xml" />
@@ -382,12 +546,16 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/fragments/Profile.java" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_pdf.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/registration/SignIn.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/registration/FillDetails.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/registration/LogIn.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/PDFList.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/MainActivity.java" />
+=======
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
       </list>
     </option>
   </component>
@@ -482,9 +650,18 @@
             <path>
               <item name="Notebox" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
+<<<<<<< HEAD
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="notebox" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="registration" type="462c0819:PsiDirectoryNode" />
+=======
+<<<<<<< HEAD
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="notebox" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="registration" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
             </path>
             <path>
               <item name="Notebox" type="1abcf292:AndroidViewProjectNode" />
@@ -495,7 +672,12 @@
               <item name="Notebox" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
+<<<<<<< HEAD
               <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
+=======
+              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
             </path>
           </expand>
           <select />
@@ -745,8 +927,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+=======
     <frame x="-2" y="0" width="1924" height="1052" extended-state="6" />
+<<<<<<< HEAD
     <editor active="true" />
+=======
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.19604701" />
@@ -758,7 +947,23 @@
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Capture Tool" order="8" />
       <window_info anchor="bottom" id="Run" order="0" weight="0.5286416" />
+<<<<<<< HEAD
       <window_info anchor="bottom" x="376" y="239" width="1345" height="658" id="Logcat" order="1" weight="0.4381161" />
+=======
+<<<<<<< HEAD
+      <window_info anchor="bottom" id="TODO" order="1" weight="0.3289689" />
+      <window_info anchor="bottom" id="Debug" order="2" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="3" visible="true" weight="0.30278233" />
+      <window_info anchor="bottom" id="Event Log" order="4" sideWeight="0.50075644" side_tool="true" weight="0.3289689" />
+      <window_info anchor="bottom" id="Version Control" order="5" weight="0.3289689" />
+      <window_info anchor="bottom" id="Build" order="6" weight="0.32569557" />
+      <window_info anchor="bottom" id="Android Profiler" order="7" sideWeight="0.49924356" weight="0.3289689" />
+      <window_info anchor="bottom" id="Find" order="8" weight="0.3289689" />
+      <window_info anchor="bottom" id="Messages" order="9" weight="0.3289689" />
+      <window_info anchor="bottom" x="1392" y="97" width="1322" height="670" id="Logcat" order="10" type="WINDOWED" weight="0.35188216" />
+=======
+      <window_info anchor="bottom" x="376" y="239" width="1345" height="658" id="Logcat" order="1" weight="0.35158816" />
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
       <window_info anchor="bottom" id="TODO" order="2" weight="0.3289689" />
       <window_info anchor="bottom" id="Debug" order="3" />
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.3231106" />
@@ -768,6 +973,7 @@
       <window_info anchor="bottom" id="Android Profiler" order="8" sideWeight="0.49924356" weight="0.3289689" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.32858709" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.3289689" />
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
       <window_info anchor="right" id="Assistant" order="0" weight="0.29198185" />
       <window_info anchor="right" id="Device File Explorer" order="1" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="2" />
@@ -814,7 +1020,31 @@
     <option name="LAST_COMMIT_MESSAGE" value="Fixed bugs (pdf image, permissions, login delay, signup delay, profile pic, viewpager)" />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/icon_upload_but_focused.xml">
+=======
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_fill_details.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/models/ItemDataBranchSelector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+          <folding>
+            <element signature="e#736#737#0" expanded="true" />
+            <element signature="e#771#772#0" expanded="true" />
+            <element signature="e#827#828#0" expanded="true" />
+            <element signature="e#875#876#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/registration/FillDetails.java">
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
           <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
@@ -842,6 +1072,18 @@
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
+<<<<<<< HEAD
+=======
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="61" column="48" selection-start-line="61" selection-start-column="48" selection-end-line="61" selection-end-column="48" />
+        </state>
+      </provider>
+<<<<<<< HEAD
+      <provider editor-type-id="android-designer2" />
+=======
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/notifications/FirebaseMessagingService.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -998,13 +1240,21 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_mynotes.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_notifications_black_24dp.xml">
+=======
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_pdflist.xml">
+      <provider editor-type-id="android-designer2" />
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
           <caret line="6" column="37" lean-forward="true" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_offline_pin_black_24dp.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1013,6 +1263,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_share_brown_24dp.xml">
       <provider selected="true" editor-type-id="text-editor" />
+=======
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_bookmark.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="127" column="54" selection-start-line="127" selection-start-column="54" selection-end-line="127" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_downloads.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="123" column="38" selection-start-line="123" selection-start-column="38" selection-end-line="123" selection-end-column="38" />
+          <folding>
+            <element signature="e#431#2600#0" />
+            <element signature="e#1075#1093#0" expanded="true" />
+            <element signature="e#1635#1654#0" expanded="true" />
+            <element signature="e#4195#4220#0" expanded="true" />
+            <element signature="e#6998#7026#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+<<<<<<< HEAD
+      <provider editor-type-id="android-designer2" />
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_sync_black_24dp.xml">
       <provider selected="true" editor-type-id="text-editor" />
@@ -1020,6 +1297,7 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_feedback_brown_24dp.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_file_download_brown_24dp.xml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1041,6 +1319,179 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_star_border_black_24dp.xml">
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/rounded_bottom_sheet.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="33" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_pdf.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="235" column="39" selection-start-line="235" selection-start-column="39" selection-end-line="235" selection-end-column="39" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/adapters/AdapterPDFList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="142" selection-start-line="142" selection-end-line="142" />
+          <folding>
+            <element signature="e#2060#2061#0" expanded="true" />
+            <element signature="e#2095#2096#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/BookmarkActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="99" selection-start-line="99" selection-end-line="99" />
+          <folding>
+            <element signature="class#2542:3504" />
+            <element signature="method#beforeTextChanged#0;class#2542:3504" />
+            <element signature="method#onTextChanged#0;class#2542:3504" />
+            <element signature="method#afterTextChanged#0;class#2542:3504" />
+            <element signature="e#2958#3441#1" />
+            <element signature="e#2970#3019#0" />
+            <element signature="e#3381#3431#1" />
+            <element signature="method#inflateBookmarksList#0;class#BookmarkActivity#0" />
+            <element signature="e#4229#4776#1" />
+            <element signature="e#4241#4697#0" />
+            <element signature="e#4722#4770#0" />
+            <element signature="e#4809#4977#1" />
+            <element signature="e#6837#6960#0" expanded="true" />
+            <element signature="e#6959#6960#0" expanded="true" />
+            <element signature="e#7977#8020#0" expanded="true" />
+            <element signature="e#8064#8254#0" expanded="true" />
+            <element signature="e#8253#8254#0" expanded="true" />
+            <element signature="e#7993#8474#1" />
+            <element signature="e#11764#13543#0" expanded="true" />
+            <element signature="e#12378#12421#0" expanded="true" />
+            <element signature="e#13542#13543#0" expanded="true" />
+            <element signature="e#13767#14054#0" expanded="true" />
+            <element signature="e#14053#14054#0" expanded="true" />
+            <element signature="e#13877#14362#0" expanded="true" />
+            <element signature="e#14361#14362#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+=======
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
+    </entry>
+    <entry file="file://$PROJECT_DIR$/local.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_pdf_list.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_pdflist.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="162" column="38" selection-start-line="162" selection-start-column="38" selection-end-line="162" selection-end-column="38" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/utils/ImageSaver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+          <folding>
+            <element signature="e#548#549#0" expanded="true" />
+            <element signature="e#577#578#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="111">
+          <caret line="50" column="43" lean-forward="true" selection-start-line="50" selection-start-column="43" selection-end-line="50" selection-end-column="43" />
+          <folding>
+            <element signature="e#2683#2709#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+=======
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/PDFList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="169" column="49" selection-start-line="169" selection-start-column="49" selection-end-line="169" selection-end-column="49" />
+          <folding>
+            <element signature="class#5241:6238" />
+            <element signature="method#beforeTextChanged#0;class#5241:6238" />
+            <element signature="method#onTextChanged#0;class#5241:6238" />
+            <element signature="method#afterTextChanged#0;class#5241:6238" />
+            <element signature="e#5652#6135#1" />
+            <element signature="e#5664#5713#0" />
+            <element signature="e#6075#6125#1" />
+            <element signature="e#6370#6416#1" />
+            <element signature="e#6795#6863#1" />
+            <element signature="e#6893#6953#1" />
+            <element signature="e#7167#7721#0" />
+            <element signature="e#7746#7780#0" />
+            <element signature="e#7786#7843#0" />
+            <element signature="e#8347#9056#1" />
+            <element signature="e#8407#8961#0" />
+            <element signature="e#8987#9044#0" />
+            <element signature="e#9137#10625#0" />
+            <element signature="e#9275#9454#1" />
+            <element signature="e#9680#10621#1" />
+            <element signature="e#9758#10615#1" />
+            <element signature="e#9872#10563#1" />
+            <element signature="e#9888#10474#0" />
+            <element signature="e#10500#10553#0" />
+            <element signature="e#12461#13992#1" />
+            <element signature="e#12901#13076#1" />
+            <element signature="e#13082#13258#1" />
+            <element signature="e#13352#13532#1" />
+            <element signature="e#13538#13719#1" />
+            <element signature="e#13935#13982#0" />
+            <element signature="e#13998#14061#1" />
+            <element signature="e#14655#14809#1" />
+            <element signature="e#14883#15111#1" />
+            <element signature="e#17053#17109#0" />
+            <element signature="e#17649#18205#1" />
+            <element signature="e#17762#17902#0" />
+            <element signature="e#17927#17973#0" />
+            <element signature="e#18748#18804#0" />
+            <element signature="e#20882#21021#0" />
+            <element signature="e#21046#21114#0" />
+            <element signature="e#22205#22261#0" />
+            <element signature="e#22920#23021#0" />
+            <element signature="e#23046#23080#0" />
+            <element signature="e#23225#23371#1" />
+            <element signature="e#23377#23716#1" />
+            <element signature="e#23543#23706#1" />
+            <element signature="e#23915#24042#1" />
+            <element signature="e#24048#24332#1" />
+            <element signature="e#24195#24322#1" />
+            <element signature="e#24389#25055#0" />
+            <element signature="e#25060#25663#0" />
+            <element signature="e#25668#25978#0" />
+            <element signature="e#25825#25938#1" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+=======
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_pdf_list.xml">
+      <provider editor-type-id="android-designer2" />
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
           <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
@@ -1082,6 +1533,7 @@
       </provider>
       <provider selected="true" editor-type-id="android-designer2" />
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/registration/SignUp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-794">
@@ -1093,6 +1545,83 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
           <caret line="257" column="45" selection-start-line="257" selection-start-column="45" selection-end-line="257" selection-end-column="45" />
+=======
+>>>>>>> 81f0598befe66ee437e52cd8274e359c3f486616
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/Downloads.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="142" selection-start-line="142" selection-end-line="142" />
+          <folding>
+            <element signature="class#3098:4242" />
+            <element signature="method#beforeTextChanged#0;class#3098:4242" />
+            <element signature="method#onTextChanged#0;class#3098:4242" />
+            <element signature="method#afterTextChanged#0;class#3098:4242" />
+            <element signature="e#3578#4161#1" />
+            <element signature="e#3600#3649#0" />
+            <element signature="e#4067#4143#1" />
+            <element signature="method#inflateDownloadsList#0;class#Downloads#0" />
+            <element signature="e#5038#5703#1" />
+            <element signature="e#5056#5606#0" />
+            <element signature="e#5631#5693#0" />
+            <element signature="e#5740#5930#1" />
+            <element signature="method#buildDialog#0;class#Downloads#0" />
+            <element signature="e#7874#8027#0" expanded="true" />
+            <element signature="e#8026#8027#0" expanded="true" />
+            <element signature="e#9078#9121#0" expanded="true" />
+            <element signature="e#8479#8669#0" expanded="true" />
+            <element signature="e#8668#8669#0" expanded="true" />
+            <element signature="e#9616#10163#1" />
+            <element signature="e#12326#14279#0" expanded="true" />
+            <element signature="e#14593#14636#0" expanded="true" />
+            <element signature="e#14278#14279#0" expanded="true" />
+            <element signature="e#14295#14582#0" expanded="true" />
+            <element signature="e#14581#14582#0" expanded="true" />
+            <element signature="e#14611#15096#0" expanded="true" />
+            <element signature="e#15095#15096#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/fragments/Profile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="57" column="26" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="382">
+          <caret line="221" selection-start-line="221" selection-end-line="254" selection-end-column="5" />
+          <folding>
+            <element signature="method#onCreate#0;class#MainActivity#0" />
+            <element signature="method#setListener#0;class#MainActivity#0" />
+            <element signature="method#onRequestPermissionsResult#0;class#MainActivity#0" />
+            <element signature="method#askPermission#0;class#MainActivity#0" />
+            <element signature="method#onClick#0;class#MainActivity#0" />
+            <element signature="method#onBackPressed#0;class#MainActivity#0" />
+            <element signature="method#applyInitButState#0;class#MainActivity#0" />
+            <element signature="method#customButtonRadioGroup#0;class#MainActivity#0" />
+            <element signature="method#tintSystemBars#0;class#MainActivity#0" />
+            <element signature="method#blendColors#0;class#MainActivity#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/in/cipherhub/notebox/SplashScreen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="58" column="40" selection-start-line="58" selection-start-column="40" selection-end-line="58" selection-end-column="40" />
+          <folding>
+            <element signature="e#2254#2995#0" expanded="true" />
+            <element signature="e#2472#2974#0" expanded="true" />
+            <element signature="e#2973#2974#0" expanded="true" />
+            <element signature="e#2994#2995#0" expanded="true" />
+          </folding>
+>>>>>>> 4362808d75b15cc15b3415274e0b4e7f04bcc825
         </state>
       </provider>
     </entry>

@@ -80,10 +80,6 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 	private String TAG = "PDFListOXET", userLikedPDFs = "", userDislikedPDFs = "";
 	int likedCount = 0, dislikedCount = 0, totalRating = 0;
 
-	private static final int STORAGE_PERM = 123;
-	public boolean checkPermission = false;
-	String[] perms;
-
 	Button unitOne_B, unitTwo_B, unitThree_B, unitFour_B, unitFive_B;
 	Button[] allButtons;
 	List<ItemPDFList> pdfList = new ArrayList<>();
@@ -91,16 +87,18 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 	ItemPDFList openedPDFItem;
 	Map<String, Object> pdfDetails;
 
+	private static final int STORAGE_PERM = 123;
+	public boolean checkPermission = false;
+	String[] perms;
+
 	FirebaseFirestore db;
 	FirebaseAuth firebaseAuth;
 	FirebaseUser user;
 	FirebaseStorage storage = FirebaseStorage.getInstance();
 	StorageReference httpsReference;
 
-	SharedPreferences localDB, localBookmarkDB, localBookmarkDBBoolean
-			, localLikeDBBoolean, localDislikeDBBoolean, localDownloadDBBoolean, localDownloadDB;
-	SharedPreferences.Editor localBookmarkDBEditor, localBookmarkDBBooleanEditor, localLikeDBBooleanEditor
-			, localDislikeDBBooleanEditor, localDownloadDBBooleanEditor, localDownloadDBEditor;
+	SharedPreferences localDB, localBookmarkDB, localBookmarkDBBoolean, localLikeDBBoolean, localDislikeDBBoolean, localDownloadDBBoolean, localDownloadDB;
+	SharedPreferences.Editor localBookmarkDBEditor, localBookmarkDBBooleanEditor, localLikeDBBooleanEditor, localDislikeDBBooleanEditor, localDownloadDBBooleanEditor, localDownloadDBEditor;
 	JSONObject userObject, subject, pdf;
 
 	RecyclerView PDFList_RV;
@@ -108,12 +106,12 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 	DocumentReference pdfDocRef, userDocRef;
 	Bundle extras;
 
-
 	Bitmap pdf_first_page = null;
 
 	String localFileName = "";
 
 	ImageButton pdfPreview_IB;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -151,7 +149,6 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 		unitFour_B = findViewById(R.id.unitFour_B);
 		unitFive_B = findViewById(R.id.unitFive_B);
 		PDFList_RV = findViewById(R.id.PDFList_RV);
-
 
 		EditText pdfSearch_ET = findViewById(R.id.pdfSearch_ET);
 
@@ -204,9 +201,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 				} else if (!pdfList.isEmpty()) {
 					openedPDFItem = pdfList.get(position);
 				}
-
 				buildDialog();
-
 			}
 		});
 
@@ -304,8 +299,8 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 						Log.d(TAG, "error: " + e1);
 					}
 				}
-				adapterPDFList.filterList(pdfList);
 			}
+			adapterPDFList.filterList(pdfList);
 		}
 	}
 
@@ -323,6 +318,9 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 		TextView sharesCount_TV = dialogView.findViewById(R.id.sharesCount_TV);
 		TextView downloadsCount_TV = dialogView.findViewById(R.id.downloadsCount_TV);
 		TextView date_TV = dialogView.findViewById(R.id.date_TV);
+		final TextView rating_TV = dialogView.findViewById(R.id.rating_TV);
+		TextView reportAnIssue_TV = dialogView.findViewById(R.id.reportAnIssue_TV);
+		final Button download_B = dialogView.findViewById(R.id.download_B);
 
 		pdfPreview_IB = dialogView.findViewById(R.id.pdfPreview_IB);
 		pdfPreview_IB.setImageDrawable(getResources().getDrawable(R.drawable.ic_gray_report_an_issue));
@@ -330,8 +328,6 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 		LoadImage image = new LoadImage();
 		image.execute();
 
-		final TextView rating_TV = dialogView.findViewById(R.id.rating_TV);
-		final Button download_B = dialogView.findViewById(R.id.download_B);
 
 		Button sharePDF_B = dialogView.findViewById(R.id.sharePDF_B);
 		final Button bookmark_B = dialogView.findViewById(R.id.bookmark_B);
@@ -343,6 +339,24 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 			@Override
 			public void onClick(View view) {
 				dialog.dismiss();
+			}
+		});
+		reportAnIssue_TV.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				Intent i = new Intent(Intent.ACTION_SEND);
+				i.setType("message/rfc822");
+
+				i.putExtra(Intent.EXTRA_EMAIL, new String[]{"onecipherhub@gmail.com"});
+				i.putExtra(Intent.EXTRA_SUBJECT, "Report your issues.");
+				i.putExtra(Intent.EXTRA_TEXT, "We will contact you soon. Please write in details.");
+				//startActivity(Intent.createChooser(i, "Choose an Email client :"));
+
+				try {
+					startActivity(Intent.createChooser(i, "Report your issues."));
+				} catch (android.content.ActivityNotFoundException ex) {
+					Toast.makeText(PDFList.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 
@@ -406,7 +420,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 			bookmark_B.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.icon_bookmark_red_fill)
 					, null, null, null);
 		}
-		if(localDownloadDBBoolean.getBoolean(openedPDFItem.getName(), false)){
+		if (localDownloadDBBoolean.getBoolean(openedPDFItem.getName(), false)) {
 			download_B.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.ic_offline_pin_black_24dp)
 					, null, null, null);
 			download_B.setText(getResources().getString(R.string.open_pdf));
@@ -429,8 +443,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 
 					localBookmarkDBEditor.remove(openedPDFItem.getName()).apply();
 					localBookmarkDBBooleanEditor.remove(openedPDFItem.getName()).apply();
-					Toast.makeText(PDFList.this, openedPDFItem.getName() + " removed from bookmarks!",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(PDFList.this, openedPDFItem.getName() + " removed from bookmarks!", Toast.LENGTH_SHORT).show();
 				} else {
 					// if not bookmarked
 					bookmark_B.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.icon_bookmark_red_fill)
@@ -451,8 +464,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 					}
 					localBookmarkDBEditor.putString(openedPDFItem.getName(), String.valueOf(pdfDetails)).apply();
 					localBookmarkDBBooleanEditor.putBoolean(openedPDFItem.getName(), true).apply();
-					Toast.makeText(PDFList.this, openedPDFItem.getName() + " added to your bookmarks!",
-							Toast.LENGTH_SHORT).show();
+					Toast.makeText(PDFList.this, openedPDFItem.getName() + " added to your bookmarks!", Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -461,11 +473,10 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 			@Override
 			public void onClick(View view) {
 				if (localDownloadDBBoolean.getBoolean(openedPDFItem.getName(), false)) {
-
 					// PDF is downloaded and can be opened in viewer
+
 					try {
-						localFileName = new JSONObject(localDownloadDB.getString(openedPDFItem.getName(), ""))
-								.getString("localFileName");
+						localFileName = new JSONObject(localDownloadDB.getString(openedPDFItem.getName(), "")).getString("localFileName");
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -474,7 +485,6 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 					intent.putExtra("file_name", localFileName);
 					intent.putExtra("pdf_name", openedPDFItem.getName());
 					startActivity(intent);
-
 				} else {
 
 					if (checkPermission) {
@@ -487,8 +497,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 						progressDialog.show();
 
 						try {
-							httpsReference = storage.getReferenceFromUrl(
-									subject.getJSONObject(openedPDFItem.getName()).getString("url"));
+							httpsReference = storage.getReferenceFromUrl(subject.getJSONObject(openedPDFItem.getName()).getString("url"));
 						} catch (JSONException e) {
 							Log.e(TAG, String.valueOf(e));
 						}
@@ -500,42 +509,39 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 							Log.i(TAG, String.valueOf(localFile));
 							Log.i(TAG, String.valueOf(getCacheDir()));
 
-							httpsReference.getFile(localFile).addOnSuccessListener(
-									new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-										@Override
-										public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+							httpsReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+								@Override
+								public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 
-											// Local temp file has been created
-											Toast.makeText(PDFList.this, openedPDFItem.getName() + " download complete!"
-													, Toast.LENGTH_SHORT).show();
+									// Local temp file has been created
+									Toast.makeText(PDFList.this, openedPDFItem.getName() + " download complete!"
+											, Toast.LENGTH_SHORT).show();
 
-											progressDialog.dismiss();
+									progressDialog.dismiss();
 
-											download_B.setCompoundDrawablesRelativeWithIntrinsicBounds(
-													getDrawable(R.drawable.ic_offline_pin_black_24dp),
-													null, null, null);
-											download_B.setText(getResources().getString(R.string.open_pdf));
-											Map<String, Object> pdfDetails = new HashMap<>();
-											pdfDetails.put("name", "\"" + openedPDFItem.getName() + "\"");
-											pdfDetails.put("by", "\"" + openedPDFItem.getBy() + "\"");
-											pdfDetails.put("author", "\"" + openedPDFItem.getAuthor() + "\"");
-											pdfDetails.put("date", "\"" + openedPDFItem.getDate() + "\"");
-											pdfDetails.put("shares", "\"" + openedPDFItem.getTotalShares() + "\"");
-											pdfDetails.put("downloads", "\"" + openedPDFItem.getTotalDownloads() + "\"");
-											pdfDetails.put("likes", "\"" + openedPDFItem.getLikes() + "\"");
-											pdfDetails.put("dislikes", "\"" + openedPDFItem.getDislikes() + "\"");
-											pdfDetails.put("localFileName", "\"" + localFile + "\"");
-											try {
-												pdfDetails.put("url", "\"" + subject.getJSONObject(
-														openedPDFItem.getName()).getString("url") + "\"");
-											} catch (JSONException e) {
-												Log.e(TAG, String.valueOf(e));
-											}
-											localDownloadDBEditor.putString(openedPDFItem.getName(), String.valueOf(pdfDetails)).apply();
-											localDownloadDBBooleanEditor.putBoolean(openedPDFItem.getName(), true).apply();
+									download_B.setCompoundDrawablesRelativeWithIntrinsicBounds(getDrawable(R.drawable.ic_offline_pin_black_24dp)
+											, null, null, null);
+									download_B.setText(getResources().getString(R.string.open_pdf));
+									Map<String, Object> pdfDetails = new HashMap<>();
+									pdfDetails.put("name", "\"" + openedPDFItem.getName() + "\"");
+									pdfDetails.put("by", "\"" + openedPDFItem.getBy() + "\"");
+									pdfDetails.put("author", "\"" + openedPDFItem.getAuthor() + "\"");
+									pdfDetails.put("date", "\"" + openedPDFItem.getDate() + "\"");
+									pdfDetails.put("shares", "\"" + openedPDFItem.getTotalShares() + "\"");
+									pdfDetails.put("downloads", "\"" + openedPDFItem.getTotalDownloads() + "\"");
+									pdfDetails.put("likes", "\"" + openedPDFItem.getLikes() + "\"");
+									pdfDetails.put("dislikes", "\"" + openedPDFItem.getDislikes() + "\"");
+									pdfDetails.put("localFileName", "\"" + localFile + "\"");
+									try {
+										pdfDetails.put("url", "\"" + subject.getJSONObject(openedPDFItem.getName()).getString("url") + "\"");
+									} catch (JSONException e) {
+										Log.e(TAG, String.valueOf(e));
+									}
+									localDownloadDBEditor.putString(openedPDFItem.getName(), String.valueOf(pdfDetails)).apply();
+									localDownloadDBBooleanEditor.putBoolean(openedPDFItem.getName(), true).apply();
 
-										}
-									}).addOnFailureListener(new OnFailureListener() {
+								}
+							}).addOnFailureListener(new OnFailureListener() {
 								@Override
 								public void onFailure(@NonNull Exception exception) {
 									progressDialog.dismiss();
@@ -545,23 +551,19 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 								@Override
 								public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
 									// percentage in progress dialog
-									double progress = (100.0 * taskSnapshot.getBytesTransferred()) /
-											taskSnapshot.getTotalByteCount();
-									progressDialog.setMessage("File: " + openedPDFItem.getName() + "\n" +
-											"Downloaded " + ((int) progress) + "%");
+									double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+									progressDialog.setMessage("File: " + openedPDFItem.getName() + "\n" + "Downloaded " + ((int) progress) + "%");
 								}
 							});
 						} catch (IOException e) {
 							Log.e(TAG, String.valueOf(e));
 						}
 
-
+						/*============= END OF -> DOWNLOADING AND VIEWING PDF CODE ==================*/
 					} else {
-						Toast.makeText(getApplicationContext(), "Permission not Granted", Toast.LENGTH_SHORT).show();
-						askPermission();
-					}
+						Toast.makeText(getApplicationContext(), "Permission Not Granted", Toast.LENGTH_SHORT).show();
 
-					/*============= END OF -> DOWNLOADING AND VIEWING PDF CODE ==================*/
+					}
 				}
 			}
 		});
@@ -576,7 +578,6 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 		pdfDetails.put("shares", openedPDFItem.getTotalShares());
 		pdfDetails.put("likes", likedCount);
 		pdfDetails.put("dislikes", dislikedCount);
-
 		try {
 			pdfDetails.put("url", subject.getJSONObject(openedPDFItem.getName()).getString("url"));
 		} catch (JSONException e) {
@@ -686,7 +687,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 
 		perms = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 		if (EasyPermissions.hasPermissions(this, perms)) {
-            Log.i(TAG, "Permission Granted");
+			Log.i(TAG, "Permission Granted");
 			checkPermission = true;
 
 		} else {
@@ -751,7 +752,7 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 	}
 
 	@SuppressLint("StaticFieldLeak")
-	private class LoadImage extends AsyncTask<String, String , String>{
+	private class LoadImage extends AsyncTask<String, String, String> {
 
 		Bitmap bitmap;
 
@@ -785,5 +786,6 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 		}
 
 	}
+
 
 }

@@ -1,6 +1,9 @@
 package in.cipherhub.notebox;
 
 import android.Manifest;
+import android.animation.ValueAnimator;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -96,36 +99,35 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 
-	public void setListener() {
-		db.collection("users").document(user.getUid())
-			.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-				@Override
-				public void onEvent(@Nullable DocumentSnapshot snapshot,
-				                    @Nullable FirebaseFirestoreException e) {
+    public void setListener() {
+        db.collection("users").document(user.getUid())
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                        @Nullable FirebaseFirestoreException e) {
 
-					if (snapshot != null && snapshot.exists()) {
-						editor.putString("user", String.valueOf(new JSONObject(snapshot.getData())))
-								.apply();
+                        if (snapshot != null && snapshot.exists()) {
+                            editor.putString("user", String.valueOf(new JSONObject(snapshot.getData())))
+                                    .apply();
 
-						db.collection("institutes")
-								.document(String.valueOf(snapshot.getData().get("institute")))
-								.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-							@Override
-							public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-								if (task.isSuccessful()) {
-									editor.putString("institute",
-											String.valueOf(new JSONObject(task.getResult().getData())))
-											.apply();
-								}
-							}
-						});
-					} else {
-						Log.d("data", "data: null");
-					}
-				}
-			});
-	}
-
+                            db.collection("institutes")
+                                    .document(String.valueOf(snapshot.getData().get("institute")))
+                                    .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        editor.putString("institute"
+                                                , String.valueOf(new JSONObject(task.getResult().getData())))
+                                                .apply();
+                                    }
+                                }
+                            });
+                        } else {
+                            Log.d(TAG, "data: null");
+                        }
+                    }
+                });
+    }
 
 	private ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
 

@@ -47,8 +47,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/josefin_sans_regular"
-        android:text="last update: NA"
-        android:textColor="@color/colorGray_777777"
+        android:text="Subject Type: NA"
+        android:textColor="@color/colorGray_999999"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/subName_TV"
         app:layout_constraintTop_toBottomOf="@+id/subName_TV" />

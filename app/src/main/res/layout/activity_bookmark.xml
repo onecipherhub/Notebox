@@ -68,21 +68,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bookmark_CL">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/segoe_ui"
-            android:text="PDF details is same as when the PDF was bookmarked!"
-            android:textAlignment="center"
-            android:textColor="@color/colorGray_AAAAAA"
-            android:textSize="12sp"
-            android:textStyle="italic"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/bookmarkSearch_ET"
-            app:layout_constraintStart_toStartOf="@+id/bookmarkSearch_ET" />
-
         <EditText
             android:id="@+id/bookmarkSearch_ET"
             android:layout_width="0dp"
@@ -122,12 +107,13 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bookmarkSubjects_RV"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:background="@color/colorWhite_FFFFFF"
             android:layout_marginEnd="16dp"
             android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bookmarkSearch_ET" />

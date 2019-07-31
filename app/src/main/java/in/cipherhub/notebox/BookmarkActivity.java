@@ -65,7 +65,6 @@ public class BookmarkActivity extends AppCompatActivity {
   ItemPDFList openedPDFItem;
   AdapterPDFList adapterPDFList;
 
-
   FirebaseStorage storage = FirebaseStorage.getInstance();
   StorageReference httpsReference;
 
@@ -187,6 +186,24 @@ public class BookmarkActivity extends AppCompatActivity {
     TextView downloadsCount_TV = dialogView.findViewById(R.id.downloadsCount_TV);
     TextView date_TV = dialogView.findViewById(R.id.date_TV);
     final TextView rating_TV = dialogView.findViewById(R.id.rating_TV);
+    TextView reportAnIssue_TV = dialogView.findViewById(R.id.reportAnIssue_TV);
+    reportAnIssue_TV.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+
+        i.putExtra(Intent.EXTRA_EMAIL, new String[]{"onecipherhub@gmail.com"});
+        i.putExtra(Intent.EXTRA_SUBJECT, "Report your issues.");
+        i.putExtra(Intent.EXTRA_TEXT, "We will contact you soon. Please write in details.");
+
+        try {
+          startActivity(Intent.createChooser(i, "Report your issues."));
+        } catch (android.content.ActivityNotFoundException ex) {
+          Toast.makeText(BookmarkActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+        }
+      }
+    });
     final Button download_B = dialogView.findViewById(R.id.download_B);
 
     Button sharePDF_B = dialogView.findViewById(R.id.sharePDF_B);

@@ -83,14 +83,11 @@ public class Home extends Fragment {
 			@Override
 			public void onFocusChange(View view, boolean b) {
 				if (subjectsSearch_ET.isFocused()) {
-					subjectsLayout_CL.animate().translationY(-recentViewsLayout_CL.getHeight()).setDuration(500);
-					searchIconInSearchBar_IB.setImageDrawable(getResources().getDrawable(R.drawable.icon_down_arrow));
-
-				} else {
-
-					// when click on background root Constraint Layout
-					subjectsLayout_CL.animate().translationY(0).setDuration(500);
-					searchIconInSearchBar_IB.setImageDrawable(getResources().getDrawable(R.drawable.icon_search));
+//					subjectsLayout_CL.animate().translationY(-recentViewsLayout_CL.getHeight()).setDuration(500);
+//					searchIconInSearchBar_IB.setImageDrawable(getResources().getDrawable(R.drawable.icon_down_arrow));
+				} else {    // when click on background root Constraint Layout
+//					subjectsLayout_CL.animate().translationY(0).setDuration(500);
+//					searchIconInSearchBar_IB.setImageDrawable(getResources().getDrawable(R.drawable.icon_search));
 
 					// to hide the keyboard
 					InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -111,6 +108,10 @@ public class Home extends Fragment {
 
 		homeSubjects = new ArrayList<>();
 
+		homeSubjectAdapter = new AdapterHomeSubjects(homeSubjects);
+
+		homeSubjects_RV.setAdapter(homeSubjectAdapter);
+		homeSubjects_RV.setLayoutManager(new LinearLayoutManager(getActivity()));
 		try {
 			SharedPreferences localDB = getActivity().getSharedPreferences("localDB", MODE_PRIVATE);
 
@@ -130,6 +131,8 @@ public class Home extends Fragment {
 						,subjectName, subjectObject.getString("last_update")));
 			}
 
+			homeSubjectAdapter.filterList(homeSubjects);
+
 		} catch (JSONException e) {
 			Log.d(TAG, e.getMessage());
 		}
@@ -138,7 +141,6 @@ public class Home extends Fragment {
 
 		homeSubjects_RV.setAdapter(homeSubjectAdapter);
 		homeSubjects_RV.setLayoutManager(new LinearLayoutManager(getActivity()));
-
 		subjectsSearch_ET.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -162,7 +164,10 @@ public class Home extends Fragment {
 		for (ItemDataHomeSubjects s : homeSubjects) {
 			//new array list that will hold the filtered data
 			//if the existing elements contains the search input
-			if (s != null && s.subName.toLowerCase().contains(text.toLowerCase())) {
+			if(s != null)
+			if (s.subName.toLowerCase().contains(text.toLowerCase())
+							|| s.subAbb.toLowerCase().contains(text.toLowerCase())
+							|| s.lastUpdate.toLowerCase().contains(text.toLowerCase())) {
 				filteredList.add(s);
 			}
 		}

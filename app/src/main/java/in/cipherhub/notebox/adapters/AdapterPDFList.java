@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,18 +21,14 @@ import in.cipherhub.notebox.R;
 
 public class AdapterPDFList extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+  private String TAG = "AdapterPDFList";
+
   private List<ItemPDFList> list;
   private OnItemClickListener mListener;
 
   private int adPosition;
 
   public AdapterPDFList(List<ItemPDFList> list) {
-    if (list.size() > 2) {
-      adPosition = 2;
-    } else {
-      adPosition = list.size();
-    }
-    list.add(adPosition, null);
     this.list = list;
   }
 
@@ -58,9 +55,6 @@ public class AdapterPDFList extends RecyclerView.Adapter<RecyclerView.ViewHolder
       AdView adsView = itemView.findViewById(R.id.adView);
 
       AdRequest adRequest = new AdRequest.Builder().build();
-//      AdSize adSize = new AdSize(400, 50);
-//        adsView.setAdSize(adSize);
-//        adsView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
       adsView.loadAd(adRequest);
     }
   }
@@ -100,7 +94,7 @@ public class AdapterPDFList extends RecyclerView.Adapter<RecyclerView.ViewHolder
   }
 
   public void filterList(List<ItemPDFList> filteredList) {
-    if (list.size() > 2) {
+    if (filteredList.size() > 2) {
       adPosition = 2;
     } else {
       adPosition = filteredList.size();

@@ -6,8 +6,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Calendar;
 import java.util.List;
 
 import in.cipherhub.notebox.R;
@@ -26,11 +28,13 @@ public class AdapterPDFViewerList extends RecyclerView.Adapter<RecyclerView.View
 
   class HomeSubjectsItemViewHolder extends RecyclerView.ViewHolder {
     ImageView pdfPage_IV;
+    CardView pdfPage_CV;
 
     HomeSubjectsItemViewHolder(@NonNull View itemView) {
       super(itemView);
 
       pdfPage_IV = itemView.findViewById(R.id.pdfPage_IV);
+      pdfPage_CV = itemView.findViewById(R.id.pdfPage_CV);
     }
   }
 
@@ -50,19 +54,13 @@ public class AdapterPDFViewerList extends RecyclerView.Adapter<RecyclerView.View
 
     HomeSubjectsItemViewHolder homeSubjectsItemViewHolder = (HomeSubjectsItemViewHolder) holder;
 
-    homeSubjectsItemViewHolder.pdfPage_IV.setImageBitmap(list.get(i).getImage());
+      homeSubjectsItemViewHolder.pdfPage_IV.setImageBitmap(list.get(i).getImage());
   }
 
 
   @Override
   public int getItemCount() {
     return list.size();
-  }
-
-
-  public void filterList(List<ItemPDFPage> filteredList) {
-    this.list = filteredList;
-    notifyDataSetChanged();
   }
 }
 
