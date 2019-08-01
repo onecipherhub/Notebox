@@ -110,12 +110,13 @@ public class MainActivity extends AppCompatActivity {
                             editor.putString("user", String.valueOf(new JSONObject(snapshot.getData())))
                                     .apply();
 
+                            Log.d(TAG, String.valueOf(snapshot.getData().get("institute")));
                             db.collection("institutes")
                                     .document(String.valueOf(snapshot.getData().get("institute")))
                                     .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if (task.isSuccessful()) {
+                                    if (task.isSuccessful() && task.getResult() != null) {
                                         editor.putString("institute"
                                                 , String.valueOf(new JSONObject(task.getResult().getData())))
                                                 .apply();

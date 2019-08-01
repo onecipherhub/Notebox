@@ -51,6 +51,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class FillDetails extends Fragment {
 
     private String TAG = "FillDetailsOXET";
+    private boolean isBranchNameValid = false;
 
     FirebaseUser user;
 
@@ -116,15 +117,24 @@ public class FillDetails extends Fragment {
                                     branchList.add(key);
                                 }
 
-                                // Populate the Subjects
-                                ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                                        R.layout.subject_recycler_view, R.id.lrg_text_view, branchList);
-                                branch_ACTV.setAdapter(adapter);
-
                             } catch (JSONException e) {
                                 Log.d(TAG, String.valueOf(e));
                             }
                         }
+
+                        // Populate the Subjects
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                                R.layout.subject_recycler_view, R.id.lrg_text_view, branchList);
+                        branch_ACTV.setAdapter(adapter);
+
+                        branch_ACTV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                isBranchNameValid = true;
+                                submit_B.setVisibility(View.VISIBLE);
+                                Log.d(TAG, String.valueOf(adapterView.getItemAtPosition(i)));
+                            }
+                        });
                     } else {
                         Log.d(TAG, String.valueOf(task.getException()));
                     }
