@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 public class Internet {
 
-    Context context;
+    private Context context;
 
     public Internet(Context context) {
         this.context = context;

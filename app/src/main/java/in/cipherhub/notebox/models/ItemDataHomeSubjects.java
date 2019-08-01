@@ -5,7 +5,7 @@ import com.google.android.gms.ads.AdView;
 public class ItemDataHomeSubjects {
 
     public String subAbb, subName, lastUpdate;
-    AdView adView;
+    private AdView adView;
 
 //    public Boolean subBookmark;
 

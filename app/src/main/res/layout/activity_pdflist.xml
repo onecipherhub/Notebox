@@ -62,7 +62,6 @@
             android:text="Selected"
             android:textColor="@color/colorGray_878787"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/pageTitleHere_TV"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView31" />
 

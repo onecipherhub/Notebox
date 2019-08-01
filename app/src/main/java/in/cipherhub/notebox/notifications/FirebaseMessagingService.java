@@ -28,7 +28,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
     private static final String TAG = "FirebaseMsgService";
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     @Override
@@ -81,7 +81,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             }
         });
 
-        Log.i(TAG, "remote_token:" + String.valueOf(token));
+        Log.i(TAG, "remote_token:" + token);
 
     }
 

@@ -13,7 +13,7 @@ import in.cipherhub.notebox.R;
 
 public class AdapterRecentViews extends RecyclerView.Adapter<AdapterRecentViews.recentViewsItemViewHolder>{
 
-    List<AdapterRecentViews.recentViewsItemData> list;
+    private List<AdapterRecentViews.recentViewsItemData> list;
 
     public AdapterRecentViews(List<AdapterRecentViews.recentViewsItemData> list) {
         this.list = list;
