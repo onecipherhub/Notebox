@@ -1,24 +1,15 @@
 package in.cipherhub.notebox.utils;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ScaleGestureDetector;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.RecyclerView;
-
-import static java.security.AccessController.getContext;
 
 /**
  * Created by zhaosong on 2018/5/6.
@@ -26,7 +17,7 @@ import static java.security.AccessController.getContext;
 
 
 /* This listener is used to listen pinch zoom gesture. ß*/
-public class OnImagePinchListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+class OnImagePinchListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
 
   private final static String TAG_PINCH_LISTENER = "PINCH_LISTENER";
 

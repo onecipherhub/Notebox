@@ -22,14 +22,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.cipherhub.notebox.MainActivity;
-import in.cipherhub.notebox.utils.MainActivity_without_viewpager;
 import in.cipherhub.notebox.R;
 
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
     private static final String TAG = "FirebaseMsgService";
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     @Override
@@ -82,7 +81,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
             }
         });
 
-        Log.i(TAG, "remote_token:" + String.valueOf(token));
+        Log.i(TAG, "remote_token:" + token);
 
     }
 

@@ -281,7 +281,7 @@ public class SignUp extends Fragment {
 				ViewGroup viewGroup = v.findViewById(android.R.id.content);
 
 				View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_terms_condition, viewGroup, false);
-				TextView textView = (TextView) view.findViewById(R.id.tcContent_TV);
+				TextView textView = view.findViewById(R.id.tcContent_TV);
 
 				// get our html content
 				String htmlAsString = getString(R.string.terms_conditions);  // used by WebView
