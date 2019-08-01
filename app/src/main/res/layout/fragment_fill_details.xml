@@ -10,259 +10,258 @@
     android:focusableInTouchMode="true"
     tools:context=".registration.FillDetails">
 
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="10dp"
+      android:orientation="vertical">
+
     <LinearLayout
+        android:id="@+id/instituteAndCourseHolder_LL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:orientation="vertical">
 
+      <TextView
+          android:id="@+id/fullName_TV"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="16dp"
+          android:fontFamily="@font/segoe_ui"
+          android:text="Full Name"
+          android:textSize="14sp" />
+
+      <androidx.cardview.widget.CardView
+          android:id="@+id/fullName_CV"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="3dp"
+          android:layout_marginEnd="8dp"
+          app:cardCornerRadius="0dp"
+          app:cardElevation="2dp">
+
         <LinearLayout
-            android:id="@+id/instituteAndCourseHolder_LL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/fullName_TV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/segoe_ui"
-                android:text="Full Name"
-                android:textSize="14sp" />
+          <View
+              android:id="@+id/fullName_V"
+              android:layout_width="5dp"
+              android:layout_height="match_parent"
+              android:background="@color/colorGray_777777" />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/fullName_CV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="8dp"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="2dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:id="@+id/fullName_V"
-                        android:layout_width="5dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorGray_777777" />
-
-                    <EditText
-                        android:id="@+id/fullName_ET"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@null"
-                        android:fontFamily="@font/comfortaa_bold"
-                        android:foregroundTint="#00DBBDBD"
-                        android:gravity="start|center_vertical"
-                        android:hint="@string/full_name"
-                        android:paddingStart="20dp"
-                        android:paddingTop="5dp"
-                        android:paddingEnd="20dp"
-                        android:paddingBottom="5dp"
-                        android:textColor="@color/colorAppTheme"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/instituteName_TV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/segoe_ui"
-                android:text="@string/institute"
-                android:textSize="14sp" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/institute_CV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="8dp"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="2dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:id="@+id/institute_V"
-                        android:layout_width="5dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorGray_777777" />
-
-                    <EditText
-                        android:id="@+id/institute_ET"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@null"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false"
-                        android:fontFamily="@font/comfortaa_bold"
-                        android:foregroundTint="#00DBBDBD"
-                        android:gravity="start|center_vertical"
-                        android:singleLine="true"
-                        android:paddingStart="20dp"
-                        android:paddingTop="5dp"
-                        android:paddingEnd="20dp"
-                        android:paddingBottom="5dp"
-                        android:text="Nitte Meenakshi Institute of Technology"
-                        android:textColor="@color/colorAppTheme"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/courseName_TV"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/segoe_ui"
-                android:text="@string/course"
-                android:textSize="14sp" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/course_CV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="10dp"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="2dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <View
-                        android:id="@+id/course_V"
-                        android:layout_width="5dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/colorGray_777777" />
-
-                    <EditText
-                        android:id="@+id/course_ET"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:background="@null"
-                        android:focusableInTouchMode="false"
-                        android:focusable="false"
-                        android:clickable="false"
-                        android:fontFamily="@font/comfortaa_bold"
-                        android:foregroundTint="#00DBBDBD"
-                        android:singleLine="true"
-                        android:gravity="start|center_vertical"
-                        android:paddingStart="20dp"
-                        android:paddingTop="5dp"
-                        android:paddingEnd="20dp"
-                        android:paddingBottom="5dp"
-                        android:text="Bachelors in Engineering"
-                        android:textColor="@color/colorAppTheme"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+          <EditText
+              android:id="@+id/fullName_ET"
+              android:layout_width="match_parent"
+              android:layout_height="40dp"
+              android:background="@null"
+              android:fontFamily="@font/comfortaa_bold"
+              android:foregroundTint="#00DBBDBD"
+              android:gravity="start|center_vertical"
+              android:hint="@string/full_name"
+              android:paddingStart="20dp"
+              android:paddingTop="5dp"
+              android:paddingEnd="20dp"
+              android:paddingBottom="5dp"
+              android:textColor="@color/colorAppTheme"
+              android:textSize="14sp" />
         </LinearLayout>
+      </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/branch_TV"
-            android:layout_width="wrap_content"
+      <TextView
+          android:id="@+id/instituteName_TV"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="16dp"
+          android:fontFamily="@font/segoe_ui"
+          android:text="@string/institute"
+          android:textSize="14sp" />
+
+      <androidx.cardview.widget.CardView
+          android:id="@+id/institute_CV"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="3dp"
+          android:layout_marginEnd="8dp"
+          app:cardCornerRadius="0dp"
+          app:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="6dp"
-            android:fontFamily="@font/segoe_ui"
-            android:text="@string/branch"
+            android:orientation="horizontal">
+
+          <View
+              android:id="@+id/institute_V"
+              android:layout_width="5dp"
+              android:layout_height="match_parent"
+              android:background="@color/colorGray_777777" />
+
+          <EditText
+              android:id="@+id/institute_ET"
+              android:layout_width="match_parent"
+              android:layout_height="40dp"
+              android:background="@null"
+              android:clickable="false"
+              android:focusable="false"
+              android:focusableInTouchMode="false"
+              android:fontFamily="@font/comfortaa_bold"
+              android:foregroundTint="#00DBBDBD"
+              android:gravity="start|center_vertical"
+              android:paddingStart="20dp"
+              android:paddingTop="5dp"
+              android:paddingEnd="20dp"
+              android:paddingBottom="5dp"
+              android:singleLine="true"
+              android:text="Nitte Meenakshi Institute of Technology"
+              android:textColor="@color/colorAppTheme"
+              android:textSize="14sp" />
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+
+      <TextView
+          android:id="@+id/courseName_TV"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="16dp"
+          android:fontFamily="@font/segoe_ui"
+          android:text="@string/course"
+          android:textSize="14sp" />
+
+      <androidx.cardview.widget.CardView
+          android:id="@+id/course_CV"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="10dp"
+          android:layout_marginTop="3dp"
+          android:layout_marginEnd="8dp"
+          android:layout_marginBottom="10dp"
+          app:cardCornerRadius="0dp"
+          app:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+          <View
+              android:id="@+id/course_V"
+              android:layout_width="5dp"
+              android:layout_height="match_parent"
+              android:background="@color/colorGray_777777" />
+
+          <EditText
+              android:id="@+id/course_ET"
+              android:layout_width="match_parent"
+              android:layout_height="40dp"
+              android:background="@null"
+              android:clickable="false"
+              android:focusable="false"
+              android:focusableInTouchMode="false"
+              android:fontFamily="@font/comfortaa_bold"
+              android:foregroundTint="#00DBBDBD"
+              android:gravity="start|center_vertical"
+              android:paddingStart="20dp"
+              android:paddingTop="5dp"
+              android:paddingEnd="20dp"
+              android:paddingBottom="5dp"
+              android:singleLine="true"
+              android:text="Bachelors in Engineering"
+              android:textColor="@color/colorAppTheme"
+              android:textSize="14sp" />
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/branch_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/segoe_ui"
+        android:text="@string/branch"
+        android:textSize="14sp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/branch_CV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="8dp"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="2dp">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal">
+
+        <View
+            android:id="@+id/branch_V"
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorGray_777777" />
+
+        <AutoCompleteTextView
+            android:id="@+id/branch_ACTV"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@null"
+            android:fontFamily="@font/comfortaa_bold"
+            android:foregroundTint="#00DBBDBD"
+            android:hint="@string/search_branch"
+            android:inputType="textEmailAddress"
+            android:paddingStart="20dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="5dp"
+            android:textColor="@color/colorAppTheme"
             android:textSize="14sp" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/branch_CV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="8dp"
-            app:cardCornerRadius="0dp"
-            app:cardElevation="2dp">
+      </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+      <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/branchSelectorList_RV"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="20dp"
+          android:overScrollMode="never"
+          android:paddingTop="24dp"
+          android:visibility="gone" />
+    </androidx.cardview.widget.CardView>
 
-                <View
-                    android:id="@+id/branch_V"
-                    android:layout_width="5dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorGray_777777" />
+    <Button
+        android:id="@+id/submit_B"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/bg_apptheme_pill_20"
+        android:text="@string/submit"
+        android:textColor="@color/colorWhite_FFFFFF"
+        android:visibility="gone" />
 
-                <EditText
-                    android:id="@+id/branch_ET"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@null"
-                    android:fontFamily="@font/comfortaa_bold"
-                    android:foregroundTint="#00DBBDBD"
-                    android:hint="@string/search_branch"
-                    android:inputType="textEmailAddress"
-                    android:paddingStart="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="20dp"
-                    android:paddingBottom="5dp"
-                    android:textColor="@color/colorAppTheme"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/branchSelectorList_RV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:overScrollMode="never"
-                android:paddingTop="24dp"
-                android:visibility="gone" />
-
-        </androidx.cardview.widget.CardView>
-
-        <Button
-            android:id="@+id/submit_B"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="end"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/bg_apptheme_pill_20"
-            android:text="@string/submit"
-            android:textColor="@color/colorWhite_FFFFFF"
-            android:visibility="gone" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="@font/josefin_sans_regular"
-            android:lineSpacingExtra="5sp"
-            android:text="@string/fill_details_message"
-            android:textColor="@color/colorGray_777777"
-            android:textSize="14sp"
-            android:textStyle="italic" />
-    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/josefin_sans_regular"
+        android:lineSpacingExtra="5sp"
+        android:text="@string/fill_details_message"
+        android:textColor="@color/colorGray_777777"
+        android:textSize="14sp"
+        android:textStyle="italic" />
+  </LinearLayout>
 </FrameLayout>

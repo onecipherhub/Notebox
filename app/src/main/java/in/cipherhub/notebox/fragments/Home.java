@@ -43,140 +43,135 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class Home extends Fragment {
 
-	private static final String TAG = "HomePage";
+  private static final String TAG = "HomePage";
 
-	private FirebaseAuth mAuth;
-	private FirebaseUser user;
-	private FirebaseFirestore db;
+  private FirebaseAuth mAuth;
+  private FirebaseUser user;
+  private FirebaseFirestore db;
 
-	private AdapterHomeSubjects homeSubjectAdapter;
-	private List<ItemDataHomeSubjects> homeSubjects;
+  private AdapterHomeSubjects homeSubjectAdapter;
+  private List<ItemDataHomeSubjects> homeSubjects;
 
-	@Override
-	public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-	                         Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+  @Override
+  public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
+    View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
-		// Initialize Firebase Auth
-		db = FirebaseFirestore.getInstance();
-		mAuth = FirebaseAuth.getInstance();
-		user = mAuth.getCurrentUser();
+    // Initialize Firebase Auth
+    db = FirebaseFirestore.getInstance();
+    mAuth = FirebaseAuth.getInstance();
+    user = mAuth.getCurrentUser();
 
-		final ConstraintLayout subjectsLayout_CL = rootView.findViewById(R.id.subjectsLayout_CL);
-		final ConstraintLayout recentViewsLayout_CL = rootView.findViewById(R.id.recentViewsLayout_CL);
-		final EditText subjectsSearch_ET = rootView.findViewById(R.id.pdfSearch_ET);
-		TextView noRecentViews_TV = rootView.findViewById(R.id.noRecentViews_TV);
-		final ImageButton searchIconInSearchBar_IB = rootView.findViewById(R.id.searchIconInSearchBar_IB);
+    final ConstraintLayout subjectsLayout_CL = rootView.findViewById(R.id.subjectsLayout_CL);
+    final ConstraintLayout recentViewsLayout_CL = rootView.findViewById(R.id.recentViewsLayout_CL);
+    final EditText subjectsSearch_ET = rootView.findViewById(R.id.pdfSearch_ET);
+    TextView noRecentViews_TV = rootView.findViewById(R.id.noRecentViews_TV);
+    final ImageButton searchIconInSearchBar_IB = rootView.findViewById(R.id.searchIconInSearchBar_IB);
 
-		RecyclerView recentViews_RV = rootView.findViewById(R.id.recentViews_RV);
-		RecyclerView homeSubjects_RV = rootView.findViewById(R.id.homeSubjects_RV);
-		ImageButton bookmark_IB = rootView.findViewById(R.id.bookmarks_IB);
+    RecyclerView recentViews_RV = rootView.findViewById(R.id.recentViews_RV);
+    RecyclerView homeSubjects_RV = rootView.findViewById(R.id.homeSubjects_RV);
+    ImageButton bookmark_IB = rootView.findViewById(R.id.bookmarks_IB);
 
-		bookmark_IB.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				Intent intent = new Intent(getActivity(), BookmarkActivity.class);
-				startActivity(intent);
-			}
-		});
+    bookmark_IB.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Intent intent = new Intent(getActivity(), BookmarkActivity.class);
+        startActivity(intent);
+      }
+    });
 
-		subjectsSearch_ET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-			@Override
-			public void onFocusChange(View view, boolean b) {
-				if (subjectsSearch_ET.isFocused()) {
+    subjectsSearch_ET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+      @Override
+      public void onFocusChange(View view, boolean b) {
+        if (subjectsSearch_ET.isFocused()) {
 //					subjectsLayout_CL.animate().translationY(-recentViewsLayout_CL.getHeight()).setDuration(500);
 //					searchIconInSearchBar_IB.setImageDrawable(getResources().getDrawable(R.drawable.icon_down_arrow));
-				} else {    // when click on background root Constraint Layout
+        } else {    // when click on background root Constraint Layout
 //					subjectsLayout_CL.animate().translationY(0).setDuration(500);
 //					searchIconInSearchBar_IB.setImageDrawable(getResources().getDrawable(R.drawable.icon_search));
 
-					// to hide the keyboard
-					InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-					imm.hideSoftInputFromWindow(subjectsSearch_ET.getWindowToken(), 0);
-				}
-			}
-		});
+          // to hide the keyboard
+          InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+          imm.hideSoftInputFromWindow(subjectsSearch_ET.getWindowToken(), 0);
+        }
+      }
+    });
 
-		List<AdapterRecentViews.recentViewsItemData> recentViews = new ArrayList<>();
+    List<AdapterRecentViews.recentViewsItemData> recentViews = new ArrayList<>();
 
-		AdapterRecentViews recentViewsAdapter = new AdapterRecentViews(recentViews);
-		recentViews_RV.setAdapter(recentViewsAdapter);
-		recentViews_RV.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+    AdapterRecentViews recentViewsAdapter = new AdapterRecentViews(recentViews);
+    recentViews_RV.setAdapter(recentViewsAdapter);
+    recentViews_RV.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
 
-		if (recentViews.isEmpty()) {
-			noRecentViews_TV.setVisibility(View.VISIBLE);
-		}
+    if (recentViews.isEmpty()) {
+      noRecentViews_TV.setVisibility(View.VISIBLE);
+    }
 
-		homeSubjects = new ArrayList<>();
+    homeSubjects = new ArrayList<>();
 
-		homeSubjectAdapter = new AdapterHomeSubjects(homeSubjects);
+    homeSubjectAdapter = new AdapterHomeSubjects(homeSubjects);
+    homeSubjects_RV.setAdapter(homeSubjectAdapter);
+    homeSubjects_RV.setLayoutManager(new LinearLayoutManager(getActivity()));
+    try {
+      SharedPreferences localDB = getActivity().getSharedPreferences("localDB", MODE_PRIVATE);
 
+      JSONObject userObject = new JSONObject(localDB.getString("user", "Error Fetching..."));
 
-		try {
-			SharedPreferences localDB = getActivity().getSharedPreferences("localDB", MODE_PRIVATE);
+      JSONObject institute = new JSONObject(localDB.getString("institute", "Error Fetching..."));
 
-			JSONObject userObject = new JSONObject(localDB.getString("user", "Error Fetching..."));
+      JSONObject subjects = institute.getJSONObject("courses").getJSONObject(userObject.getString("course"))
+              .getJSONObject("branches").getJSONObject(userObject.getString("branch"))
+              .getJSONObject("subjects");
 
-			JSONObject institute = new JSONObject(localDB.getString("institute", "Error Fetching..."));
+      Iterator<String> iterator = subjects.keys();
+      while (iterator.hasNext()) {
+        String subjectName = iterator.next();
+        JSONObject subjectObject = subjects.getJSONObject(subjectName);
+        homeSubjects.add(new ItemDataHomeSubjects(subjectObject.getString("abbreviation")
+                , subjectName, subjectObject.getString("last_update")));
+      }
 
-			JSONObject subjects = institute.getJSONObject("courses").getJSONObject(userObject.getString("course"))
-					.getJSONObject("branches").getJSONObject(userObject.getString("branch"))
-					.getJSONObject("subjects");
+      homeSubjectAdapter.filterList(homeSubjects);
 
-			Iterator<String> iterator = subjects.keys();
-			while (iterator.hasNext()) {
-				String subjectName = iterator.next();
-				JSONObject subjectObject = subjects.getJSONObject(subjectName);
-				homeSubjects.add(new ItemDataHomeSubjects(subjectObject.getString("abbreviation")
-						,subjectName, subjectObject.getString("last_update")));
-			}
-
-			homeSubjectAdapter.filterList(homeSubjects);
-
-		} catch (JSONException e) {
-			Log.d(TAG, e.getMessage());
-		}
-
-
-
-		homeSubjects_RV.setAdapter(homeSubjectAdapter);
-		homeSubjects_RV.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-//		homeSubjectAdapter = new AdapterHomeSubjects(homeSubjects);
-
-//		homeSubjects_RV.setAdapter(homeSubjectAdapter);
-//		homeSubjects_RV.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-		subjectsSearch_ET.addTextChangedListener(new TextWatcher() {
-			@Override
-			public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-			@Override
-			public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
-
-			@Override
-			public void afterTextChanged(Editable editable) {
-				filter(editable.toString());
-			}
-		});
-
-		return rootView;
-	}
+    } catch (JSONException e) {
+      Log.d(TAG, e.getMessage());
+    }
 
 
-	private void filter(String text) {
-		List<ItemDataHomeSubjects> filteredList = new ArrayList<>();
+//    homeSubjects_RV.setAdapter(homeSubjectAdapter);
+//    homeSubjects_RV.setLayoutManager(new LinearLayoutManager(getActivity()));
+    subjectsSearch_ET.addTextChangedListener(new TextWatcher() {
+      @Override
+      public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+      }
 
-		for (ItemDataHomeSubjects s : homeSubjects) {
-			//new array list that will hold the filtered data
-			//if the existing elements contains the search input
-			if(s != null)
-			if (s.subName.toLowerCase().contains(text.toLowerCase())
-							|| s.subAbb.toLowerCase().contains(text.toLowerCase())
-							|| s.lastUpdate.toLowerCase().contains(text.toLowerCase())) {
-				filteredList.add(s);
-			}
-		}
-		homeSubjectAdapter.filterList(filteredList);
-	}
+      @Override
+      public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+      }
+
+      @Override
+      public void afterTextChanged(Editable editable) {
+        filter(editable.toString());
+      }
+    });
+
+    return rootView;
+  }
+
+
+  private void filter(String text) {
+    List<ItemDataHomeSubjects> filteredList = new ArrayList<>();
+
+    for (ItemDataHomeSubjects s : homeSubjects) {
+      //new array list that will hold the filtered data
+      //if the existing elements contains the search input
+      if (s != null)
+        if (s.subName.toLowerCase().contains(text.toLowerCase())
+                || s.subAbb.toLowerCase().contains(text.toLowerCase())
+                || s.lastUpdate.toLowerCase().contains(text.toLowerCase())) {
+          filteredList.add(s);
+        }
+    }
+    homeSubjectAdapter.filterList(filteredList);
+  }
 }

@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +23,17 @@ import in.cipherhub.notebox.models.ItemDataHomeSubjects;
 
 public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+
 	private List<ItemDataHomeSubjects> list;
 
+
 	private int adPosition = 0;
+
 
 	public AdapterHomeSubjects(List<ItemDataHomeSubjects> list) {
 		this.list = list;
 	}
+
 
 	class HomeSubjectsItemViewHolder extends RecyclerView.ViewHolder {
 		TextView subAbb_TV, subName_TV, lastUpdate_TV;
@@ -41,7 +46,6 @@ public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewH
 			subName_TV = itemView.findViewById(R.id.subName_TV);
 			lastUpdate_TV = itemView.findViewById(R.id.lastUpdate_TV);
 			itemHomeSubjects_CL = itemView.findViewById(R.id.itemHomeSubjects_CL);
-
 
 			itemHomeSubjects_CL.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -64,9 +68,6 @@ public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewH
 			AdView adsView = itemView.findViewById(R.id.adView);
 
 			AdRequest adRequest = new AdRequest.Builder().build();
-//      AdSize adSize = new AdSize(400, 50);
-//        adsView.setAdSize(adSize);
-//        adsView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
 			adsView.loadAd(adRequest);
 		}
 	}
@@ -81,15 +82,14 @@ public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewH
 	@NonNull
 	@Override
 	public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+		Log.d("OXET_", ""+ i+adPosition);
 		if (i == 1) {
 			// show ad
-			View view = LayoutInflater
-					.from(viewGroup.getContext())
+			View view = LayoutInflater.from(viewGroup.getContext())
 					.inflate(R.layout.item_smart_ad, viewGroup, false);
 			return new SmartAdViewHolder(view);
 		} else {
-			View view = LayoutInflater
-					.from(viewGroup.getContext())
+			View view = LayoutInflater.from(viewGroup.getContext())
 					.inflate(R.layout.item_home_subjects, viewGroup, false);
 			return new HomeSubjectsItemViewHolder(view);
 		}
@@ -98,7 +98,6 @@ public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewH
 
 	@Override
 	public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int i) {
-
 		if (i != adPosition) {
 			HomeSubjectsItemViewHolder homeSubjectsItemViewHolder = (HomeSubjectsItemViewHolder) holder;
 
@@ -110,7 +109,6 @@ public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewH
 				homeSubjectsItemViewHolder.lastUpdate_TV.setVisibility(View.GONE);
 			} else {
 				homeSubjectsItemViewHolder.lastUpdate_TV.setVisibility(View.VISIBLE);
-				String last_update = "Subject Type: " + lastUpdateDate;
 				homeSubjectsItemViewHolder.lastUpdate_TV.setText(lastUpdateDate);
 			}
 		}
@@ -126,16 +124,16 @@ public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
 	public void filterList(List<ItemDataHomeSubjects> filteredList) {
-		if (list.size() > 2) {
+		if (filteredList.size() > 2) {
 			adPosition = 2;
 		} else {
 			adPosition = filteredList.size();
 		}
 		filteredList.add(adPosition, null);
-		this.list = filteredList;
 
+		this.list = filteredList;
 		notifyDataSetChanged();
 	}
 
-}
 
+}

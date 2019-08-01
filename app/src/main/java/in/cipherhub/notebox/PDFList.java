@@ -62,7 +62,6 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class PDFList extends AppCompatActivity implements View.OnClickListener {
-
 	boolean isAlreadyLiked = false, isAlreadyDisliked = false;
 	private String TAG = "PDFListOXET", userLikedPDFs = "", userDislikedPDFs = "";
 	int likedCount = 0, dislikedCount = 0, totalRating = 0;
@@ -793,6 +792,4 @@ public class PDFList extends AppCompatActivity implements View.OnClickListener {
 		}
 
 	}
-
-
 }
