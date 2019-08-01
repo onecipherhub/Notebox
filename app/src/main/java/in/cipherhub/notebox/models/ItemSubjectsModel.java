@@ -1,6 +1,6 @@
 package in.cipherhub.notebox.models;
 
-public class ItemSubjectsModel {
+class ItemSubjectsModel {
 
     private String fullSubjectName;
     private String shortSubjectName;

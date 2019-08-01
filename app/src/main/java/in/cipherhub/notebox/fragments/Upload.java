@@ -55,7 +55,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-import in.cipherhub.notebox.utils.MainActivity_without_viewpager;
 import in.cipherhub.notebox.MainActivity;
 import in.cipherhub.notebox.R;
 import in.cipherhub.notebox.utils.Internet;

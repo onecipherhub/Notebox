@@ -16,7 +16,7 @@ import in.cipherhub.notebox.R;
 
 public class Explore extends Fragment {
 
-    View rootView;
+    private View rootView;
 
     private static final String TAG = "Explore";
 

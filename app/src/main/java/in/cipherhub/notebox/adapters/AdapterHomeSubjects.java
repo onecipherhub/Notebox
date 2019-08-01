@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 
 import java.util.List;
@@ -57,7 +56,7 @@ public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewH
 	}
 
 
-	public class SmartAdViewHolder extends RecyclerView.ViewHolder {
+	class SmartAdViewHolder extends RecyclerView.ViewHolder {
 
 		SmartAdViewHolder(@NonNull View itemView) {
 			super(itemView);
