@@ -14,7 +14,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appIcon_CV">
@@ -57,7 +56,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@null"
-                    android:fontFamily="@font/comfortaa_bold"
+                    android:fontFamily="@font/segoe_ui"
                     android:foregroundTint="#00DBBDBD"
                     android:hint="@string/e_mail"
                     android:inputType="textEmailAddress"
@@ -66,7 +65,7 @@
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:textColor="@color/colorAppTheme"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -127,7 +126,7 @@
                     android:layout_height="40dp"
                     android:background="@null"
                     android:ellipsize="end"
-                    android:fontFamily="@font/comfortaa_bold"
+                    android:fontFamily="@font/segoe_ui"
                     android:foregroundTint="#00DBBDBD"
                     android:hint="@string/password"
                     android:inputType="textPassword"
@@ -137,7 +136,7 @@
                     android:paddingBottom="5dp"
                     android:singleLine="true"
                     android:textColor="@color/colorAppTheme"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
 
                     app:layout_constraintBottom_toBottomOf="parent"
 
@@ -147,13 +146,15 @@
                 <TextView
                     android:id="@+id/show_Password"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="SHOW"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
                     android:fontFamily="@font/comfortaa_bold"
-                    android:textSize="8sp"
+                    android:gravity="center"
+                    android:text="SHOW"
+                    android:textSize="10sp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/password_ET"
                     app:layout_constraintTop_toTopOf="parent" />

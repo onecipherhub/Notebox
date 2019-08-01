@@ -2,6 +2,7 @@ package in.cipherhub.notebox.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -297,10 +298,28 @@ public class Profile extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.logOut_B:
-                firebaseAuth.signOut();
-                getActivity().finish();
-                startActivity(new Intent(getContext(), SignIn.class));
-                getActivity().overridePendingTransition(R.anim.fade_in, 0);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setTitle("Log Out").
+                        setMessage("You sure, that you want to logout?");
+                builder.setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                firebaseAuth.signOut();
+                                getActivity().finish();
+                                startActivity(new Intent(getContext(), SignIn.class));
+                                getActivity().overridePendingTransition(R.anim.fade_in, 0);
+                            }
+                        });
+                builder.setNegativeButton("No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert11 = builder.create();
+                alert11.show();
+
                 break;
 
             case R.id.editUserDetails_IB:

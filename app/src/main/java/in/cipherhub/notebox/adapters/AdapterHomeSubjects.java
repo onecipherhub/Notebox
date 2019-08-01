@@ -24,13 +24,17 @@ import in.cipherhub.notebox.models.ItemDataHomeSubjects;
 
 public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+
 	private List<ItemDataHomeSubjects> list;
 
+
 	private int adPosition = 0;
+
 
 	public AdapterHomeSubjects(List<ItemDataHomeSubjects> list) {
 		this.list = list;
 	}
+
 
 	class HomeSubjectsItemViewHolder extends RecyclerView.ViewHolder {
 		TextView subAbb_TV, subName_TV, lastUpdate_TV;
@@ -132,5 +136,5 @@ public class AdapterHomeSubjects extends RecyclerView.Adapter<RecyclerView.ViewH
 		notifyDataSetChanged();
 	}
 
-}
 
+}

@@ -164,7 +164,7 @@ public class FillDetails extends Fragment {
                 String filledFullName = fullName_ET.getText().toString();
                 String filledInstitute = institute_ET.getText().toString();
                 String filledCourse = course_ET.getText().toString();
-                String filledBranch = branch_ET.getText().toString();
+                String filledBranch = branch_ACTV.getText().toString();
 
                 if (filledFullName.matches("[a-zA-z]+([ '-][a-zA-Z]+)*")) {
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
